@@ -5,6 +5,7 @@
 package controller;
 
 import domain.Comment;
+import domain.Rationale;
 
 import java.io.IOException;
 
@@ -54,9 +55,10 @@ public class Promote extends HttpServlet {
     	HttpSession session = request.getSession(true);
     	int userId = Integer.parseInt(session.getAttribute("userId").toString());
     	String userName = session.getAttribute("username").toString();
-	
+    	
     	updatePromoteCount(request);
-    	saveComment(request,userId,userName);
+    	// saveComment(request,userId,userName);
+    	saveRationale(request,userId,userName);
 
 
     	/* removed by Xuesong Meng
@@ -100,6 +102,36 @@ public class Promote extends HttpServlet {
     	comment.setCompareId(compareId);
     	comment.setUserId(userId);
     	comment.setUserName(userName);
+    	CommentDAO.addComment(comment);
+    }
+    
+    private void saveRationale(HttpServletRequest request, int userId, String userName) {
+    	int compareId = Integer.parseInt(request.getParameter("compareId"));
+    	Rationale rationale = new Rationale();
+    	rationale.setPromotedDiagramId(Integer.parseInt(request.getParameter("diagramId")));
+    	rationale.setCompareId(compareId);
+    	rationale.setUserId(userId);
+    	rationale.setUserName(userName);
+
+    	rationale.setSummary(request.getParameter("summary"));
+    	rationale.setIssue(request.getParameter("issue"));
+    	rationale.setIssueRelationship(request.getParameter("issueRelationship"));
+    	rationale.setCriteria(request.getParameter("criteria"));
+    	rationale.setCriteriaRelationship(request.getParameter("criteriaRelationship"));
+    	
+    	// @todo - the interim we are masking it as a comment
+    	String tempComment = "summary: " + rationale.getSummary() +
+    			", issue: " + rationale.getIssue() +
+    			", issue relationship: " + rationale.getIssueRelationship() +
+    			", criteria: " + rationale.getCriteria() +
+    			", criteria relationship: " + rationale.getCriteriaRelationship();
+    	
+    	Comment comment = new Comment();
+    	comment.setPromotedDiagramId(rationale.getPromotedDiagramId());
+    	comment.setCompareId(compareId);
+    	comment.setUserId(userId);
+    	comment.setUserName(userName);    	
+    	comment.setCommentText(tempComment);    	
     	CommentDAO.addComment(comment);
     }
     

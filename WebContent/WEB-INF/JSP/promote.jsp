@@ -55,7 +55,49 @@
 		}
 		return true;
 	    }
-	</script>
+	    
+	    function checkRationale(dialog){
+	    	switch(dialog) {
+	    		case(1):
+	    			summary = $("#summary1").val();
+	    			issue = $("#issue1").val();
+	    			issueRelationship = $("#issueRelationship1").val();
+	    			criteria = $("#criteria1").val();
+	    			criteriaRelationship = $("#criteriaRelationship1").val();
+	    		break;
+	    		case(2):
+	    			summary = $("#summary2").val();
+	    			issue = $("#issue2").val();
+	    			issueRelationship = $("#issueRelationship2").val();
+	    			criteria = $("#criteria2").val();
+	    			criteriaRelationship = $("#criteriaRelationship2").val();
+	    		break;
+    		}
+			if (summary == ""){
+		    	alert("Please enter valid summary before promoting");
+		    	return false;
+			}
+			if (issue == ""){
+		    	alert("Please enter valid issue before promoting");
+		    	return false;
+			}
+			if	(issueRelationship == ""){
+		    	alert("Please enter valid issue relationship before promoting");
+		    	return false;
+			}
+			if(criteria == ""){
+		    	alert("Please enter valid criteria before promoting");
+		    	return false;
+			}
+			if(critieraRelationship == ""){
+		    	alert("Please enter valid criteria relationship before promoting");
+		    	return false;
+			}
+			
+			return true;
+	    	}
+
+	    	</script>
 	<style>
 	
 </style>
@@ -90,9 +132,13 @@
 				</div>
 				<br/> 
 			 
-				<div id="dialog1">	 
-	    			<form action="Promote" method="post" onsubmit="return checkComments(1)">
-						Comment:<input type="text" id="comment1" name="comment"/><br/>
+				<div id="dialog1" title="${requestScope.diagramAName} Rationale">	 
+	    			<form action="Promote" method="post" onsubmit="return checkRationale(1)">
+						Summary:<input type="text" id="summary1" name="summary"/><br/>
+						Issue:<input type="text" id="issue1" name="issue"/><br/>
+						Issue Relationship:<input type="text" id="issueRelationship1" name="issueRelationship"/><br/>
+						Criteria:<input type="text" id="criteria1" name="criteria"/><br/>
+						Criteria Relationship:<input type="text" id="criteriaRelationship1" name="criteriaRelationship"/><br/>
 						<div class="sumbitbutton">
 						<button id="button1" class="pbutton">Submit</button><br/></div>
 						<input type="hidden" name="diagramId" value="${requestScope.diagramAId}"/>
@@ -115,9 +161,13 @@
 				<div class="promote-button-wrap">
 					<button id="btn2" class="pbutton">Promote</button>
 				</div>
-				<div id="dialog2">	 
-					<form action="Promote" method="post" onsubmit="return checkComments(2)">
-						Comment:<input type="text" id="comment2" name="comment"/><br/>
+				<div id="dialog2" title="${requestScope.diagramBName} Rationale">	 
+					<form action="Promote" method="post" onsubmit="return checkRationale(2)">
+						Summary:<input type="text" id="summary2" name="summary"/><br/>
+						Issue:<input type="text" id="issue2" name="issue"/><br/>
+						Issue Relationship:<input type="text" id="issueRelationship2" name="issueRelationship"/><br/>
+						Criteria:<input type="text" id="criteria2" name="criteria"/><br/>
+						Criteria Relationship:<input type="text" id="criteriaRelationship2" name="criteriaRelationship"/><br/>
 						<div class="sumbitbutton">
 		                	<!---- <input type="submit" id="button2" value="Promote" class="pbutton"/>--->
 							<button id="button2" class="pbutton">Submit</button><br/>

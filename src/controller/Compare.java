@@ -148,6 +148,8 @@ public class Compare extends HttpServlet {
 		request.setAttribute("path2", diagram2.getFilePath() + ".png");
 		request.setAttribute("diagramAId", diagram1.getDiagramId());
 		request.setAttribute("diagramBId", diagram2.getDiagramId());
+		request.setAttribute("diagramAName", diagram1.getDiagramName());
+		request.setAttribute("diagramBName", diagram2.getDiagramName());
 		//request.setAttribute("reportText", compareObj.getReportText());
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("WEB-INF/JSP/promote.jsp");
@@ -320,5 +322,6 @@ public class Compare extends HttpServlet {
 		}
 		request.setAttribute("diagram1comments", diagram1Comments);
 		request.setAttribute("diagram2comments", diagram2Comments);
+		//request.setAttribute("diagram2comments", "I can put in here whatever I want");
 	}
 }
