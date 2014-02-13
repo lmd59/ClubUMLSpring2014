@@ -56,8 +56,58 @@
 		return true;
 	    }
 	</script>
-	<style>
-	
+
+<style type="text/css">
+
+/* Tab-Menu CSS code */
+
+.basictab{
+padding: 3px 0;
+margin-left: 0;
+font: bold 12px Verdana;
+border-bottom: 1px solid gray;
+list-style-type: none;
+text-align: left; /*set to left, center, or right to align the menu as desired*/
+}
+
+.basictab li{
+display: inline;
+margin: 0;
+}
+
+.basictab li a{
+	text-decoration: none;
+	padding: 5px 20px;
+	margin-right: 0;
+	border: 1px solid gray;
+	border-bottom: none;
+	background-color: #E0E0E0;
+	color: #2d2b2b;
+}
+
+.basictab li a:visited{
+color: #2d2b2b;
+}
+
+.basictab li a:hover{
+	background-color: #909090;
+	color: black;
+}
+
+.basictab li a:active{
+color: black;
+}
+
+.basictab li.selected a{ /*selected tab effect*/
+	position: relative;
+	top: 1px;
+	padding-top: 4px;
+	background-color: #909090;
+	color: black;
+}
+
+/*end of tab-menu css code*/
+-->
 </style>
     </head>
 
@@ -66,7 +116,18 @@
 	    <h1 id="banner">Promote Diagram</h1>
 	    <input type="hidden" id="reportLink" value="${requestScope.reportPath}"></input>
 	</div>
-	<div id="promote-container">
+	
+    <div id="basictab">
+    <ul class="basictab">
+	    <li><a href="#tabs-1">Home</a></li>
+	    <li><a href="ManageProject">Project</a></li>
+	    <li><a href="ManageContext">Context</a></li>
+        <li><a href="ManagePolicy">Policy</a></li>
+      </ul>
+</div>
+
+    
+    <div id="promote-container">
 	    <div class="file1" style="float:left;">
 		
 			<div class="image-wrap">
