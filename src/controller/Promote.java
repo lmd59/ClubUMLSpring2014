@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 
 import repository.CommentDAO;
 import repository.CompareDAO;
+import repository.RationaleDAO;
 
 /**
  *
@@ -94,6 +95,7 @@ public class Promote extends HttpServlet {
      * @param userId
      * @param userName
      */
+    /* removed by Vishal Patel with the addition of Rationale support
     private void saveComment(HttpServletRequest request, int userId, String userName) {
     	int compareId = Integer.parseInt(request.getParameter("compareId"));
     	Comment comment = new Comment();
@@ -104,11 +106,13 @@ public class Promote extends HttpServlet {
     	comment.setUserName(userName);
     	CommentDAO.addComment(comment);
     }
+    */
     
     private void saveRationale(HttpServletRequest request, int userId, String userName) {
     	int compareId = Integer.parseInt(request.getParameter("compareId"));
     	Rationale rationale = new Rationale();
     	rationale.setPromotedDiagramId(Integer.parseInt(request.getParameter("diagramId")));
+    	rationale.setAlternativeDiagramId(Integer.parseInt(request.getParameter("alternativeDiagramId")));
     	rationale.setCompareId(compareId);
     	rationale.setUserId(userId);
     	rationale.setUserName(userName);
@@ -119,20 +123,7 @@ public class Promote extends HttpServlet {
     	rationale.setCriteria(request.getParameter("criteria"));
     	rationale.setCriteriaRelationship(request.getParameter("criteriaRelationship"));
     	
-    	// @todo - the interim we are masking it as a comment
-    	String tempComment = "summary: " + rationale.getSummary() +
-    			", issue: " + rationale.getIssue() +
-    			", issue relationship: " + rationale.getIssueRelationship() +
-    			", criteria: " + rationale.getCriteria() +
-    			", criteria relationship: " + rationale.getCriteriaRelationship();
-    	
-    	Comment comment = new Comment();
-    	comment.setPromotedDiagramId(rationale.getPromotedDiagramId());
-    	comment.setCompareId(compareId);
-    	comment.setUserId(userId);
-    	comment.setUserName(userName);    	
-    	comment.setCommentText(tempComment);    	
-    	CommentDAO.addComment(comment);
+    	RationaleDAO.addRationale(rationale);
     }
     
     /**

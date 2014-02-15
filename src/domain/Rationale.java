@@ -1,17 +1,14 @@
 package domain;
 
-import java.sql.Date;
-
 /**
- * Information class that contains all the features of one comment
+ * Information class that contains all the features of one rationale
  * @ doc author	Vishal Patel
  */
 
 public class Rationale {
 
 	private int rationaleId;
-	
-	private String alternative;
+
 	private String summary;
 	private String issue;
 	private String issueRelationship;
@@ -20,17 +17,10 @@ public class Rationale {
 	private String rationaleTime;
 	private int userId;
 	private String userName;
-	
-    private int reportId;
     
     private int compareId;
     private int promotedDiagramId;
-    
-    public Rationale(int rationaleId, int reportId, int userId) {
-        this.rationaleId = rationaleId;
-        this.reportId = reportId;
-        this.userId = userId;
-    }
+    private int alternativeDiagramId;
     
 	/**
 	 * Default constructor
@@ -39,7 +29,7 @@ public class Rationale {
     }
     
 	/**
-	 * Gete the userName
+	 * Get the userName
 	 * 
 	 * @return userName String
 	 */    
@@ -51,16 +41,16 @@ public class Rationale {
 	 * Set userName
 	 * 
 	 * @param userName
-	 * 			The name of the user that made this comment
+	 * 			The name of the user that made this rationale
 	 */
     public void setUserName(String userName) {
         this.userName = userName;
     }
     
 	/**
-	 * Gete the userId
+	 * Get the userId
 	 * 
-	 * @return userId int
+	 * @return userId
 	 */
     public int getUserId() {
         return userId;
@@ -70,7 +60,7 @@ public class Rationale {
 	 * Set userId
 	 * 
 	 * @param userId
-	 * 			The ID of the user that made this comment
+	 * 			The ID of the user that made this rationale
 	 */
     public void setUserId(int userId) {
         this.userId = userId;
@@ -79,17 +69,17 @@ public class Rationale {
 	/**
 	 * Get rationaleId
 	 * 
-	 * @return rationaleId int
+	 * @return rationaleId
 	 */
     public int getRationaleId() {
         return rationaleId;
     }
     
 	/**
-	 * Set commentId
+	 * Set rationaleId
 	 * 
-	 * @param commentId
-	 * 			The ID of the comment
+	 * @param rationaleId
+	 * 			The ID of the rationale
 	 */
     public void setRationaleId(int rationaleId) {
         this.rationaleId = rationaleId;
@@ -113,25 +103,6 @@ public class Rationale {
 	 */
     public void setRationaleTime(String rationaleTime) {
         this.rationaleTime = rationaleTime;
-    }
-
-	/**
-	 * Get  the diagramId
-	 * 
-	 * @return diagramId int
-	 */
-    public int getReportId() {
-        return reportId;
-    }
-
-	/**
-	 * Set diagramId
-	 * 
-	 * @param diagramId
-	 * 			The ID of the diagram that this comment belongs to
-	 */
-    public void setReportId(int reportId) {
-        this.reportId = reportId;
     }
 
 	/**
@@ -163,29 +134,28 @@ public class Rationale {
 	}
 
 	/**
-	 * @return the alternative
+	 * @return the alternativeDiagramId
 	 */
-	public String getAlternative() {
-		return alternative;
+	public int getAlternativeDiagramId() {
+		return alternativeDiagramId;
 	}
 
 	/**
-	 * @param alternative to set
+	 * @param promotedDiagramId the alternativeDiagramId to set
 	 */
-	public void setAlternative(String alternative) {
-		this.alternative = alternative;
+	public void setAlternativeDiagramId(int alternativeDiagramId) {
+		this.alternativeDiagramId = alternativeDiagramId;
 	}
 
-
 	/**
-	 * @return the alternative
+	 * @return the summary
 	 */
 	public String getSummary() {
 		return summary;
 	}
 
 	/**
-	 * @param alternative to set
+	 * @param summary to set
 	 */
 	public void setSummary(String summary) {
 		this.summary= summary;
@@ -193,14 +163,14 @@ public class Rationale {
     
     
 	/**
-	 * @return the alternative
+	 * @return the issue
 	 */
 	public String getIssue() {
 		return issue;
 	}
 
 	/**
-	 * @param alternative to set
+	 * @param issue to set
 	 */
 	public void setIssue(String issue) {
 		this.issue= issue;
@@ -208,14 +178,14 @@ public class Rationale {
     
     
 	/**
-	 * @return the alternative
+	 * @return the issue relationship
 	 */
 	public String getIssueRelationship() {
 		return issueRelationship;
 	}
 
 	/**
-	 * @param alternative to set
+	 * @param issue relationship to set
 	 */
 	public void setIssueRelationship(String issueRelationship) {
 		this.issueRelationship= issueRelationship;
@@ -223,28 +193,28 @@ public class Rationale {
     
     
 	/**
-	 * @return the alternative
+	 * @return the criteria
 	 */
 	public String getCriteria() {
 		return criteria;
 	}
 
 	/**
-	 * @param alternative to set
+	 * @param critera to set
 	 */
 	public void setCriteria(String critera) {
 		this.criteria = critera;
 	}
     
 	/**
-	 * @return the alternative
+	 * @return the criteria relationship
 	 */
 	public String getCriteriaRelationship() {
 		return criteraRelationship;
 	}
 
 	/**
-	 * @param alternative to set
+	 * @param criteria relationship to set
 	 */
 	public void setCriteriaRelationship(String criteraRelationship) {
 		this.criteraRelationship = criteraRelationship;

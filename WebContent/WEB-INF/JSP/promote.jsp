@@ -120,13 +120,17 @@
 					<button id="btn1" class="pbutton">Promote</button>
 				</div>
 		   
-				<div class="comment1">
-			 		Comment : 
+				<div class="rationale1">
+			 		Rationale : 
 			 		<div class="scroll1" >
-			 			<c:forEach items="${requestScope.diagram1comments}" var="comment">
-			 			<div class="commenttime">(${comment.commentTime})</div>
-			 			<div class="username">${comment.userName}&nbsp;:&nbsp;&nbsp;</div>
-			 			<div class="comment">${comment.commentText}</div>
+			 			<c:forEach items="${requestScope.diagram1rationales}" var="rationale">
+			 			<div class="rationaletime">(${rationale.rationaleTime})</div>
+			 			<div class="username">${rationale.userName}&nbsp;:&nbsp;&nbsp;</div>
+			 			<div class="summary">${rationale.summary}</div>
+			 			<div class="issue">${rationale.issue}</div>
+			 			<div class="issuerelationship">${rationale.issueRelationship}</div>
+			 			<div class="criteria">${rationale.criteria}</div>
+			 			<div class="criterarelationship">${rationale.criteriaRelationship}</div>
 			 			</c:forEach>
 			 		</div>
 				</div>
@@ -142,6 +146,7 @@
 						<div class="sumbitbutton">
 						<button id="button1" class="pbutton">Submit</button><br/></div>
 						<input type="hidden" name="diagramId" value="${requestScope.diagramAId}"/>
+						<input type="hidden" name="alternativeDiagramId" value="${requestScope.diagramBId}"/>
 						<input type="hidden" name="compareId" value="${requestScope.compareId}"/>
 						<input type="hidden" name="A" value="${requestScope.A}"/>
 						<input type="hidden" name="B" value="${requestScope.B}"/>
@@ -172,7 +177,7 @@
 		                	<!---- <input type="submit" id="button2" value="Promote" class="pbutton"/>--->
 							<button id="button2" class="pbutton">Submit</button><br/>
 							<input type="hidden" name="diagramId" value="${requestScope.diagramBId}"/>
-							<input type="hidden" name="compareId" value="${requestScope.compareId}"/>
+							<input type="hidden" name="alternativeDiagramId" value="${requestScope.diagramAId}"/>							<input type="hidden" name="compareId" value="${requestScope.compareId}"/>
 							<input type="hidden" name="A" value="${requestScope.A}"/>
 							<input type="hidden" name="B" value="${requestScope.B}"/>
 							<input type="hidden" name="file1" value="${requestScope.diagramAId}"/>
@@ -180,16 +185,21 @@
 						</div>
 					</form>
 				</div>
-				<div class="comment2">
-			 		Comment :
+			 	<div class="rationale2">
+			 		Rationale : 
 			 		<div class="scroll" >
-			 			<c:forEach items="${requestScope.diagram2comments}" var="comment">
-			 			<div class="commenttime">(${comment.commentTime})</div>
-			 			<div class="username">${comment.userName}&nbsp;:&nbsp;&nbsp;</div>
-			 			<div class="comment">${comment.commentText}</div>
+			 			<c:forEach items="${requestScope.diagram2rationales}" var="rationale">
+			 			<div class="rationaletime">(${rationale.rationaleTime})</div>
+			 			<div class="username">${rationale.userName}&nbsp;:&nbsp;&nbsp;</div>
+			 			<div class="summary">${rationale.summary}</div>
+			 			<div class="issue">${rationale.issue}</div>
+			 			<div class="issuerelationship">${rationale.issueRelationship}</div>
+			 			<div class="criteria">${rationale.criteria}</div>
+			 			<div class="criterarelationship">${rationale.criteriaRelationship}</div>
 			 			</c:forEach>
 			 		</div>
-			 	</div>
+				</div>
+			 	
 			 
 		
 			</div>
@@ -210,8 +220,8 @@
 						<input type="hidden" name="reportPath" value="${requestScope.reportPath}"/>
 						<input type="hidden" name="file1" value="${requestScope.diagramAId}"/>
 						<input type="hidden" name="file2" value="${requestScope.diagramBId}"/>
-						<input type="hidden" name="comment1" value="${requestScope.diagram1comments}"/>
-						<input type="hidden" name="comment2" value="${requestScope.diagram2comments}"/>
+						<input type="hidden" name="rationale1" value="${requestScope.diagram1rationales}"/>
+						<input type="hidden" name="rationale2" value="${requestScope.diagram2rationales}"/>
 			</form>
 			<form action="Display" method="post" id="returnForm"></form>
 			<div class="promote-bottom-button-wrap">
