@@ -132,15 +132,42 @@
 		   
 				<div class="rationale1">
 			 		Rationale : 
-			 		<div class="scroll1" >
+			 		<div class="scroll1">
 			 			<c:forEach items="${requestScope.diagram1rationales}" var="rationale">
-			 			<div class="rationaletime">(${rationale.rationaleTime})</div>
-			 			<div class="username">${rationale.userName}&nbsp;:&nbsp;&nbsp;</div>
-			 			<div class="summary">${rationale.summary}</div>
-			 			<div class="issue">${rationale.issue}</div>
-			 			<div class="issuerelationship">${rationale.issueRelationship}</div>
-			 			<div class="criteria">${rationale.criteria}</div>
-			 			<div class="criterarelationship">${rationale.criteriaRelationship}</div>
+			 			<div class="comment">
+			 				<table>
+					  		<tr>
+					  			<td align="left"><label for="" style="vertical-align: top; font-weight:bold;">${rationale.rationaleTime}</label></td>
+					  			<td><label>${rationale.userName}: ${rationale.promotedDiagramName} vs. ${rationale.alternativeDiagramName}</label></td>
+					   		</tr>
+					   						  
+						  	<tr>
+							  	<td align="right"><label for="" style="vertical-align: top;">Summary:</label></td>
+					  			<td><label>${rationale.summary}</label></td>
+					  		</tr>
+					  	
+					  		<tr>
+					  			<td align="right"><label for="" style="vertical-align: top;">Issue:</label></td>
+					  			<td><label>${rationale.issue}</label></td>	
+						  	</tr>
+					  	
+						  	<tr>
+						  		<td></td>
+						  		<td><label>Issue Relationship: ${rationale.issueRelationship}</label></td>	
+						  	</tr>
+						  	
+						  	<tr>
+						  		<td align="right"><label for="" style="vertical-align: top;">Criteria</label></td>
+						  		<td><label>${rationale.criteria}</label></td>	
+						  	</tr>
+						  	
+						  	<tr>
+						  		<td></td>
+						  		<td><label>Criteria Relationship: ${rationale.criteriaRelationship}</label></td>	
+						  	</tr>
+						  	
+						  	</table>
+					  	</div>
 			 			</c:forEach>
 			 		</div>
 				</div>
@@ -258,13 +285,40 @@
 			 		Rationale : 
 			 		<div class="scroll" >
 			 			<c:forEach items="${requestScope.diagram2rationales}" var="rationale">
-			 			<div class="rationaletime">(${rationale.rationaleTime})</div>
-			 			<div class="username">${rationale.userName}&nbsp;:&nbsp;&nbsp;</div>
-			 			<div class="summary">${rationale.summary}</div>
-			 			<div class="issue">${rationale.issue}</div>
-			 			<div class="issuerelationship">${rationale.issueRelationship}</div>
-			 			<div class="criteria">${rationale.criteria}</div>
-			 			<div class="criterarelationship">${rationale.criteriaRelationship}</div>
+			 			<div class="comment">
+			 				<table>
+					  		<tr>
+					  			<td align="left"><label for="" style="vertical-align: top; font-weight:bold;">${rationale.rationaleTime}</label></td>
+					  			<td><label>${rationale.userName}: ${rationale.promotedDiagramName} vs. ${rationale.alternativeDiagramName}</label></td>
+					   		</tr>
+					   						  
+						  	<tr>
+							  	<td align="right"><label for="" style="vertical-align: top;">Summary:</label></td>
+					  			<td><label>${rationale.summary}</label></td>
+					  		</tr>
+					  	
+					  		<tr>
+					  			<td align="right"><label for="" style="vertical-align: top;">Issue:</label></td>
+					  			<td><label>${rationale.issue}</label></td>	
+						  	</tr>
+					  	
+						  	<tr>
+						  		<td></td>
+						  		<td><label>Issue Relationship: ${rationale.issueRelationship}</label></td>	
+						  	</tr>
+						  	
+						  	<tr>
+						  		<td align="right"><label for="" style="vertical-align: top;">Criteria</label></td>
+						  		<td><label>${rationale.criteria}</label></td>	
+						  	</tr>
+						  	
+						  	<tr>
+						  		<td></td>
+						  		<td><label>Criteria Relationship: ${rationale.criteriaRelationship}</label></td>	
+						  	</tr>
+						  	
+						  	</table>
+					  	</div>
 			 			</c:forEach>
 			 		</div>
 				</div>

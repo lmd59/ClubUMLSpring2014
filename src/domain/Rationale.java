@@ -17,7 +17,9 @@ public class Rationale {
 	private String rationaleTime;
 	private int userId;
 	private String userName;
-    
+	private String promotedDiagramName;
+	private String alternativeDiagramName;
+	
     private int compareId;
     private int promotedDiagramId;
     private int alternativeDiagramId;
@@ -219,5 +221,41 @@ public class Rationale {
 	public void setCriteriaRelationship(String criteraRelationship) {
 		this.criteraRelationship = criteraRelationship;
 	}
-    
+    	
+	/**
+	 * Get the promoted diagram name
+	 * 
+	 * @return promotedDiagramName String
+	 */
+    public String getPromotedDiagramName() {
+        return promotedDiagramName;
+    }
+
+	/**
+	 * Set promotedDiagramName
+	 * 
+	 * @param promotedDiagramName
+	 */
+    public void setPromotedDiagramName(String promotedDiagramName) {
+        this.promotedDiagramName = promotedDiagramName;
+    }
+
+	/**
+	 * Get the alternative diagram name
+	 * 
+	 * @return alternativeDiagramName String
+	 */
+    public String getAlternativeDiagramName() {
+        return alternativeDiagramName;
+    }
+
+	/**
+	 * Set alternativeDiagramName
+	 * 
+	 * @param alternativeDiagramName
+	 */
+    public void setAlternativeDiagramName(String alternativeDiagramName) {
+        this.alternativeDiagramName = alternativeDiagramName;
+    }
+
 }

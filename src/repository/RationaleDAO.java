@@ -4,8 +4,11 @@ package repository;
  * @author Vishal Patel
  * 
  */
+
+import domain.Diagram;
 import domain.Rationale;
 import domain.User;
+import repository.DiagramDAO;
 import repository.UserDAO;
 
 import java.sql.Connection;
@@ -89,7 +92,7 @@ public class RationaleDAO {
 				rationale.setIssue(rs.getString("issue"));
 				rationale.setIssueRelationship(rs.getString("issueRelationship"));
 				rationale.setCriteria(rs.getString("criteria"));
-				rationale.setIssueRelationship(rs.getString("criteriaRelationship"));
+				rationale.setCriteriaRelationship(rs.getString("criteriaRelationship"));
 				rationale.setPromotedDiagramId(rs.getInt("promotedDiagramId"));
 				rationale.setAlternativeDiagramId(rs.getInt("alternativeDiagramId"));
 				searchResult.add(rationale);
@@ -102,8 +105,15 @@ public class RationaleDAO {
 		    for(Rationale rationale: searchResult) {
 		    	User user = UserDAO.getUser(rationale.getUserId());
 		    	rationale.setUserName(user.getUserName());
+		    	
+		    	Diagram promotedDiagram = DiagramDAO.getDiagram(rationale.getPromotedDiagramId());
+		    	rationale.setPromotedDiagramName(promotedDiagram.getDiagramName());
+		    	
+		    	Diagram alternativeDiagram = DiagramDAO.getDiagram(rationale.getAlternativeDiagramId());
+		    	rationale.setAlternativeDiagramName(alternativeDiagram.getDiagramName());
 		    }
 				
+
 		    return searchResult;
 		} catch (SQLException ex) {
 		    Logger.getLogger(RationaleDAO.class.getName()).log(Level.SEVERE, null, ex);
