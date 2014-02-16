@@ -60,18 +60,14 @@ private void processRequest(HttpServletRequest request,
 	
 	Boolean projectstatus = Boolean.valueOf(request.getParameter("statusChangeTo"));
 	
-	System.out.println(request.getParameter("projIdradio"));
-	int projectId = Integer.parseInt(request.getParameter("projIdradio"));
-	
-	//int projectId = 1;
-	
-	
 	// if projectstatus true
 	if (projectstatus){		
+		int projectId = Integer.parseInt(request.getParameter("enableprojid"));
 		ProjectDAO.enableProject(projectId);
 	
 	// if projectstatus false
 	}else{		
+		int projectId = Integer.parseInt(request.getParameter("disableprojid"));
 		ProjectDAO.disableProject(projectId);
 }
 	
