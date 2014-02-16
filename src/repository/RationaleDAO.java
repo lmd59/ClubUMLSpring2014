@@ -5,6 +5,9 @@ package repository;
  * 
  */
 import domain.Rationale;
+import domain.User;
+import repository.UserDAO;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +29,7 @@ public class RationaleDAO {
 		ResultSet rs;
 		try {
 		    Connection conn = DbManager.getConnection();
-		    String sql = "INSERT INTO rationale(compareId,userId,summary,issue,issueRelationship,criteria,criteriaRelationship,rationaleTime,promotedDiagramId,alternativeDiagramId,userName) VALUES(?,?,?,?,?,?,?,NOW(),?,?,?);";
+		    String sql = "INSERT INTO rationale(compareId,userId,summary,issue,issueRelationship,criteria,criteriaRelationship,rationaleTime,promotedDiagramId,alternativeDiagramId) VALUES(?,?,?,?,?,?,?,NOW(),?,?);";
 		    PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		    pstmt.setInt(1, rationale.getCompareId());
 		    pstmt.setInt(2, rationale.getUserId());
@@ -37,7 +40,6 @@ public class RationaleDAO {
 		    pstmt.setString(7, rationale.getCriteriaRelationship());
 		    pstmt.setInt(8, rationale.getPromotedDiagramId());
 		    pstmt.setInt(9, rationale.getAlternativeDiagramId());
-		    pstmt.setString(10, rationale.getUserName());
 		    
 		    pstmt.executeUpdate();
 
@@ -90,13 +92,18 @@ public class RationaleDAO {
 				rationale.setIssueRelationship(rs.getString("criteriaRelationship"));
 				rationale.setPromotedDiagramId(rs.getInt("promotedDiagramId"));
 				rationale.setAlternativeDiagramId(rs.getInt("alternativeDiagramId"));
-				rationale.setUserName(rs.getString("userName"));
 				searchResult.add(rationale);
 		    }
 
 		    rs.close();
 		    pstmt.close();
 		    conn.close();
+
+		    for(Rationale rationale: searchResult) {
+		    	User user = UserDAO.getUser(rationale.getUserId());
+		    	rationale.setUserName(user.getUserName());
+		    }
+				
 		    return searchResult;
 		} catch (SQLException ex) {
 		    Logger.getLogger(RationaleDAO.class.getName()).log(Level.SEVERE, null, ex);
