@@ -581,8 +581,7 @@ display: inline;
 
 						<td>${project.description}</td>
 
-
-						<td><button class="btn btn-link" type="submit">Enable</button></td>
+						<td><button class="btn btn-link" type="submit" value="${project.projectId }" name="enableprojid">Enable</button></td> 
 
 
 					</tr>
