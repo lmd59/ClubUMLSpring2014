@@ -52,6 +52,18 @@
 			});
 	    });
 	    
+	    function cancelButton(formPtr, dialog) {	    	
+	    	formPtr.reset();	    	
+	    	switch(dialog){
+	    	case(1):
+	    		$( "#dialog1" ).dialog("close");
+	    		break;
+	    	case(2):
+	    		$( "#dialog2" ).dialog("close");
+	    		break;
+	    	}
+	  	}
+	    
 	    function checkComments(dialog){
 	    	switch(dialog) {
 	    		case(1):comment = $("#comment1").val();
@@ -174,7 +186,7 @@
 				<br/> 
 
 				<div id="dialog1" title="${requestScope.diagramAName} Rationale">	 
-	    			<h1>Rationale Diagram1 Promotion</h1>
+	    			<h1>Rationale ${requestScope.diagramAName} Promotion</h1>
 					<h2>Alternative to ${requestScope.diagramBName}</h2>
 	    			<form action="Promote" method="post" onsubmit="return checkRationale(1)">
 					 
@@ -247,11 +259,10 @@
       				<tr>
       				<td>
       				<div class="sumbitbutton">	
-						<button id="button1" class="pbutton">Promote</button><br/></div>
+						<button id="button1" class="pbutton">Promote</button></div>
 					</td>
 					<td>
-					<div class="sumbitbutton">
-						<button id="button1" class="pbutton">Cancel</button><br/></div>
+						<button class="pbutton" type="button" value="Reset" onclick="cancelButton(this.form,1)">Cancel</button>
 					</td>
 					</tr>
 		 			</table>
@@ -324,7 +335,7 @@
 				</div>
 				<br/> 
 				<div id="dialog2" title="${requestScope.diagramBName} Rationale">	 
-					<h1>Rationale Diagram2 Promotion</h1>
+					<h1>Rationale ${requestScope.diagramBName} Promotion</h1>
 					<h2>Alternative to ${requestScope.diagramAName}</h2>
 					<form action="Promote" method="post" onsubmit="return checkRationale(2)">
 					 
@@ -400,8 +411,7 @@
 						<button id="button1" class="pbutton">Promote</button><br/></div>
 					</td>
 					<td>
-					<div class="sumbitbutton">
-						<button id="button1" class="pbutton">Cancel</button><br/></div>
+						<button class="pbutton" type="button" value="Reset" onclick="cancelButton(this.form,2)">Cancel</button>
 					</td>
 					</tr>
 		 			</table>
