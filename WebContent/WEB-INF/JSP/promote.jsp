@@ -10,19 +10,29 @@
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
   <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  	
+   	<!----Kareem Added---->
+  	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/pepper-grinder/jquery-ui.css" media="screen" rel="stylesheet" type="text/css">
+  	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js" type="text/javascript"></script>
+  	<script type="text/javascript" src="jquery-ui-form.js"></script>
+  	<link rel="stylesheet" href="promote_style.css" />
+  	
+	
+	
 	<title>Promote a Diagram</title>
 	<script type="text/javascript">
 	    var comment = "";
+	    
 	    $(document).ready(function(){
-			
+
 			$( "#dialog1" ).hide();
-	
+
  			$("#btn1").click(function(){
-   				$( "#dialog1" ).dialog();
+   				$( "#dialog1" ).dialog({height: 850, width:650 });
  			});
  			$( "#dialog2" ).hide();
  			$("#btn2").click(function(){
-   			 	$( "#dialog2" ).dialog();
+   			 	$( "#dialog2" ).dialog({height: 850, width:650 });
   			});
  			
  			$("#suggestButton").click(function() {
@@ -97,9 +107,9 @@
 			return true;
 	    	}
 
-	    	</script>
+	</script>
 	<style>
-	
+
 </style>
     </head>
 
@@ -110,11 +120,11 @@
 	</div>
 	<div id="promote-container">
 	    <div class="file1" style="float:left;">
-		
+
 			<div class="image-wrap">
 				<img  src="${requestScope.path1}"/>
 			</div>		   
-			
+
 			<div class="center">
 				<div class="promote-button-wrap">
 					<button id="btn1" class="pbutton">Promote</button>
@@ -135,16 +145,90 @@
 			 		</div>
 				</div>
 				<br/> 
-			 
+
 				<div id="dialog1" title="${requestScope.diagramAName} Rationale">	 
+	    			<h1>Rationale Diagram1 Promotion</h1>
+					<h2>Alternative to ${requestScope.diagramBName}</h2>
 	    			<form action="Promote" method="post" onsubmit="return checkRationale(1)">
-						Summary:<input type="text" id="summary1" name="summary"/><br/>
-						Issue:<input type="text" id="issue1" name="issue"/><br/>
-						Issue Relationship:<input type="text" id="issueRelationship1" name="issueRelationship"/><br/>
-						Criteria:<input type="text" id="criteria1" name="criteria"/><br/>
-						Criteria Relationship:<input type="text" id="criteriaRelationship1" name="criteriaRelationship"/><br/>
-						<div class="sumbitbutton">
-						<button id="button1" class="pbutton">Submit</button><br/></div>
+					 
+					 <fieldset>
+					 
+					 <legend font-weight:bold;>Promote Diagram1</legend>	
+					 
+					 <table style="width:300px">	
+					  
+					  <tr>
+					  <td align="right">	
+					   	<label for="" style="vertical-align: top; font-weight:bold;">Summary</label>
+					  </td>
+					  
+					  <td>
+					  	<textarea name="summary" id="summary1" placeholder="Summary" cols="5" rows="5"></textarea>
+					   </td>
+					   </tr>
+					  
+					  <tr>
+					  <td align="right">	
+					   	<label for="" style="vertical-align: top; font-weight:bold;">Issue</label>
+					  </td>
+					  
+					  <td>
+					   <textarea name="issue" id="issue1" placeholder="Issues" cols="5" rows="5"></textarea>
+					   </td>
+					   </tr>
+					   
+					   
+					  <tr>
+					  <td align="right">	
+					   	<label for="" style="vertical-align: top; font-weight:bold;">Issue Relationship</label>
+					  </td>
+					  
+					  <td>
+					    <textarea name="issueRelationship" id="issueRelationship1" placeholder="Issue Relationship" cols="5" rows="5"></textarea>
+					   </td>
+					   </tr>
+					   
+					   
+					  <tr>
+					  <td align="right">	
+					   	<label for="" style="vertical-align: top; font-weight:bold;">Criteria</label>
+					  </td>
+					  
+					  <td>
+					  
+					  	 <textarea name="criteria" id="criteria1" placeholder="Criteria" cols="5" rows="5"></textarea>
+					   
+					   </td>
+					   </tr>
+					   
+					   
+					  <tr>
+					  <td align="right">	
+					   	<label for="" style="vertical-align: top; font-weight:bold;">Criteria Relationship</label>
+					  </td>
+					  
+					  <td>
+					  
+					  	<textarea name="criteriaRelationship" id="criteriaRelationship1" placeholder="Criteria Relationship" cols="5" rows="5"></textarea>
+					   </td>
+					   </tr>
+					    
+					 </table>
+	 			
+	 				
+    				<table align="center">
+      				<tr>
+      				<td>
+      				<div class="sumbitbutton">	
+						<button id="button1" class="pbutton">Promote</button><br/></div>
+					</td>
+					<td>
+					<div class="sumbitbutton">
+						<button id="button1" class="pbutton">Cancel</button><br/></div>
+					</td>
+					</tr>
+		 			</table>
+						
 						<input type="hidden" name="diagramId" value="${requestScope.diagramAId}"/>
 						<input type="hidden" name="alternativeDiagramId" value="${requestScope.diagramBId}"/>
 						<input type="hidden" name="compareId" value="${requestScope.compareId}"/>
@@ -152,40 +236,25 @@
 						<input type="hidden" name="B" value="${requestScope.B}"/>
 						<input type="hidden" name="file1" value="${requestScope.diagramAId}"/>
 						<input type="hidden" name="file2" value="${requestScope.diagramBId}"/>
+						
+					 </fieldset>	
 					</form>
+	    		</div>
 	    		</div>
 	    	</div>
 		</div>
-	 
+
 	    <div class="file2">
 			<div class="image-wrap">
 				<img src="${requestScope.path2}" />
 			</div>
 			<div class="center">
-				
+
 				<div class="promote-button-wrap">
 					<button id="btn2" class="pbutton">Promote</button>
 				</div>
-				<div id="dialog2" title="${requestScope.diagramBName} Rationale">	 
-					<form action="Promote" method="post" onsubmit="return checkRationale(2)">
-						Summary:<input type="text" id="summary2" name="summary"/><br/>
-						Issue:<input type="text" id="issue2" name="issue"/><br/>
-						Issue Relationship:<input type="text" id="issueRelationship2" name="issueRelationship"/><br/>
-						Criteria:<input type="text" id="criteria2" name="criteria"/><br/>
-						Criteria Relationship:<input type="text" id="criteriaRelationship2" name="criteriaRelationship"/><br/>
-						<div class="sumbitbutton">
-		                	<!---- <input type="submit" id="button2" value="Promote" class="pbutton"/>--->
-							<button id="button2" class="pbutton">Submit</button><br/>
-							<input type="hidden" name="diagramId" value="${requestScope.diagramBId}"/>
-							<input type="hidden" name="alternativeDiagramId" value="${requestScope.diagramAId}"/>							<input type="hidden" name="compareId" value="${requestScope.compareId}"/>
-							<input type="hidden" name="A" value="${requestScope.A}"/>
-							<input type="hidden" name="B" value="${requestScope.B}"/>
-							<input type="hidden" name="file1" value="${requestScope.diagramAId}"/>
-							<input type="hidden" name="file2" value="${requestScope.diagramBId}"/>
-						</div>
-					</form>
-				</div>
-			 	<div class="rationale2">
+				
+				<div class="rationale2">
 			 		Rationale : 
 			 		<div class="scroll" >
 			 			<c:forEach items="${requestScope.diagram2rationales}" var="rationale">
@@ -199,20 +268,111 @@
 			 			</c:forEach>
 			 		</div>
 				</div>
-			 	
-			 
-		
+				<br/> 
+				<div id="dialog2" title="${requestScope.diagramBName} Rationale">	 
+					<h1>Rationale Diagram2 Promotion</h1>
+					<h2>Alternative to ${requestScope.diagramAName}</h2>
+					<form action="Promote" method="post" onsubmit="return checkRationale(2)">
+					 
+					 <fieldset>
+					 
+					 <legend font-weight:bold;>Promote Diagram2</legend>	
+					 
+					 <table style="width:300px">	
+					  
+					  <tr>
+					  <td align="right">	
+					   	<label for="summary2" style="vertical-align: top; font-weight:bold;">Summary</label>
+					  </td>
+					  
+					  <td>
+					  	<textarea name="summary" id="summary2" placeholder="Summary" cols="5" rows="5"></textarea>
+					   </td>
+					   </tr>
+					  
+					  <tr>
+					  <td align="right">	
+					   	<label for="Issue" style="vertical-align: top; font-weight:bold;">Issue</label>
+					  </td>
+					  
+					  <td>
+					   <textarea name="issue" id="issue2" placeholder="Issues" cols="5" rows="5"></textarea>
+					   </td>
+					   </tr>
+					   
+					   
+					  <tr>
+					  <td align="right">	
+					   	<label for="" style="vertical-align: top; font-weight:bold;">Issue Relationship</label>
+					  </td>
+					  
+					  <td>
+					    <textarea name="issueRelationship" id="issueRelationship2" placeholder="Issue Relationship" cols="5" rows="5"></textarea>
+					   </td>
+					   </tr>
+					   
+					   
+					  <tr>
+					  <td align="right">	
+					   	<label for="Criteria" style="vertical-align: top; font-weight:bold;">Criteria</label>
+					  </td>
+					  
+					  <td>
+					  
+					  	 <textarea name="criteria" id="criteria2" placeholder="Criteria" cols="5" rows="5"></textarea>
+					   
+					   </td>
+					   </tr>
+					   
+					   
+					  <tr>
+					  <td align="right">	
+					   	<label for="Criteria Relationship" style="vertical-align: top; font-weight:bold;">Criteria Relationship</label>
+					  </td>
+					  
+					  <td>
+					  
+					  	<textarea name="criteriaRelationship" id="criteriaRelationship2" placeholder="Criteria Relationship" cols="5" rows="5"></textarea>
+					   </td>
+					   </tr>
+					    
+					 </table>
+	 			
+	 				
+    				<table align="center">
+      				<tr>
+      				<td>
+      				<div class="sumbitbutton">	
+						<button id="button1" class="pbutton">Promote</button><br/></div>
+					</td>
+					<td>
+					<div class="sumbitbutton">
+						<button id="button1" class="pbutton">Cancel</button><br/></div>
+					</td>
+					</tr>
+		 			</table>
+					
+					<input type="hidden" name="diagramId" value="${requestScope.diagramBId}"/>
+							<input type="hidden" name="alternativeDiagramId" value="${requestScope.diagramAId}"/>							<input type="hidden" name="compareId" value="${requestScope.compareId}"/>
+							<input type="hidden" name="A" value="${requestScope.A}"/>
+							<input type="hidden" name="B" value="${requestScope.B}"/>
+							<input type="hidden" name="file1" value="${requestScope.diagramAId}"/>
+							<input type="hidden" name="file2" value="${requestScope.diagramBId}"/>
+						</fieldset>
+					</form>
+				</div>
+				</div>
 			</div>
 	    </div>
 	    <p>${requestScope.compareId}</p>
 		<br/>
 		<div class="reportfile" style="float:left;">
 			<!---- <div id="reportLink" style="display: none">${requestScope.reportPath}</div>---->
-		 
+
 			<div  class="scrollreport">
-			
+
 			<pre>${requestScope.reportText}</pre>
-			
+
 			</div>
 			<form class="putton" action="Compare" method="post" id="suggestForm">
 						<input type="hidden" name="smartsuggest" value="Suggest Promote"/> 
