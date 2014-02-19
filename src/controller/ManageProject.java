@@ -79,9 +79,13 @@ public class ManageProject extends HttpServlet {
 			}else{
 				inactiveProjects.add(p);
 			}
-			request.setAttribute("inactiveusers", inactiveUsers);
-			request.setAttribute("activeprojects", activeProjects);
-			request.setAttribute("inactiveprojects", inactiveProjects);
+			HttpSession session = request.getSession(true);
+			//request.setAttribute("inactiveusers", inactiveUsers);
+			session.setAttribute("inactiveusers", inactiveUsers);
+			//request.setAttribute("activeprojects", activeProjects);
+			session.setAttribute("activeprojects", activeProjects);
+			//request.setAttribute("inactiveprojects", inactiveProjects);
+			session.setAttribute("inactiveprojects", inactiveProjects);
 		}
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
