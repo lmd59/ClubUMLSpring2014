@@ -71,7 +71,7 @@ private void processRequest(HttpServletRequest request,
 		ProjectDAO.disableProject(projectId);
 }
 	
-	RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/home.jsp");
+	RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/manageProject.jsp");
     dispatcher.forward(request, response);
 	
 }
