@@ -76,7 +76,7 @@ private void Success(HttpServletRequest request,
 	ProjectDAO.addProject(projectObj);
 	
 	System.out.println("Successfully added project");
-	RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/home.jsp");
+	RequestDispatcher dispatcher = request.getRequestDispatcher("ManageProject");
     dispatcher.forward(request, response);
     
 //    ServletContext context = this.getServletContext();
