@@ -63,7 +63,7 @@ public class CreatePolicy extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		System.out.println("Successfully added project");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/home.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("ManagePolicy");
 	    dispatcher.forward(request, response);
 	}
 

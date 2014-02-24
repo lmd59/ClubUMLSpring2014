@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import repository.PolicyDAO;
 import repository.ProjectDAO;
@@ -30,8 +31,9 @@ public class ManagePolicy extends HttpServlet{
 	ArrayList<Policy> allPolicy = null;
 
 	try {
+		HttpSession session = request.getSession(true);
 		allPolicy = PolicyDAO.getAllPolicys();
-		request.setAttribute("policys", allPolicy);
+		Session.setAttribute("policys",allPolicy);
 
 		
 	} catch (SQLException e) {
