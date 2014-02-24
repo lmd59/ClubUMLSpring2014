@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import domain.Project;
 import domain.User;
@@ -48,6 +49,11 @@ public class ManageProject extends HttpServlet {
 	
 	
 	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException 
+	{
+			doGet(request,response);	
+	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 	//Renders manageProject.jsp
@@ -79,9 +85,10 @@ public class ManageProject extends HttpServlet {
 			}else{
 				inactiveProjects.add(p);
 			}
-			request.setAttribute("inactiveusers", inactiveUsers);
-			request.setAttribute("activeprojects", activeProjects);
-			request.setAttribute("inactiveprojects", inactiveProjects);
+			HttpSession session =request.getSession(true);
+			session.setAttribute("inactiveusers", inactiveUsers);			
+			session.setAttribute("activeprojects", activeProjects);
+			session.setAttribute("inactiveprojects", inactiveProjects);
 		}
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
