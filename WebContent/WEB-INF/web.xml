@@ -3,7 +3,7 @@
   <servlet>
     <servlet-name>Home</servlet-name>
     <servlet-class>controller.Home</servlet-class>
-  </servlet> 
+  </servlet>
   <servlet>
     <servlet-name>RegisterServlet</servlet-name>
     <servlet-class>controller.RegisterServlet</servlet-class>
@@ -25,6 +25,10 @@
     <servlet-class>controller.ValidateServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>ValidateEmail</servlet-name>
+    <servlet-class>controller.ValidateEmail</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>DisplayDiagram</servlet-name>
     <servlet-class>controller.DisplayDiagram</servlet-class>
   </servlet>
@@ -40,7 +44,7 @@
     <servlet-name>ManagePolicy</servlet-name>
     <servlet-class>controller.ManagePolicy</servlet-class>
   </servlet>
-   <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>Home</servlet-name>
     <url-pattern>/Home</url-pattern>
   </servlet-mapping>
@@ -67,6 +71,10 @@
   <servlet-mapping>
     <servlet-name>ValidateServlet</servlet-name>
     <url-pattern>/ValidateServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ValidateEmail</servlet-name>
+    <url-pattern>/ValidateEmail</url-pattern>
   </servlet-mapping>
   <session-config>
     <session-timeout>30</session-timeout>

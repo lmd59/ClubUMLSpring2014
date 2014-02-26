@@ -1,3 +1,9 @@
+/**
+ * Combined javascript for login and registeration.
+ * @author AmeyaCJoshi & SahilPatil
+ * 
+ */
+
 // valid user flag. Used by Ajax call.
 var validUser = false;
 
@@ -38,25 +44,30 @@ function validateForm() {
 function checkUsername(value) {
 
 	var block = document.getElementById("username");
-
-	ajax = createAjax();
-	ajax.onreadystatechange = function() {
-		if (ajax.readyState == 4 && ajax.status == 200) {
-			var patt1 = new RegExp("ok");
-			var response = ajax.responseText;
-
-			block.innerHTML = response;
-
-			// Set flag for validUser
-			if (patt1.test(response)) {
-				validUser = true;
-			} else {
-				validUser = false;
+	var patt1 = new RegExp("^[a-z][a-z0-9_]*.{3,12}$");
+	var userFlag;
+	
+	userFlag = patt1.test(value); 
+	if (userFlag)
+	{
+		ajax = createAjax();
+		ajax.onreadystatechange = function(){
+			if (ajax.readyState == 4 && ajax.status == 200)
+			{
+				var response = ajax.responseText;
+				block.innerHTML = response;
 			}
-		}
-	};
-	ajax.open("get", "ValidateServlet?username=" + value + "", true);
-	ajax.send(null);
+		};
+		ajax.open("get", "ValidateServlet?username=" + value + "", true);
+		ajax.send(null);
+		validUser = true;
+	}
+	else
+	{
+		block.innerHTML = "<font color='red'>Username should consist only characters, numbers and underscore<br/> and should begin with a character only.</font>";
+		validUser = false;
+	}
+	
 }
 
 /**
@@ -64,17 +75,46 @@ function checkUsername(value) {
  * 
  * Displays message for valid and invalid password.
  */
-function checkPassword() {
-	var block2 = document.getElementById("password");
+function checkPassword(pass2) {
+	
+	var block2 = document.getElementById("passText");
 	var password1 = document.forms.registerForm.password.value;
 	var password2 = document.forms.registerForm.password2.value;
 
-	if (password1 == "" || password2 == "") {
-		block2.innerHTML = "";
-	} else if (password1 != password2) {
-		block2.innerHTML = "<font color = 'red'>Password does not match";
+	if (password1 == "" || password2 == "")
+	{
+		block2.innerHTML = "<font color = 'red'>Password field(s) cannot be left blank.</font>";
+	}
+	
+	else if (password1 != password2)
+	{
+		block2.innerHTML = "<font color = 'red'>Password does not match.</font>";
+	}
+	
+	else
+	{
+		var passFlag = validatePass(pass2);
+		if(!passFlag)
+		{
+			block2.innerHTML = "<font color = 'red'>Password must be at least 6 characters, no more than 20 characters, and " +
+								"<br>must include either upper case letters, lower case letters, numeric digits, and special characters.</font>";
+		}
+		else if(passFlag)
+		{
+			block2.innerHTML = "<font color = 'green'>Password valid.</font>";
+		}
+	}
+}
+
+function validatePass(password) {
+	var pattern1 = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,20}$/;
+
+	if (password == "") {
+		return false;
+	} else if (pattern1.test(password)) {
+		return true;
 	} else {
-		block2.innerHTML = "<font color = 'green'>Password ok";
+		return false;
 	}
 }
 
@@ -82,17 +122,39 @@ function checkPassword() {
  * Displays message for valid and invalid email.
  * 
  * @param email to verify
+ * 
+ * @author AmeyaCJoshi
  */
 function checkEmail(email) {
-	var block = document.getElementById("email");
-	var emailFlag = validateEmail(email);
-
-	if (email == "") {
-		block.innerHTML = "";
-	} else if (emailFlag) {
-		block.innerHTML = "<font color = 'green'>Email ok";
-	} else {
-		block.innerHTML = "<font color = 'red'> Invalid email";
+	
+	var block = document.getElementById("emailText");
+	var patt1 = new RegExp(".+@.+\.[com|net|org|biz|gov|edu]$");
+	
+	if(email == "")
+	{
+		block.innerHTML = "<font color = 'red'>Email field cannot be left blank.</font>";
+	}
+	else
+	{
+		var emailFlag = patt1.test(email);
+		block.innerHTML = emailFlag;
+		if (emailFlag)
+		{
+			ajaxObj = createAjax();
+			ajaxObj.onreadystatechange = function() {
+				if (ajaxObj.readyState == 4 && ajaxObj.status == 200)
+				{
+					var response = ajaxObj.responseText;
+					block.innerHTML = response;
+				}
+			};
+			ajaxObj.open("get", "ValidateEmail?email=" + email + "", true);
+			ajaxObj.send(null);
+		}
+		else
+		{
+			block.innerHTML = "<font color = 'red'>Invalid email format.</font>";
+		}
 	}
 }
 
@@ -102,17 +164,18 @@ function checkEmail(email) {
  * @param email to verify
  * @return true if valid email, else false
  */
-function validateEmail(email) {
-	var patt1 = new RegExp(".+@.+\.[com|net|org|biz|gov|edu]$");
 
-	if (email == "") {
-		return false;
-	} else if (patt1.test(email)) {
+/*
+function validateEmail(email) {
+	
+
+	if (patt1.test(email)) {
 		return true;
 	} else {
 		return false;
 	}
 }
+*/
 
 /**
  * Creates Ajax object
@@ -141,3 +204,72 @@ function checkPromote() {
 		return false;
 	}
 }
+
+/**
+ * Validation for index page.
+ * EDITED BY: AmeyaCJoshi
+ */
+
+function checkLoginUsernamePassword()
+{
+	var username = document.getElementById("username");
+	var password = document.getElementById("password");
+	var userFlag = false;
+	var passFlag = false;
+	var regexFlag;
+	
+	/* Check username */
+	if(username == "") {
+		userFlag = false;
+	}
+
+	var re = new RegExp("^[a-z][a-z0-9_]*.{3,12}$");
+	regexFlag = re.test(username.value);
+	if(!regexFlag) {
+		userFlag = false;
+	}
+
+	else
+	{
+		userFlag = true;
+	}
+
+
+	/* Check password */
+
+	if(password == "") {
+		passFlag = false;
+	}
+	
+	re = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,20}$/;
+	regexFlag = re.test(password.value);
+	if(!regexFlag)
+		passFlag = false;
+	
+	/*
+	re = /[a-z]/;
+	if(!re.test(password)) {
+		passFlag = false;
+	}
+
+	re = /[A-Z]/;
+	if(!re.test(password)) {
+		passFlag = false;
+	}
+
+	re = /\d/;
+	if(re.test(password)) {
+		passFlag = false;
+	}
+	*/
+
+	else 
+	{
+		passFlag = true;
+	}
+	
+	if(!userFlag || !passFlag)
+		alert("Incorrect username or password!");
+
+}
+

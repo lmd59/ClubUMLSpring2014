@@ -31,6 +31,25 @@ public class User {
 		this.password = password;
 	}
 	
+	
+	/**
+	 * @editedBy: AmeyaCJoshi
+	 * @purpose: To add the check that one email is used for one account only.
+	 * 
+	 * 
+	 * Constructor to initialize necessary class members
+	 * 
+	 * @param userName
+	 * 			The username of one account
+	 * @param password
+	 * 			The password of one account
+	 */
+	public User(String userName, String password, String email) {
+		this.userName = userName;
+		this.password = password;
+		this.email = email;
+	}
+	
 	/**
 	 * Constructor to initialize necessary class members
 	 *
