@@ -111,7 +111,7 @@
 		    	alert("Please enter valid criteria before promoting");
 		    	return false;
 			}
-			if(critieraRelationship == ""){
+			if(criteriaRelationship == ""){
 		    	alert("Please enter valid criteria relationship before promoting");
 		    	return false;
 			}
@@ -263,7 +263,7 @@ color: black;
 					  </td>
 					  
 					  <td>
-					  	<textarea name="summary" id="summary1" placeholder="Summary" cols="5" rows="5"></textarea>
+					  	<textarea name="summary" id="summary1" placeholder="Summary" cols="5" rows="5"  maxlength="255"></textarea>
 					   </td>
 					   </tr>
 					  
@@ -273,7 +273,7 @@ color: black;
 					  </td>
 					  
 					  <td>
-					   <textarea name="issue" id="issue1" placeholder="Issues" cols="5" rows="5"></textarea>
+					   <textarea name="issue" id="issue1" placeholder="Issues" cols="5" rows="5" maxlength="75"></textarea>
 					   </td>
 					   </tr>
 					   
@@ -284,7 +284,7 @@ color: black;
 					  </td>
 					  
 					  <td>
-					    <textarea name="issueRelationship" id="issueRelationship1" placeholder="Issue Relationship" cols="5" rows="5"></textarea>
+					    <textarea name="issueRelationship" id="issueRelationship1" placeholder="Issue Relationship" cols="5" rows="5" maxlength="255"></textarea>
 					   </td>
 					   </tr>
 					   
@@ -296,7 +296,7 @@ color: black;
 					  
 					  <td>
 					  
-					  	 <textarea name="criteria" id="criteria1" placeholder="Criteria" cols="5" rows="5"></textarea>
+					  	 <textarea name="criteria" id="criteria1" placeholder="Criteria" cols="5" rows="5" maxlength="75"></textarea>
 					   
 					   </td>
 					   </tr>
@@ -309,7 +309,7 @@ color: black;
 					  
 					  <td>
 					  
-					  	<textarea name="criteriaRelationship" id="criteriaRelationship1" placeholder="Criteria Relationship" cols="5" rows="5"></textarea>
+					  	<textarea name="criteriaRelationship" id="criteriaRelationship1" placeholder="Criteria Relationship" cols="5" rows="5" maxlength="255"></textarea>
 					   </td>
 					   </tr>
 					    
@@ -412,7 +412,7 @@ color: black;
 					  </td>
 					  
 					  <td>
-					  	<textarea name="summary" id="summary2" placeholder="Summary" cols="5" rows="5"></textarea>
+					  	<textarea name="summary" id="summary2" placeholder="Summary" cols="5" rows="5" maxlength="255"></textarea>
 					   </td>
 					   </tr>
 					  
@@ -422,7 +422,7 @@ color: black;
 					  </td>
 					  
 					  <td>
-					   <textarea name="issue" id="issue2" placeholder="Issues" cols="5" rows="5"></textarea>
+					   <textarea name="issue" id="issue2" placeholder="Issues" cols="5" rows="5" maxlength="75"></textarea>
 					   </td>
 					   </tr>
 					   
@@ -433,7 +433,7 @@ color: black;
 					  </td>
 					  
 					  <td>
-					    <textarea name="issueRelationship" id="issueRelationship2" placeholder="Issue Relationship" cols="5" rows="5"></textarea>
+					    <textarea name="issueRelationship" id="issueRelationship2" placeholder="Issue Relationship" cols="5" rows="5" maxlength="255"></textarea>
 					   </td>
 					   </tr>
 					   
@@ -445,7 +445,7 @@ color: black;
 					  
 					  <td>
 					  
-					  	 <textarea name="criteria" id="criteria2" placeholder="Criteria" cols="5" rows="5"></textarea>
+					  	 <textarea name="criteria" id="criteria2" placeholder="Criteria" cols="5" rows="5" maxlength="75"></textarea>
 					   
 					   </td>
 					   </tr>
@@ -458,7 +458,7 @@ color: black;
 					  
 					  <td>
 					  
-					  	<textarea name="criteriaRelationship" id="criteriaRelationship2" placeholder="Criteria Relationship" cols="5" rows="5"></textarea>
+					  	<textarea name="criteriaRelationship" id="criteriaRelationship2" placeholder="Criteria Relationship" cols="5" rows="5" maxlength="255"></textarea>
 					   </td>
 					   </tr>
 					    
