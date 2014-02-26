@@ -24,12 +24,66 @@
 	rel="stylesheet">
 
 <style type="text/css">
+
+<!--
+.basictab{
+padding: 3px 0;
+margin-left: 0;
+font: bold 12px Verdana;
+border-bottom: 1px solid gray;
+list-style-type: none;
+text-align: left; /*set to left, center, or right to align the menu as desired*/
+}
+
+.basictab li{
+display: inline;
+margin: 0;
+}
+
+.basictab li a{
+	text-decoration: none;
+	padding: 5px 20px;
+	margin-right: 0;
+	border: 1px solid gray;
+	border-bottom: none;
+	background-color: #E0E0E0;
+	color: #2d2b2b;
+}
+
+.basictab li a:visited{
+color: #2d2b2b;
+}
+
+.basictab li a:hover{
+	background-color: #909090;
+	color: black;
+}
+
+.basictab li a:active{
+color: black;
+}
+
+.basictab li.selected a{ /*selected tab effect*/
+	position: relative;
+	top: 1px;
+	padding-top: 4px;
+	background-color: #909090;
+	color: black;
+}
+
+-->
+
 .diagramBox{
 	float: left;
 	
 }
 
 </style>
+<link href="jQueryAssets/jquery.ui.core.min.css" rel="stylesheet" type="text/css">
+<link href="jQueryAssets/jquery.ui.theme.min.css" rel="stylesheet" type="text/css">
+<link href="jQueryAssets/jquery.ui.tabs.min.css" rel="stylesheet" type="text/css">
+<script src="jQueryAssets/jquery-1.8.3.min.js" type="text/javascript"></script>
+<script src="jQueryAssets/jquery-ui-1.9.2.tabs.custom.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	var type = "";
 	$(document).ready(function() {
@@ -194,18 +248,21 @@
 
 </script>
 </head>
-<body style="background-color: #F3F3F3">
+<body>
 	<div id="myHeader">
 		<h1 id="banner">Class Diagrams</h1>
 	</div>
+	<ul class="basictab">
+	    <li><a href="#tabs-1">Home</a></li>
+	    <li><a href="ManageProject">Project</a></li>
+	    <li><a href="ManageContext">Context</a></li>
+        <li><a href="ManagePolicy">Policy</a></li>
+      </ul>
+</div>
+
+<div id="mainContainer">
 	
-	<div id="mainContainer">
-	
-	<div>
-		<h2><a href="Home">Click Here</a> to go back </h2>
-	</div>
-	
-	<div id="diagramBox">
+  <div id="diagramBox">
 		<c:if test="${requestScope.diagramId1 != null}">
 			<img src="${requestScope.firstPath}"/>
 		</c:if>
@@ -305,5 +362,10 @@
 		<input name=request id=req value="" />
 	</form>
 	<!-- End Merges -->
+<script type="text/javascript">
+$(function() {
+	$( "#Tabs1" ).tabs(); 
+});
+    </script>
 </body>
 </html>
