@@ -1,0 +1,227 @@
+/*Initial database creation*/
+CREATE DATABASE  IF NOT EXISTS `clubuml`;
+USE `clubuml`;
+
+/*Cleanup of any existing tables*/
+DROP TABLE IF EXISTS `project`;
+DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `userproject`;
+DROP TABLE IF EXISTS `report`;
+DROP TABLE IF EXISTS `diagramContext`;
+DROP TABLE IF EXISTS `DiagramPolicyScore`;
+DROP TABLE IF EXISTS `compare`;
+DROP TABLE IF EXISTS `metric`;
+DROP TABLE IF EXISTS `metricType`;
+DROP TABLE IF EXISTS `DiagramMetricsScore`;
+DROP TABLE IF EXISTS `attributes`;
+DROP TABLE IF EXISTS `classes`;
+
+DROP TABLE IF EXISTS `comment`;/*legacy*/
+
+
+/*Table Creation*/
+
+-- Table project
+CREATE TABLE project
+(
+    projectId Int(11) NOT NULL AUTO_INCREMENT,
+    projectName Varchar(45) NOT NULL UNIQUE,
+    startDate Varchar(45),
+    description Varchar(255),
+    enabled BOOLEAN NOT NULL DEFAULT true,
+    disabledDate Timestamp,
+    PRIMARY KEY (projectId)
+);
+
+-- Table user
+CREATE TABLE user
+(
+    userId Int(11) NOT NULL AUTO_INCREMENT,
+    userName Varchar(45) NOT NULL UNIQUE,
+    email Varchar(45) NOT NULL,
+    password Varchar(45) NOT NULL,
+    securityQ Varchar(60),
+    securityA Varchar(60),
+    userType char(2) NOT NULL DEFAULT "U",
+  PRIMARY KEY (userId)
+);
+
+-- Table userproject
+CREATE TABLE userproject (
+userId int(11) NOT NULL,
+projectId int(11) NOT NULL,
+PRIMARY KEY (userId, projectId)
+);
+
+-- Table diagram
+CREATE TABLE diagram
+(
+    diagramId Int(11) NOT NULL AUTO_INCREMENT,
+    projectId Int(11) NOT NULL,
+    userId Int(11) NOT NULL,
+    contextId int(11) DEFAULT 1,
+    diagramType Varchar(45),
+  diagramName Varchar(45),
+    createTime Timestamp NULL,
+    filePath Varchar(45),
+    fileType Varchar(20),
+   merged Tinyint,
+   notationFileName Varchar(45),
+   notationFilePath Varchar(45),
+   diFlieName Varchar(45),
+  diFilepath Varchar(45),
+ PRIMARY KEY (diagramId)
+);
+
+-- Table report
+CREATE TABLE report
+(
+    reportId Int(11) NOT NULL AUTO_INCREMENT,
+    diagramA Int(11) NOT NULL,
+   diagramB Int(11) NOT NULL,
+   mergedDiagram Int(11),
+   type Varchar(20) NULL,
+   time Timestamp NOT NULL,
+   reportFilePath Varchar(200) NOT NULL,
+   reportFileName Varchar(45) NULL,
+  PRIMARY KEY (reportId)
+);
+
+-- Table comment
+CREATE TABLE comment
+(
+    commentId int(11) PRIMARY KEY AUTO_INCREMENT,
+  compareId int(11) NOT NULL,
+  userId int(11) NOT NULL,
+  commentText varchar(255) NOT NULL,
+  commentTime timestamp NULL,
+  promotedDiagramId int(11),
+  userName varchar(45)
+);
+
+-- 2013/10/22 Create Table Policy --
+CREATE TABLE policy
+(
+  policyId INT(11) PRIMARY KEY AUTO_INCREMENT,
+  policyName VARCHAR(45) NOT NULL UNIQUE,
+  policyDescription VARCHAR(255), 
+  policyLevel INT(11) NOT NULL
+);
+
+-- 2013/10/22 Create Table DiagramContext --
+CREATE TABLE diagramContext
+(
+  diagramContextId Int(11) PRIMARY KEY AUTO_INCREMENT,
+  description VARCHAR(255),    
+      name VARCHAR(45) NOT NULL,
+     policyId INT(11) NOT NULL,
+      projectId INT(11) NOT NULL,
+      enabled BOOLEAN NOT NULL DEFAULT true,
+      disabledDate timestamp
+);
+  
+-- 2013/10/22 Create Table DiagramPolicyScore --
+CREATE TABLE DiagramPolicyScore
+(
+  diagramId INT(11) NOT NULL,
+  justification VARCHAR(100),
+  policyId INT(11) NOT NULL,
+  score INT(11) DEFAULT 0,
+  PRIMARY KEY (diagramId, policyId)
+);
+
+-- 2013/11/12 Create Table compare --
+CREATE TABLE compare
+(
+  compareId int(11) NOT NULL AUTO_INCREMENT,
+  diagramAId int(11) NOT NULL,
+  diagramBId int(11) NOT NULL,
+  reportId int(11) NOT NULL,
+  promoteCountA int(11) DEFAULT 0,
+      promoteCountB int(11) DEFAULT 0,
+  PRIMARY KEY (compareId)
+);
+
+CREATE TABLE metric
+(
+    metricId int(11) NOT NULL AUTO_INCREMENT,
+    policyId int(11),
+    metricTypeId int(2) NOT NULL,
+    metricsWeight int(11) NOT NULL,
+    PRIMARY KEY (metricId)
+);
+
+CREATE TABLE metricType
+(
+   metricTypeId int(11) NOT NULL,
+    description varchar(255),
+    metricTypeName varchar(30) NOT NULL,
+    PRIMARY KEY (metricTypeId)
+);
+
+CREATE TABLE DiagramMetricsScore
+(
+    diagramId int(11) NOT NULL,
+    metricId int(11) NOT NULL,
+    score int(11) NOT NULL,
+   PRIMARY KEY (diagramId,metricId)
+);
+
+CREATE TABLE attributes
+(
+    metricId int(11) NOT NULL,
+   idealNoOfAttributes int(11),
+   maxNoOfAttributes int(11),
+   minNoOfAttributes int(11)
+);
+
+CREATE TABLE classes
+(
+    metricId int(11) NOT NULL,
+    idealNoOfClasses int(11),
+    maxNoOfClasses int(11),
+    minNoOfClasses int(11)
+);
+
+/*Create Relationships*/
+
+ALTER TABLE diagram ADD CONSTRAINT diagramHaveOwnerId FOREIGN KEY (userId) REFERENCES user (userId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE diagram ADD CONSTRAINT diagramHaveProjectType FOREIGN KEY (projectId) REFERENCES project (projectId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE report ADD CONSTRAINT Relationship4 FOREIGN KEY (diagramA) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE report ADD CONSTRAINT Relationship5 FOREIGN KEY (diagramB) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE report ADD CONSTRAINT Relationship6 FOREIGN KEY (mergedDiagram) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE comment ADD CONSTRAINT Relationship7 FOREIGN KEY (userId) REFERENCES user (userId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE userproject ADD CONSTRAINT userprojectHaveUserId FOREIGN KEY (userId) REFERENCES user (userId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE userproject ADD CONSTRAINT userprojectHaveProjectId FOREIGN KEY (projectId) REFERENCES project (projectId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE comment ADD CONSTRAINT commentHaveCompareId FOREIGN KEY (compareId) REFERENCES compare (compareId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE comment ADD CONSTRAINT commentHaveUserId FOREIGN KEY (userId) REFERENCES user (userId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE compare ADD CONSTRAINT compareHaveReportId FOREIGN KEY (reportId) REFERENCES report (reportId) ON DELETE NO ACTION ON UPDATE NO ACTION; 
+ALTER TABLE compare ADD CONSTRAINT compareHaveDiagramAId FOREIGN KEY (diagramAId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE compare ADD CONSTRAINT compareHaveDiagramBId FOREIGN KEY (diagramBId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE DiagramPolicyScore ADD CONSTRAINT DiagramPolicyScoreHavePolicyId FOREIGN KEY (policyId) REFERENCES policy (policyId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE DiagramPolicyScore ADD CONSTRAINT DiagramPolicyScoreHaveDiagramId FOREIGN KEY (diagramId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE diagramContext ADD CONSTRAINT DiagramContextHavePolicyId FOREIGN KEY (policyId) REFERENCES policy (policyId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE diagramContext ADD CONSTRAINT diagramContextHaveProjectId FOREIGN KEY (projectId) REFERENCES project (projectId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE diagram ADD CONSTRAINT diagramHaveDiagramContextId FOREIGN KEY (contextId) REFERENCES diagramContext (diagramcontextId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE metric ADD CONSTRAINT metricHavePolicyId FOREIGN KEY (policyId) REFERENCES policy (policyId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE metric ADD CONSTRAINT metricHaveMetricTypeId FOREIGN KEY (metricTypeId) REFERENCES metricType (metricTypeId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE DiagramMetricsScore ADD CONSTRAINT DiagramMetricsScoreHaveDiagramId FOREIGN KEY (diagramId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE DiagramMetricsScore ADD CONSTRAINT DiagramMetricsScoreHaveMetricId FOREIGN KEY (metricId) REFERENCES metric (metricId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE attributes ADD CONSTRAINT attributesHaveMetricId FOREIGN KEY (metricId) REFERENCES metric (metricId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE classes ADD CONSTRAINT classesHaveMetricId FOREIGN KEY (metricId) REFERENCES metric (metricId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+/*insert sample data*/
+insert into policy (policyName,policyDescription,policyLevel) values ("policy 1","policy 1 description",2);
+INSERT INTO policy (policyName, policyDescription, policyLevel) VALUES ('Policy2', 'Policy Description', 2);
+INSERT INTO metricType (metricTypeId, description, metricTypeName) VALUES (1, 'ASSOCIATIONS', 'ASSOCIATIONS');
+INSERT INTO metricType (metricTypeId, description, metricTypeName) VALUES (2, 'MULTIPLICITIES', 'MULTIPLICITIES');
+INSERT INTO metricType (metricTypeId, description, metricTypeName) VALUES (3, 'ATTRIBUTES', 'ATTRIBUTES');
+INSERT INTO metricType (metricTypeId, description, metricTypeName) VALUES (4, 'CLASSES', 'CLASSES');
+INSERT INTO metric (metricId, policyId, metricTypeID, metricsWeight) VALUES (1, 2, 4, 10);
+INSERT INTO metric (metricId, policyId, metricTypeID, metricsWeight) VALUES (2, 2, 3, 10);
+INSERT INTO classes (metricId, idealNoOfClasses, maxNoOfClasses, minNOOfClasses) VALUES (1, 4, 5, 2);
+INSERT INTO attributes (metricId, idealNoOfAttributes, maxNoOfAttributes, minNOOfAttributes) VALUES (2, 4, 5, 1);
+
+
+
+
