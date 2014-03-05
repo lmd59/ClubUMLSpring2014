@@ -94,7 +94,7 @@ import domain.Project;
 	    			sql = "UPDATE compare SET promoteCountA = promoteCountA + 1 where compareId = ?";
 	    		}
 	    		else {
-	    			sql = "UPDATE compare SET promoteCountA = promoteCountA + 1 where compareId = ?";
+	    			sql = "UPDATE compare SET promoteCountB = promoteCountB + 1 where compareId = ?";
 	    		}
 	    		PreparedStatement pstmt = conn.prepareStatement(sql);
 	    		pstmt.setInt(1, compareId);
@@ -108,8 +108,33 @@ import domain.Project;
 	    	}
 	    	catch(SQLException e) {
 	    		throw new IllegalArgumentException(e.getMessage(), e);
+	    	}	    	
+	    }
+	    
+	    public static boolean decrementCount(int compareId, String diagram)
+	    {
+	    	try {
+	    		String sql;
+	    		Connection conn = DbManager.getConnection();
+	    		if(diagram.equals("A")) {
+	    			sql = "UPDATE compare SET promoteCountA = promoteCountA - 1 where compareId = ?";
+	    		}
+	    		else {
+	    			sql = "UPDATE compare SET promoteCountB = promoteCountB - 1 where compareId = ?";
+	    		}
+	    		PreparedStatement pstmt = conn.prepareStatement(sql);
+	    		pstmt.setInt(1, compareId);
+	    		int result = pstmt.executeUpdate();
+	    		pstmt.close();
+	    		conn.close();
+	    		if(result == 0) {
+	    			return false;
+	    		}
+	    		else return true;
 	    	}
-	    	
+	    	catch(SQLException e) {
+	    		throw new IllegalArgumentException(e.getMessage(), e);
+	    	}	    	
 	    }
 	    
 	    /**
