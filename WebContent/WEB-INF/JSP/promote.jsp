@@ -11,18 +11,14 @@
   <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   	
-
-
-<!----Kareem Added---->
+   	<!----Kareem Added---->
   	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/pepper-grinder/jquery-ui.css" media="screen" rel="stylesheet" type="text/css">
   	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js" type="text/javascript"></script>
   	<script type="text/javascript" src="jquery-ui-form.js"></script>
   	<link rel="stylesheet" href="promote_style.css" />
-  	
-	
-	
+
 	<title>Promote a Diagram</title>
-	<script type="text/javascript">
+	<script type="text/javascript">	    
 	    $(document).ready(function(){
 	    	
 	    	$("#toggle li").click(function(){
