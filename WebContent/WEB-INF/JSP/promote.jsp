@@ -374,7 +374,7 @@ color: black;
 			 			<div class="comment">
 			 			
 			 			<div id="toggle">
-						<ul>
+							<ul class="toggle">
    
 					 
 							 <li>${rationale.rationaleTime} ${rationale.userName}: ${rationale.promotedDiagramName} vs. ${rationale.alternativeDiagramName}</li>	
