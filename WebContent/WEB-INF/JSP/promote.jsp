@@ -11,7 +11,9 @@
   <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   	
-   	<!----Kareem Added---->
+
+
+<!----Kareem Added---->
   	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/pepper-grinder/jquery-ui.css" media="screen" rel="stylesheet" type="text/css">
   	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js" type="text/javascript"></script>
   	<script type="text/javascript" src="jquery-ui-form.js"></script>
@@ -24,6 +26,12 @@
 	    var comment = "";
 	    
 	    $(document).ready(function(){
+	    	
+	    	$("#toggle li").click(function(){
+				$(this).toggleClass("active");
+				$(this).next("div").stop('true','true').slideToggle("slow");
+			});
+	    	
 
 			$( "#dialog1" ).hide();
 
@@ -201,19 +209,20 @@ color: black;
 			<div class="center">
 				<div class="promote-button-wrap">
 					<button id="btn1" class="pbutton">Promote</button>
-				</div>
+			</div>
 		   
 				<div class="rationale1">
 			 		Rationale : 
 			 		<div class="scroll1">
 			 			<c:forEach items="${requestScope.diagram1rationales}" var="rationale">
 			 			<div class="comment">
-			 				<table>
-					  		<tr>
-					  			<td align="left"><label for="" style="vertical-align: top; font-weight:bold;">${rationale.rationaleTime}</label></td>
-					  			<td><label>${rationale.userName}: ${rationale.promotedDiagramName} vs. ${rationale.alternativeDiagramName}</label></td>
-					   		</tr>
-					   						  
+			 			 
+			 			<div id="toggle">
+						<ul class="toggle">
+   
+							 <li>${rationale.rationaleTime} ${rationale.userName}: ${rationale.promotedDiagramName} vs. ${rationale.alternativeDiagramName}</li>
+							 <div>
+			 				<table>  
 						  	<tr>
 							  	<td align="right"><label for="" style="vertical-align: top;">Summary:</label></td>
 					  			<td><label>${rationale.summary}</label></td>
@@ -240,10 +249,15 @@ color: black;
 						  	</tr>
 						  	
 						  	</table>
-					  	</div>
+						  	 </div>
+						  	 </ul>
+						  	</div>
+							 
+    						</div>
+					  	
 			 			</c:forEach>
 			 		</div>
-				</div>
+			
 				<br/> 
 
 				<div id="dialog1" title="${requestScope.diagramAName} Rationale">	 
@@ -358,6 +372,14 @@ color: black;
 			 		<div class="scroll" >
 			 			<c:forEach items="${requestScope.diagram2rationales}" var="rationale">
 			 			<div class="comment">
+			 			
+			 			<div id="toggle">
+						<ul>
+   
+					 
+							 <li>${rationale.rationaleTime} ${rationale.userName}: ${rationale.promotedDiagramName} vs. ${rationale.alternativeDiagramName}</li>	
+							 
+							 <div>
 			 				<table>
 					  		<tr>
 					  			<td align="left"><label for="" style="vertical-align: top; font-weight:bold;">${rationale.rationaleTime}</label></td>
@@ -390,7 +412,12 @@ color: black;
 						  	</tr>
 						  	
 						  	</table>
-					  	</div>
+						  	 </div>
+						  	 </ul>
+						  	</div>
+							 
+    						</div>
+    						
 			 			</c:forEach>
 			 		</div>
 				</div>
@@ -403,9 +430,7 @@ color: black;
 					 <fieldset>
 					 
 					 <legend font-weight:bold;>Promote Diagram2</legend>	
-					 
-					 <table style="width:300px">	
-					  
+					 <table style="width:300px">
 					  <tr>
 					  <td align="right">	
 					   	<label for="summary2" style="vertical-align: top; font-weight:bold;">Summary</label>
@@ -478,7 +503,8 @@ color: black;
 		 			</table>
 					
 					<input type="hidden" name="diagramId" value="${requestScope.diagramBId}"/>
-							<input type="hidden" name="alternativeDiagramId" value="${requestScope.diagramAId}"/>							<input type="hidden" name="compareId" value="${requestScope.compareId}"/>
+							<input type="hidden" name="alternativeDiagramId" value="${requestScope.diagramAId}"/>
+							<input type="hidden" name="compareId" value="${requestScope.compareId}"/>
 							<input type="hidden" name="A" value="${requestScope.A}"/>
 							<input type="hidden" name="B" value="${requestScope.B}"/>
 							<input type="hidden" name="file1" value="${requestScope.diagramAId}"/>
