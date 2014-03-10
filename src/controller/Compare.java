@@ -42,7 +42,9 @@ import repository.CommentDAO;
 import repository.CompareDAO;
 import repository.DiagramDAO;
 import repository.PolicyDAO;
+import repository.RationaleDAO;
 import repository.ReportDAO;
+
 
 /**
  * 
@@ -140,7 +142,7 @@ public class Compare extends HttpServlet {
 
 			
 		int compareId = searchAndLoadCompare(request,diagram1.getDiagramId(), diagram2.getDiagramId(), path);
-		loadComments(request, compareId);
+		loadRationales(request, compareId);
 		
 		request.setAttribute("reportText", reportText);
 		request.setAttribute("reportPath", path);
@@ -148,6 +150,8 @@ public class Compare extends HttpServlet {
 		request.setAttribute("path2", diagram2.getFilePath() + ".png");
 		request.setAttribute("diagramAId", diagram1.getDiagramId());
 		request.setAttribute("diagramBId", diagram2.getDiagramId());
+		request.setAttribute("diagramAName", diagram1.getDiagramName());
+		request.setAttribute("diagramBName", diagram2.getDiagramName());
 		//request.setAttribute("reportText", compareObj.getReportText());
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("WEB-INF/JSP/promote.jsp");
@@ -320,5 +324,21 @@ public class Compare extends HttpServlet {
 		}
 		request.setAttribute("diagram1comments", diagram1Comments);
 		request.setAttribute("diagram2comments", diagram2Comments);
+	}
+	
+	private void loadRationales(HttpServletRequest request, int compareId) {
+		ArrayList<domain.Rationale> rationales = RationaleDAO.getRationales(compareId);
+		ArrayList<domain.Rationale> diagram1Rationales = new ArrayList<domain.Rationale>();
+		ArrayList<domain.Rationale> diagram2Rationales = new ArrayList<domain.Rationale>();
+		for(domain.Rationale rationale: rationales) {
+			if(rationale.getPromotedDiagramId() == diagramID1) {
+				diagram1Rationales.add(rationale);
+			}
+			else if(rationale.getPromotedDiagramId() == diagramID2) {
+				diagram2Rationales.add(rationale);
+			}
+		}
+		request.setAttribute("diagram1rationales", diagram1Rationales);
+		request.setAttribute("diagram2rationales", diagram2Rationales);
 	}
 }
