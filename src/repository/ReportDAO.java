@@ -124,7 +124,7 @@ public class ReportDAO {
 	    conn.close();
 	    return true;
 	} catch (SQLException ex) {
-	    Logger.getLogger(CommentDAO.class.getName()).log(Level.SEVERE, null, ex);
+	    Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	return false;
     }

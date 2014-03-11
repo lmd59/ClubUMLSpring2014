@@ -5,7 +5,6 @@
 package controller;
 
 import domain.Diagram;
-import domain.Comment;
 
 import java.io.DataInputStream;
 import java.io.File;
@@ -28,7 +27,6 @@ import javax.servlet.http.HttpSession;
 
 import controller.download.DownloadDirectory;
 import controller.download.DownloadZipfile;
-import repository.CommentDAO;
 import repository.DiagramDAO;
 import repository.UserDAO;
 
@@ -218,7 +216,6 @@ public class DisplayDiagram extends HttpServlet {
 			    	}
 			    	*/
 					// Bug fix - send empty comments ArrayList
-					request.setAttribute("comments", new ArrayList<Comment>());
 			    }
 			    
 			}
