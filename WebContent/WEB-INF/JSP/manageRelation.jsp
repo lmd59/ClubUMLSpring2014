@@ -9,8 +9,70 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link rel="stylesheet" type="text/css" href="merge.css">
 </head>
+<style type="text/css">
+
+<!--
+.basictab{
+padding: 3px 0;
+margin-left: 0;
+font: bold 12px Verdana;
+border-bottom: 1px solid gray;
+list-style-type: none;
+text-align: left; /*set to left, center, or right to align the menu as desired*/
+}
+
+.basictab li{
+display: inline;
+margin: 0;
+}
+
+.basictab li a{
+	text-decoration: none;
+	padding: 5px 20px;
+	margin-right: 0;
+	border: 1px solid gray;
+	border-bottom: none;
+	background-color: #E0E0E0;
+	color: #2d2b2b;
+}
+
+.basictab li a:visited{
+color: #2d2b2b;
+}
+
+.basictab li a:hover{
+	background-color: #909090;
+	color: black;
+}
+
+.basictab li a:active{
+color: black;
+}
+
+.basictab li.selected a{ /*selected tab effect*/
+	position: relative;
+	top: 1px;
+	padding-top: 4px;
+	background-color: #909090;
+	color: black;
+}
+
+-->
+
+</style>
 <body>
-	<table>
+	<div id="myHeader">
+		<h1 id="banner">Manage Diagram Relationships</h1>
+	</div>
+	<ul class="basictab">
+	    <li><a href="#tabs-1">Home</a></li>
+	    <li><a href="ManageProject">Project</a></li>
+	    <li><a href="ManageContext">Context</a></li>
+        <li><a href="ManagePolicy">Policy</a></li>
+      </ul>
+</div>
+    
+    <table>
 		<tr><th colspan=2>Diagram1 Relationships</th><th colspan=2>Diagram2 Relationships</th></tr>
 		<tr><td>Generalization</td><td>Association</td><td>Generalization</td><td>Association</td></tr>
 		<tr><td>
