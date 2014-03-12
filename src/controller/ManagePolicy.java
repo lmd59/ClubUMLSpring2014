@@ -33,7 +33,7 @@ public class ManagePolicy extends HttpServlet{
 	try {
 		HttpSession session = request.getSession(true);
 		allPolicy = PolicyDAO.getAllPolicys();
-		Session.setAttribute("policys",allPolicy);
+		session.setAttribute("policys",allPolicy);
 
 		
 	} catch (SQLException e) {
