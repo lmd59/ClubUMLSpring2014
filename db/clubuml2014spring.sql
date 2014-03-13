@@ -8,15 +8,17 @@ DROP TABLE IF EXISTS `user`;
 DROP TABLE IF EXISTS `userproject`;
 DROP TABLE IF EXISTS `report`;
 DROP TABLE IF EXISTS `diagramContext`;
-DROP TABLE IF EXISTS `diagramPolicyScore`;
 DROP TABLE IF EXISTS `compare`;
+DROP TABLE IF EXISTS 'rationale'
+
+/*legacy*/
 DROP TABLE IF EXISTS `metric`;
 DROP TABLE IF EXISTS `metricType`;
 DROP TABLE IF EXISTS `diagramMetricsScore`;
 DROP TABLE IF EXISTS `attributes`;
 DROP TABLE IF EXISTS `classes`;
-
-DROP TABLE IF EXISTS `comment`;/*legacy*/
+DROP TABLE IF EXISTS `diagramPolicyScore`;
+DROP TABLE IF EXISTS `comment`;
 
 
 /*Table Creation*/
@@ -128,17 +130,6 @@ CREATE TABLE diagramContext
       disabledDate timestamp,
       PRIMARY KEY (diagramContextId)
 );
-  
- /**remove diagram policy score?*/
--- 2013/10/22 Create Table diagramPolicyScore --
-CREATE TABLE diagramPolicyScore
-(
-  diagramId INT(11) NOT NULL,
-  justification VARCHAR(100),
-  policyId INT(11) NOT NULL,
-  score INT(11) DEFAULT 0,
-  PRIMARY KEY (diagramId, policyId)
-);
 
 -- 2013/11/12 Create Table compare --
 CREATE TABLE compare
@@ -150,54 +141,6 @@ CREATE TABLE compare
   promoteCountA int(11) DEFAULT 0,
       promoteCountB int(11) DEFAULT 0,
   PRIMARY KEY (compareId)
-);
-
- /**only filled in by default data*/
-CREATE TABLE metric
-(
-    metricId int(11) NOT NULL AUTO_INCREMENT,
-    policyId int(11),
-    metricTypeId int(2) NOT NULL,
-    metricsWeight int(11) NOT NULL,
-    PRIMARY KEY (metricId)
-);
-
- /**only filled in by default data*/
-CREATE TABLE metricType
-(
-   metricTypeId int(11) NOT NULL AUTO_INCREMENT,
-    description varchar(255),
-    metricTypeName varchar(30) NOT NULL,
-    PRIMARY KEY (metricTypeId)
-);
-
-/**remove DiagramMetricsSCore*/
-CREATE TABLE diagramMetricsScore
-(
-    diagramId int(11) NOT NULL,
-    metricId int(11) NOT NULL,
-    score int(11) NOT NULL,
-   PRIMARY KEY (diagramId,metricId)
-);
-
-/*metricID extension table*/
-/**only filled in by default data*/
-CREATE TABLE attributes
-(
-    metricId int(11) NOT NULL,
-   idealNoOfAttributes int(11),
-   maxNoOfAttributes int(11),
-   minNoOfAttributes int(11)
-);
-
-/*metricID extension table*/
-/**only filled in by default data*/
-CREATE TABLE classes
-(
-    metricId int(11) NOT NULL,
-    idealNoOfClasses int(11),
-    maxNoOfClasses int(11),
-    minNoOfClasses int(11)
 );
 
 /*Create Relationships*/
