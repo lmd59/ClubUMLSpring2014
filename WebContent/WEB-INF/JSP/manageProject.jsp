@@ -15,24 +15,23 @@ pageEncoding="US-ASCII"%>
 
 <!-- BOOTSTRAP -->
 
-<link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css"
+<link href="../../lib/jquery/bootstrap.css"
 
 rel="stylesheet">
 
 
 <link
 
-href="http://twitter.github.io/bootstrap/assets/css/bootstrap-responsive.css"
+href="../../lib/jquery/bootstrap-responsive.css"
 
 rel="stylesheet">
+<script src="../../lib/jquery/jquery.min.js">
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script><link rel="stylesheet" href="../../lib/jquery/jquery-ui.css" />
 
-</script><link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <script src="../../lib/jquery/jquery-1.9.1.js"></script>
 
-  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-
-  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script src="../../lib/jquery/jquery-ui.js"></script>
 
   <link rel="stylesheet" href="/resources/demos/style.css" />
 
