@@ -1,5 +1,5 @@
 /**
- * Combined javascript for login and registeration.
+ * Combined JavaScript for login and registration.
  * @author AmeyaCJoshi & SahilPatil
  * 
  */
