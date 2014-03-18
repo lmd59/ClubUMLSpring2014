@@ -15,23 +15,23 @@ pageEncoding="US-ASCII"%>
 
 <!-- BOOTSTRAP -->
 
-<link href="../../lib/jquery/bootstrap.css"
+<link href="lib/jquery/bootstrap.css"
 
 rel="stylesheet">
 
 
 <link
 
-href="../../lib/jquery/bootstrap-responsive.css"
+href="lib/jquery/bootstrap-responsive.css"
 
 rel="stylesheet">
-<script src="../../lib/jquery/jquery.min.js">
+<script src="lib/jquery/jquery.min.js">
 
-</script><link rel="stylesheet" href="../../lib/jquery/jquery-ui.css" />
+</script><link rel="stylesheet" href="lib/jquery/jquery-ui.css" />
 
-  <script src="../../lib/jquery/jquery-1.9.1.js"></script>
+  <script src="lib/jquery/jquery-1.9.1.js"></script>
 
-  <script src="../../lib/jquery/jquery-ui.js"></script>
+  <script src="lib/jquery/jquery-ui.js"></script>
 
   <link rel="stylesheet" href="/resources/demos/style.css" />
 

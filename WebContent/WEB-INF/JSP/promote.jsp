@@ -6,14 +6,14 @@
 	<link rel="stylesheet" type="text/css" href="css/display.css"/>
 	 <link rel="stylesheet" type="text/css" href="style.css"/>
 	<link rel="stylesheet" type="text/css" href="promote.css"/>
-	<script src="../../lib/jquery/jquery.min.js"></script>
-	<link rel="stylesheet" href="../../lib/jquery/jquery-ui.css" />
-  <script src="../../lib/jquery/jquery-1.9.1.js"></script>
-  <script src="../../lib/jquery/jquery-ui.js"></script>
+	<script src="lib/jquery/jquery.min.js"></script>
+	<link rel="stylesheet" href="lib/jquery/jquery-ui.css" />
+  <script src="lib/jquery/jquery-1.9.1.js"></script>
+  <script src="lib/jquery/jquery-ui.js"></script>
   	
    	<!----Kareem Added---->
-  	<link href="../../lib/jquery/jquery-ui.css" media="screen" rel="stylesheet" type="text/css">
-  	<script src="../../lib/jquery/jquery-ui.min.js" type="text/javascript"></script>
+  	<link href="lib/jquery/jquery-ui.css" media="screen" rel="stylesheet" type="text/css">
+  	<script src="lib/jquery/jquery-ui.min.js" type="text/javascript"></script>
   	<script type="text/javascript" src="jquery-ui-form.js"></script>
   	<link rel="stylesheet" href="promote_style.css" />
   	
