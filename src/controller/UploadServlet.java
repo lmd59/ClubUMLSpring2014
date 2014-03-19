@@ -228,8 +228,8 @@ public class UploadServlet extends HttpServlet {
 			diagramObj.setMerged(0);
 			diagramObj.setUserId(userID);
 			diagramObj.setProjectId(projectId);
-			DiagramContext cd = ContextDAO.getContext(projectId);
-			diagramObj.setContextId(ContextDAO.getContext(projectId).getDiagramContextId());
+			DiagramContext cd = ContextDAO.getContextByProjectId(projectId);
+			diagramObj.setContextId(ContextDAO.getContextByProjectId(projectId).getDiagramContextId());
 			diagramObj.setFileType("Ecore");
 		
 			DiagramDAO.addDiagram(diagramObj);

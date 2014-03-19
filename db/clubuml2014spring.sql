@@ -11,13 +11,15 @@ DROP TABLE IF EXISTS `diagramContext`;
 DROP TABLE IF EXISTS `compare`;
 DROP TABLE IF EXISTS 'rationale'
 
-/*legacy*/
+/*no front end*/
 DROP TABLE IF EXISTS `metric`;
 DROP TABLE IF EXISTS `metricType`;
 DROP TABLE IF EXISTS `diagramMetricsScore`;
 DROP TABLE IF EXISTS `attributes`;
 DROP TABLE IF EXISTS `classes`;
 DROP TABLE IF EXISTS `diagramPolicyScore`;
+
+/*legacy*/
 DROP TABLE IF EXISTS `comment`;
 
 
@@ -55,7 +57,6 @@ projectId int(11) NOT NULL,
 PRIMARY KEY (userId, projectId)
 );
 
-/**should fill in createTime values (currently all null)*/
 -- Table diagram
 CREATE TABLE diagram
 (
@@ -65,18 +66,22 @@ CREATE TABLE diagram
     contextId int(11) NOT NULL,
     diagramType Varchar(45) NOT NULL,
   diagramName Varchar(45) NOT NULL,
-    createTime Timestamp,
+    createTime Timestamp NOT NULL,
     filePath Varchar(45) NOT NULL,
     fileType Varchar(20) NOT NULL,
    merged Tinyint NOT NULL DEFAULT 0,
    notationFileName Varchar(45),
    notationFilePath Varchar(45),
-   diFlieName Varchar(45),
-  diFilepath Varchar(45),
+   diFileName Varchar(45),
+  diFilePath Varchar(45),
+  diagramRealPath Varchar(75),
+  conPath Varchar(75),
  PRIMARY KEY (diagramId)
 );
 
-/**reportfilename should be filled out*/
+/**check for NOT NULL/ Default problems in testing*/
+
+/*Note: filepath includes filename*/
 -- Table report
 CREATE TABLE report
 (
@@ -84,10 +89,8 @@ CREATE TABLE report
     diagramA Int(11) NOT NULL,
    diagramB Int(11) NOT NULL,
    mergedDiagram Int(11),
-   type Varchar(20),
    time Timestamp NOT NULL,
    reportFilePath Varchar(200) NOT NULL,
-   reportFileName Varchar(45),
   PRIMARY KEY (reportId)
 );
 
@@ -141,6 +144,59 @@ CREATE TABLE compare
   promoteCountA int(11) DEFAULT 0,
       promoteCountB int(11) DEFAULT 0,
   PRIMARY KEY (compareId)
+);
+
+/***************Tables for policy scoring funcitonality- No front end?****************/
+CREATE TABLE diagramPolicyScore
+(
+  diagramId INT(11) NOT NULL,
+  justification VARCHAR(100),
+  policyId INT(11) NOT NULL,
+  score INT(11) DEFAULT 0,
+  PRIMARY KEY (diagramId, policyId)
+);
+
+CREATE TABLE metric
+(
+    metricId int(11) NOT NULL AUTO_INCREMENT,
+    policyId int(11),
+    metricTypeId int(2) NOT NULL,
+    metricsWeight int(11) NOT NULL,
+    PRIMARY KEY (metricId)
+);
+
+CREATE TABLE metricType
+(
+   metricTypeId int(11) NOT NULL AUTO_INCREMENT,
+    description varchar(255),
+    metricTypeName varchar(30) NOT NULL,
+    PRIMARY KEY (metricTypeId)
+);
+
+CREATE TABLE diagramMetricsScore
+(
+    diagramId int(11) NOT NULL,
+    metricId int(11) NOT NULL,
+    score int(11) NOT NULL,
+   PRIMARY KEY (diagramId,metricId)
+);
+
+/*metricID extension table*/
+CREATE TABLE attributes
+(
+    metricId int(11) NOT NULL,
+   idealNoOfAttributes int(11),
+   maxNoOfAttributes int(11),
+   minNoOfAttributes int(11)
+);
+
+/*metricID extension table*/
+CREATE TABLE classes
+(
+    metricId int(11) NOT NULL,
+    idealNoOfClasses int(11),
+    maxNoOfClasses int(11),
+    minNoOfClasses int(11)
 );
 
 /*Create Relationships*/

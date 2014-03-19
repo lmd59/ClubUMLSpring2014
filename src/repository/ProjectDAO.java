@@ -37,7 +37,7 @@ public class ProjectDAO {
     	    rs = pstmt.executeQuery();
     	    if (rs.next()) {
     		project = new Project(rs.getInt("projectId"), rs.getString("projectName"),
-    				rs.getString("description"), rs.getString("startDate"),
+    				rs.getString("description"), rs.getDate("startDate"),
     				rs.getBoolean("enabled"),rs.getString("disabledDate"));
     	    }
     	    return project;
@@ -208,7 +208,7 @@ public class ProjectDAO {
     	    rs = pstmt.executeQuery();
     	    while (rs.next()) {
     		Project project = new Project(rs.getInt("projectId"), rs.getString("projectName"),
-    				rs.getString("description"), rs.getString("startDate"),
+    				rs.getString("description"), rs.getDate("startDate"),
     				rs.getBoolean("enabled"),rs.getString("disabledDate"));
     		projects.add(project);
     	    }

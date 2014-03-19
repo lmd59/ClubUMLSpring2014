@@ -88,7 +88,7 @@ public class UserDAO {
 			
 			while(rs.next()){
 				Project p = new Project(rs.getInt("projectId"),rs.getString("projectName"),
-						rs.getString("description"),rs.getString("startDate"));
+						rs.getString("description"),rs.getDate("startDate"));
 				projects.add(p);
 			}
 			rs.close();

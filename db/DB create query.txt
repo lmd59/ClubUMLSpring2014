@@ -60,7 +60,7 @@ CREATE TABLE diagram
   merged Tinyint,
   notationFileName Varchar(45),
   notationFilePath Varchar(45),
-  diFlieName Varchar(45),
+  diFileName Varchar(45),
   diFilepath Varchar(45),
  PRIMARY KEY (diagramId)
 )

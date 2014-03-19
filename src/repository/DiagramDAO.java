@@ -32,8 +32,9 @@ public class DiagramDAO {
 	    //String sql = "INSERT INTO diagram (diagramName , createdTime , inEdition , owner_Id , filePath) VALUES (?,NOW(),?,?,?);";
 		//add by Yidu Liang Mar 20 2013
 		
-		String sql = "insert into diagram (projectId, userId, contextId, diagramType, diagramName ,filePath, fileType, merged, notationFileName, notationFilePath, diFlieName, diFilePath)"+
-		"VALUES (?, ?, ?, ?, ? ,?, ?, ?, ?, ?,?,? )";
+		//diagramRealPath and conPath are based on servlet context path
+		String sql = "insert into diagram (projectId, userId, contextId, diagramType, diagramName, createTime, filePath, fileType, merged, notationFileName, notationFilePath, diFileName, diFilePath, diagramRealPath, conPath)"+
+		"VALUES (?, ?, ?, ?, ? ,NOW(), ?, ?, ?, ?,?,?, ?, ?, ? )";
 		
 		
 	    PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -51,6 +52,8 @@ public class DiagramDAO {
 		pstmt.setString(10,diagram.getNotationFilePath());   // this need to be implementing 
 		pstmt.setString(11,diagram.getDiFileName());   // this need to be implementing 
 		pstmt.setString(12,diagram.getDiFilepath());     // this need to be implementing 
+		pstmt.setString(13, diagram.getDiagramRealPath());
+		pstmt.setString(14, diagram.getConPath());
 		
 	    pstmt.executeUpdate();
 
@@ -105,22 +108,28 @@ public class DiagramDAO {
 		*/
 		//add by Yidu Liang Mar22 2013  projectId, userId, diagramType, diagramName, filePath, fileType, notationFileName, notationFilePath, diFileName, diFilePath
 		while (rs.next()) {
-		Diagram diagram = new Diagram();
-		diagram.setDiagramId(rs.getInt("diagramId"));
-		diagram.setProjectId(rs.getInt("projectId"));
-		diagram.setUserId(rs.getInt("userId"));
-		//support for enum type
-		diagram.setDiagramType(DiagramType.fromString(rs.getString("diagramType")));
-		
-		diagram.setDiagramName(rs.getString("diagramName"));
-		diagram.setFilePath(rs.getString("filePath"));
-		diagram.setFileType(rs.getString("fileType"));
-		diagram.setNotationFileName(rs.getString("notationFileName"));
-		diagram.setNotationFilePath(rs.getString("notationFilePath"));
-		diagram.setDiFilepath(rs.getString("diFilePath"));
-		diagram.setCreatedTime(rs.getString("createTime"));
-		
-		searchResult.add(diagram);
+			Diagram diagram = new Diagram();
+			diagram.setDiagramId(rs.getInt("diagramId"));
+			diagram.setProjectId(rs.getInt("projectId"));
+			diagram.setUserId(rs.getInt("userId"));
+			//support for enum type
+			diagram.setDiagramType(DiagramType.fromString(rs.getString("diagramType")));
+			
+			diagram.setDiagramName(rs.getString("diagramName"));
+			diagram.setFilePath(rs.getString("filePath"));
+			diagram.setFileType(rs.getString("fileType"));
+			diagram.setNotationFileName(rs.getString("notationFileName"));
+			diagram.setNotationFilePath(rs.getString("notationFilePath"));
+			diagram.setDiFilepath(rs.getString("diFilePath"));
+			diagram.setCreatedTime(rs.getString("createTime"));
+			
+			diagram.setContextId(rs.getInt("contextId"));
+			diagram.setMerged(rs.getInt("merged"));
+			diagram.setDiFileName(rs.getString("diFileName"));
+			diagram.setDiagramRealPath(rs.getString("diagramRealPath"));
+			diagram.setConPath(rs.getString("conPath"));
+			
+			searchResult.add(diagram);
 	    }
 
 	    rs.close();
@@ -160,13 +169,20 @@ public class DiagramDAO {
 		diagram.setUserId(rs.getInt("userId"));
 		//support for enum type
 		diagram.setDiagramType(DiagramType.fromString(rs.getString("diagramType")));
+		
 		diagram.setDiagramName(rs.getString("diagramName"));
 		diagram.setFilePath(rs.getString("filePath"));
 		diagram.setFileType(rs.getString("fileType"));
 		diagram.setNotationFileName(rs.getString("notationFileName"));
 		diagram.setNotationFilePath(rs.getString("notationFilePath"));
-		diagram.setDiFileName(rs.getString("diFlieName")); // TODO diFlieName typo in DB
 		diagram.setDiFilepath(rs.getString("diFilePath"));
+		diagram.setCreatedTime(rs.getString("createTime"));
+		
+		diagram.setContextId(rs.getInt("contextId"));
+		diagram.setMerged(rs.getInt("merged"));
+		diagram.setDiFileName(rs.getString("diFileName"));
+		diagram.setDiagramRealPath(rs.getString("diagramRealPath"));
+		diagram.setConPath(rs.getString("conPath"));
 
 	    pstmt.close();
 	    conn.close();
@@ -187,7 +203,10 @@ public class DiagramDAO {
     public static boolean updateDiagram(Diagram diagram) {
 	try {
 	    Connection conn = DbManager.getConnection();
-	    String sql = "UPDATE diagram SET projectId = ?, userId = ?, diagramType = ?, diagramName = ?, filePath = ?, fileType = ?, notationFileName = ?, notationFilePath= ?, diFileName = ?, diFilePath = ? WHERE diagramId = ?;";
+	    //note we don't update createTime
+	    String sql = "UPDATE diagram SET projectId = ?, userId = ?, diagramType = ?, diagramName = ?, "
+	    		+ "filePath = ?, fileType = ?, notationFileName = ?, notationFilePath= ?, diFileName = ?, "
+	    		+ "diFilePath = ?, merged = ?, contextId = ?, diagramRealPath = ?, conPath = ? WHERE diagramId = ?;";
 	    PreparedStatement pstmt = conn.prepareStatement(sql);
 
 	    pstmt.setInt(1,diagram.getProjectId()); // this need to be implementing 
@@ -201,7 +220,13 @@ public class DiagramDAO {
 		pstmt.setString(8,diagram.getNotationFilePath());   // this need to be implementing 
 		pstmt.setString(9,diagram.getDiagramName());   // this need to be implementing 
 		pstmt.setString(10,diagram.getDiFilepath());     // this need to be implementing 
-
+		
+		pstmt.setInt(11,diagram.getMerged());
+		pstmt.setInt(12, diagram.getContextId());
+		pstmt.setString(13, diagram.getDiagramRealPath());
+		pstmt.setString(14, diagram.getConPath());
+		pstmt.setInt(15, diagram.getDiagramId());
+		
 	    pstmt.executeUpdate();
 
 	    pstmt.close();

@@ -1,5 +1,7 @@
 package domain;
 
+import java.sql.Date;
+
 /**
  * Information class that contains all the features of one project
  * @ doc author	Dong Guo
@@ -13,16 +15,15 @@ public class Project {
 	private int projectId;
 	private String projectName;
 	private String description;
-	private byte achived = 0;// Default
-	private String startDate;
+	private Date startDate;
 	private boolean enabled;
 	private String disabledDate; 
 
-	public String getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(String startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
@@ -51,15 +52,11 @@ public class Project {
 	 * 			The name of the project 
 	 * @param description
 	 * 			The description of the project			
-	 * @param achived
-	 * 			This value indicates whether the project is achived or not
 	 */
-	public Project(int projectId, String projectName, String description,
-			byte achived) { 
+	public Project(int projectId, String projectName, String description) { 
 		this.projectId = projectId;
 		this.projectName = projectName;
 		this.description = description;
-		this.achived = achived;
 	}
 	
 
@@ -73,7 +70,7 @@ public class Project {
 	 * @param enabled
 	 * @param disabledDate
 	 */
-	public Project(int projectId, String projectName, String description, String startDate,
+	public Project(int projectId, String projectName, String description, Date startDate,
 			boolean enabled, String disabledDate) {
 		this.projectId = projectId;
 		this.projectName = projectName;
@@ -97,7 +94,7 @@ public class Project {
 	 * 			The startDate of this project
 	 */
 	public Project(int projectId, String projectName, String description,
-			String startDate) {
+			Date startDate) {
 		
 		this.projectId = projectId;
 		this.projectName = projectName;
@@ -190,25 +187,6 @@ public class Project {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	
-	/**
-	 * Gete the achived
-	 * 
-	 * @return achived byte
-	 */
-	public byte isAchived() {
-		return achived;
-	}
-
-	/**
-	 * Set achived
-	 * 
-	 * @param achived
-	 * 			It indicates whether the project is achived or not.
-	 */
-	public void setAchived(byte achived) {
-		this.achived = achived;
 	}
 
 	public String getDisabledDate() {

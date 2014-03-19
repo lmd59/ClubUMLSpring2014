@@ -3,6 +3,7 @@ package UnitTest;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,7 +34,7 @@ public class ProjectDAOTest {
 	public void testGetProjectByProjectName() throws SQLException {
 		//You have a project clubuml2 in your db
 		Project project = ProjectDAO.getProject("clubuml2");
-		Project expected = new Project(2,"clubuml2","des2","2013-09-22 23:50:31");
+		Project expected = new Project(2,"clubuml2","des2",Date.valueOf("2013-09-22 23:50:31"));
 		Assert.assertEquals(expected.getProjectId(), project.getProjectId());
 		Assert.assertEquals(expected.getDescription(), project.getDescription());
 		Assert.assertEquals(expected.getStartDate(), project.getStartDate());
@@ -58,7 +59,7 @@ public class ProjectDAOTest {
     		rs = pstmt.executeQuery();
     		if (rs.next()) {
     			p = new Project(rs.getInt("projectId"),rs.getString("projectName"),
-    					rs.getString("description"), rs.getString("startDate"));
+    					rs.getString("description"), rs.getDate("startDate"));
     		}
     		
     	} catch (SQLException e) {
@@ -104,7 +105,7 @@ public class ProjectDAOTest {
 	
 	@Test
 	public void testUpdateProject() throws SQLException {
-		Project project = new Project(21,"clubuml6-new","des6","",false,"");
+		Project project = new Project(21,"clubuml6-new","des6",Date.valueOf(""),false,"");
 		boolean result = ProjectDAO.updateProject(project);
 		Assert.assertEquals(true, result);
 	}
