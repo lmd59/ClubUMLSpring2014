@@ -655,10 +655,16 @@ public class UmlUploadProcessor implements UploadProcessor {
 					}	
 					Log.LogCreate().Info("Locating message list =" + messageList.get(i).getElementId());
 					// add xmiElementMessage with the correct order 
-					if (msgIdList.contains(messageList.get(i).getElementId())) {
-						Log.LogCreate().Info("Adding to pic  list =" + messageList.get(i).getElementId());
-						picElem.getMessageList().add(msgIdList.indexOf(messageList.get(i).getElementId()), xmiElemMsg);
-					}
+                    if (msgIdList.contains(messageList.get(i).getElementId())) {
+                        Log.LogCreate().Info("Adding to pic  list =" + messageList.get(i).getElementId());
+                        int index = msgIdList.indexOf(messageList.get(i).getElementId());
+                    
+                        //add null elements through index we want to set
+                        for(int j=picElem.getMessageList().size();j<=index;j++){
+                            picElem.getMessageList().add(null);
+                        }
+                        picElem.getMessageList().set(index, xmiElemMsg);
+                    }
 				}
 				
 				for (int i = 0 ; i < lifelineList.size() ; i++) {
