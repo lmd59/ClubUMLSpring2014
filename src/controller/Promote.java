@@ -5,6 +5,7 @@
 package controller;
 
 import domain.Comment;
+import domain.Rationale;
 
 import java.io.IOException;
 
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpSession;
 
 import repository.CommentDAO;
 import repository.CompareDAO;
+import repository.RationaleDAO;
 
 /**
  *
@@ -54,9 +56,10 @@ public class Promote extends HttpServlet {
     	HttpSession session = request.getSession(true);
     	int userId = Integer.parseInt(session.getAttribute("userId").toString());
     	String userName = session.getAttribute("username").toString();
-	
+    	
     	updatePromoteCount(request);
-    	saveComment(request,userId,userName);
+    	// saveComment(request,userId,userName);
+    	saveRationale(request,userId,userName);
 
 
     	/* removed by Xuesong Meng
@@ -92,6 +95,7 @@ public class Promote extends HttpServlet {
      * @param userId
      * @param userName
      */
+    /* removed by Vishal Patel with the addition of Rationale support
     private void saveComment(HttpServletRequest request, int userId, String userName) {
     	int compareId = Integer.parseInt(request.getParameter("compareId"));
     	Comment comment = new Comment();
@@ -101,6 +105,25 @@ public class Promote extends HttpServlet {
     	comment.setUserId(userId);
     	comment.setUserName(userName);
     	CommentDAO.addComment(comment);
+    }
+    */
+    
+    private void saveRationale(HttpServletRequest request, int userId, String userName) {
+    	int compareId = Integer.parseInt(request.getParameter("compareId"));
+    	Rationale rationale = new Rationale();
+    	rationale.setPromotedDiagramId(Integer.parseInt(request.getParameter("diagramId")));
+    	rationale.setAlternativeDiagramId(Integer.parseInt(request.getParameter("alternativeDiagramId")));
+    	rationale.setCompareId(compareId);
+    	rationale.setUserId(userId);
+    	rationale.setUserName(userName);
+
+    	rationale.setSummary(request.getParameter("summary"));
+    	rationale.setIssue(request.getParameter("issue"));
+    	rationale.setIssueRelationship(request.getParameter("issueRelationship"));
+    	rationale.setCriteria(request.getParameter("criteria"));
+    	rationale.setCriteriaRelationship(request.getParameter("criteriaRelationship"));
+    	
+    	RationaleDAO.addRationale(rationale);
     }
     
     /**
