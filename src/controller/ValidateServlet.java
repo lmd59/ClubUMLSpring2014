@@ -45,22 +45,26 @@ public class ValidateServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
 		response.setContentType("text/html;charset=UTF-8");
 
 		String username = request.getParameter("username");
-
+		
+		System.out.println("Inside if!");
 		User checkUserExist = UserDAO.getUser(username);
 		
-		if (checkUserExist != null) {
-			out.println("<font color='red'>name exist!");
-		} else {
-			out.println("<font color='green'>name ok!");
-		}             
+		if (checkUserExist != null)
+		{
+			out.println("<font color='red'>Username already exists!");
+		}
+		else
+		{
+			out.println("<font color='green'>Username valid!");
+		}
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
