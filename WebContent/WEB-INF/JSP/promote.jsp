@@ -321,7 +321,7 @@ color: black;
 						  	</tr>
 						  	
 						  	<tr>
-						  		<td align="right"><label for="" style="vertical-align: top;">Criteria</label></td>
+						  		<td align="right"><label for="" style="vertical-align: top;">Criteria:</label></td>
 						  		<td><label>${rationale.criteria}</label></td>	
 						  	</tr>
 						  	
@@ -499,7 +499,7 @@ color: black;
 						  	</tr>
 						  	
 						  	<tr>
-						  		<td align="right"><label for="" style="vertical-align: top;">Criteria</label></td>
+						  		<td align="right"><label for="" style="vertical-align: top;">Criteria:</label></td>
 						  		<td><label>${rationale.criteria}</label></td>	
 						  	</tr>
 						  	
