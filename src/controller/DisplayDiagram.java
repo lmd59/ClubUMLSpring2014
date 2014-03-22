@@ -233,7 +233,7 @@ public class DisplayDiagram extends HttpServlet {
 	    throws ServletException, FileNotFoundException, IOException {
 
 		int id = Integer.parseInt(checked[0]) -1;
-	    ArrayList<domain.Diagram> diagrams = DiagramDAO.getDiagramList(2);
+	    ArrayList<domain.Diagram> diagrams = DiagramDAO.getDiagramList();
 	
 		// the absolute path of folder where all diagrams store.
 		String filePath = diagrams.get(id).getFilePath();

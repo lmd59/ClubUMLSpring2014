@@ -53,20 +53,19 @@
 						</tr>
 						<tr>
 							<td><font color="#61210B">Password:</font></td>
-							<td><input type="password" name="password"
-								onblur="checkPassword();"></td>
+							<td><input type="password" name="password"></td>
+							<td><span id="passText"></span></td>
 						</tr>
 						<tr>
 							<td><font color="#61210B">Confirm Password:</font></td>
 							<td><input type="password" name="password2"
-								onblur="checkPassword(); "></td>
-							<td><span id="password"></span></td>
+								onblur="checkPassword(this.value); "></td>
 						</tr>
 						<tr>
 							<td><font color="#61210B">Email:</font></td>
 							<td><input type="text" name="email"
 								onblur="checkEmail(this.value);"></td>
-							<td><span id="email"></span></td>
+							<td><span id="emailText"></span></td>
 						</tr>
 						<tr>
 						<td><font color="#61210B">Role:</font></td>
