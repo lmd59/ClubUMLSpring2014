@@ -18,7 +18,7 @@
   	<link rel="stylesheet" href="promote_style.css" />
 
 	<title>Promote a Diagram</title>
-	<script type="text/javascript">	    
+	<script type="text/javascript">
 	    $(document).ready(function(){
 	    	
 	    	$("#toggle li").click(function(){
