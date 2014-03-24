@@ -19,6 +19,9 @@
 
 	<title>Promote a Diagram</title>
 	<script type="text/javascript">
+		var diagram1RationalesArray = new Array();
+		var diagram2RationalesArray = new Array();
+	
 	    $(document).ready(function(){
 	    	
 	    	$("#toggle li").click(function(){
@@ -46,8 +49,8 @@
   			$("#returnButton").click(function() {
    	           $("#returnForm").submit();
    	       	});
-
-			var report = "reports/";
+  			
+  			var report = "reports/";
 			var link = $("#reportLink").val();
 			var reportLink = link.substring(link.lastIndexOf("/"));
 			report = report + reportLink;
@@ -56,7 +59,28 @@
 			});
 	    });
 	    
-	    function editButton(dialog, rationaleId, summary, issue, issueR, criteria, criteriaR)
+		function editButton(dialog, rationaleId) {
+				
+			var arrayList;
+			if (dialog == 1)
+				arrayList = diagram1RationalesArray;
+			else
+				arrayList = diagram2RationalesArray;
+			
+ 			for (var i = 0; i < arrayList.length; i++) {
+  		  		if (arrayList[i].id == rationaleId) {
+  					editFunction(dialog,
+  						arrayList[i].id,
+  						arrayList[i].summary, 
+  						arrayList[i].issue,
+  						arrayList[i].issueR,
+  						arrayList[i].criteria,
+  						arrayList[i].criteriaR);	
+  				}
+  		  	}
+  		}
+
+	    function editFunction(dialog, rationaleId, summary, issue, issueR, criteria, criteriaR)
 	    {
 	    	var summaryTxtArea;
 	 		var issueTxtArea;
@@ -297,6 +321,14 @@ color: black;
 			 		Rationale : 
 			 		<div class="scroll1">
 			 			<c:forEach items="${requestScope.diagram1rationales}" var="rationale">
+			 			<script>diagram1RationalesArray.push({
+			 												id: "${rationale.rationaleId}", 
+			 												summary: "${rationale.summary}",
+			 												issue: "${rationale.issue}",
+			 												issueR: "${rationale.issueRelationship}",
+			 												criteria: "${rationale.criteria}",
+			 												criteriaR: "${rationale.criteriaRelationship}"});</script>
+			 			
 			 			<div class="comment">
 			 			 
 			 			<div id="toggle">
@@ -332,9 +364,7 @@ color: black;
 						  	
 						  	<tr>
 						  		<td valign="bottom" align="right">
-						  			<a href="javascript:editButton(1, '${rationale.rationaleId}', '${rationale.summary}', 
-						  																					'${rationale.issue}', '${rationale.issueRelationship}',
-						  																					'${rationale.criteria}', '${rationale.criteriaRelationship}')"><img src="images/edit_icon.png" width=15px/></a>
+						  			<a href="javascript:editButton(1, '${rationale.rationaleId}')"><img src="images/edit_icon.png" width=15px/></a>
 						  		</td>
 				    			<td valign="top" align="left"> 
 				    				<form action="Promote" method="post" onsubmit="return deleteButton()">
@@ -468,6 +498,13 @@ color: black;
 			 		Rationale : 
 			 		<div class="scroll" >
 			 			<c:forEach items="${requestScope.diagram2rationales}" var="rationale">
+			 			<script>diagram2RationalesArray.push({
+			 												id: "${rationale.rationaleId}", 
+			 												summary: "${rationale.summary}",
+			 												issue: "${rationale.issue}",
+			 												issueR: "${rationale.issueRelationship}",
+			 												criteria: "${rationale.criteria}",
+			 												criteriaR: "${rationale.criteriaRelationship}"});</script>			 			
 			 			<div class="comment">
 			 			
 			 			<div id="toggle">
@@ -510,9 +547,7 @@ color: black;
 						  	
 						  	<tr>
 						  		<td valign="bottom" align="right">
-						  			<a href="javascript:editButton(2, '${rationale.rationaleId}', '${rationale.summary}', 
-						  																					'${rationale.issue}', '${rationale.issueRelationship}',
-						  																					'${rationale.criteria}', '${rationale.criteriaRelationship}')"><img src="images/edit_icon.png" width=15px/></a>
+						  			<a href="javascript:editButton(2, '${rationale.rationaleId}')"><img src="images/edit_icon.png" width=15px/></a>
 						  		</td>
 				    			<td valign="top" align="left"> 
 				    				<form action="Promote" method="post" onsubmit="return deleteButton()">
