@@ -77,7 +77,7 @@ body {
 				<h1 style="color: white">ClubUML</h1>
 				<div id="tabs">
 					<ul>
-						<li><a href="#tabs-1">Home</a></li>
+						<li><a href="LoginServlet">Home</a></li>
 						<li><a href="ManageProject">Project</a></li>
 						<li><a href="ManageContext">Context</a></li>
 						<li><a href="#tabs-4">Policy</a></li>

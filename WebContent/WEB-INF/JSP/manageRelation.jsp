@@ -65,7 +65,7 @@ color: black;
 		<h1 id="banner">Manage Diagram Relationships</h1>
 	</div>
 	<ul class="basictab">
-	    <li><a href="#tabs-1">Home</a></li>
+	    <li><a href="LoginServlet">Home</a></li>
 	    <li><a href="ManageProject">Project</a></li>
 	    <li><a href="ManageContext">Context</a></li>
         <li><a href="ManagePolicy">Policy</a></li>

@@ -45,19 +45,27 @@ public class LoginServlet extends HttpServlet {
 	//get Parameters from jsp page.
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");
-
+	HttpSession session = request.getSession(true);
 	//authorize user from database, if exist, store it in session.
-	User userObj = UserDAO.getUser(username, password);
-	if (userObj != null) {
+	if(username!=null&&password!=null){
+		User userObj = UserDAO.getUser(username, password);
+		if (userObj != null) {
 		//policy manager
-	    HttpSession session = request.getSession(true);
-	    session.setAttribute("username", username);
-	    session.setAttribute("userId", userObj.getUserId());
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/home.jsp");
-	    dispatcher.forward(request, response);
-	} else {
-	    response.sendRedirect("invalid.jsp");	
+			session.setAttribute("username", username);
+			session.setAttribute("userId", userObj.getUserId());
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/home.jsp");
+			dispatcher.forward(request, response);
+		} else {
+			response.sendRedirect("invalid.jsp");	
 	    //redirect user to invalid.jsp page if the input does not match
+		}
+	} else {
+		if(session.getAttribute("username")!=null) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/home.jsp");
+			dispatcher.forward(request, response);
+		} else {
+			response.sendRedirect("invalid.jsp");	
+		}
 	}
     }
     
