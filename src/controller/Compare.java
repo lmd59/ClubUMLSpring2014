@@ -38,7 +38,6 @@ import com.itextpdf.text.pdf.parser.TextExtractionStrategy;
 import controller.diagramparser.DiagramParser;
 import controller.diagramparser.DiagramParserFactory;
 
-import repository.CommentDAO;
 import repository.CompareDAO;
 import repository.DiagramDAO;
 import repository.PolicyDAO;
@@ -308,22 +307,6 @@ public class Compare extends HttpServlet {
 		request.setAttribute("A", compare.getDiagramAId());
 		request.setAttribute("B", compare.getDiagramBId());
 		return compare.getCompareId();
-	}
-	
-	private void loadComments(HttpServletRequest request, int compareId) {
-		ArrayList<domain.Comment> comments = CommentDAO.getComments(compareId);
-		ArrayList<domain.Comment> diagram1Comments = new ArrayList<domain.Comment>();
-		ArrayList<domain.Comment> diagram2Comments = new ArrayList<domain.Comment>();
-		for(domain.Comment comment: comments) {
-			if(comment.getPromotedDiagramId() == diagramID1) {
-				diagram1Comments.add(comment);
-			}
-			else if(comment.getPromotedDiagramId() == diagramID2) {
-				diagram2Comments.add(comment);
-			}
-		}
-		request.setAttribute("diagram1comments", diagram1Comments);
-		request.setAttribute("diagram2comments", diagram2Comments);
 	}
 	
 	private void loadRationales(HttpServletRequest request, int compareId) {

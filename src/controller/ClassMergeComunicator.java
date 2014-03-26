@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-import repository.CommentDAO;
 import repository.DiagramDAO;
 import repository.UserDAO;
 import controller.comparer.xmi.XmiClassDiagramComparer;
@@ -24,7 +23,6 @@ import controller.merge.xmi.xclass.XmiMergeClassNotationProcessor;
 import controller.merge.xmi.xclass.XmiMergeClassProcessor;
 import controller.merge.xmi.xclass.XmiMergeClassUpload;
 import controller.upload.FileInfo;
-import domain.Comment;
 import domain.Diagram;
 /**
  * @author Yanwu shen
