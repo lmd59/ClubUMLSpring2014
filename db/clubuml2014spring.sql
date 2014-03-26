@@ -3,24 +3,24 @@ CREATE DATABASE  IF NOT EXISTS `clubuml`;
 USE `clubuml`;
 
 /*Cleanup of any existing tables*/
-DROP TABLE IF EXISTS `project`;
-DROP TABLE IF EXISTS `user`;
-DROP TABLE IF EXISTS `userproject`;
-DROP TABLE IF EXISTS `report`;
-DROP TABLE IF EXISTS `diagramContext`;
-DROP TABLE IF EXISTS `compare`;
-DROP TABLE IF EXISTS 'rationale'
+DROP TABLE IF EXISTS `comment`;/*legacy*/
 
-/*no front end*/
+/*Reverse dependency order to drop child tables first*/
+DROP TABLE IF EXISTS `classes`;
+DROP TABLE IF EXISTS `attributes`;
+DROP TABLE IF EXISTS `DiagramMetricsScore`;
 DROP TABLE IF EXISTS `metric`;
 DROP TABLE IF EXISTS `metricType`;
-DROP TABLE IF EXISTS `diagramMetricsScore`;
-DROP TABLE IF EXISTS `attributes`;
-DROP TABLE IF EXISTS `classes`;
-DROP TABLE IF EXISTS `diagramPolicyScore`;
-
-/*legacy*/
-DROP TABLE IF EXISTS `comment`;
+DROP TABLE IF EXISTS `rationale`;
+DROP TABLE IF EXISTS `compare`;
+DROP TABLE IF EXISTS `DiagramPolicyScore`;
+DROP TABLE IF EXISTS `report`;
+DROP TABLE IF EXISTS `userproject`;
+DROP TABLE IF EXISTS `diagram`;
+DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `diagramContext`;
+DROP TABLE IF EXISTS `policy`;
+DROP TABLE IF EXISTS `project`;
 
 
 /*Table Creation*/
@@ -33,7 +33,7 @@ CREATE TABLE project
     startDate Timestamp NOT NULL,
     description Varchar(255),
     enabled BOOLEAN NOT NULL DEFAULT true,
-    disabledDate Timestamp,
+    disabledDate Timestamp NULL,
     PRIMARY KEY (projectId)
 );
 
@@ -212,8 +212,6 @@ ALTER TABLE rationale ADD CONSTRAINT rationaleHavePromotedDiagramId FOREIGN KEY 
 ALTER TABLE rationale ADD CONSTRAINT rationaleHaveAlternativeDiagramId FOREIGN KEY (alternativeDiagramId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE userproject ADD CONSTRAINT userprojectHaveUserId FOREIGN KEY (userId) REFERENCES user (userId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE userproject ADD CONSTRAINT userprojectHaveProjectId FOREIGN KEY (projectId) REFERENCES project (projectId) ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE comment ADD CONSTRAINT commentHaveCompareId FOREIGN KEY (compareId) REFERENCES compare (compareId) ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE comment ADD CONSTRAINT commentHaveUserId FOREIGN KEY (userId) REFERENCES user (userId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE compare ADD CONSTRAINT compareHaveReportId FOREIGN KEY (reportId) REFERENCES report (reportId) ON DELETE NO ACTION ON UPDATE NO ACTION; 
 ALTER TABLE compare ADD CONSTRAINT compareHaveDiagramAId FOREIGN KEY (diagramAId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE compare ADD CONSTRAINT compareHaveDiagramBId FOREIGN KEY (diagramBId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;

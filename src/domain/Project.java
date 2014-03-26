@@ -17,7 +17,7 @@ public class Project {
 	private String description;
 	private Date startDate;
 	private boolean enabled;
-	private String disabledDate; 
+	private Date disabledDate; 
 
 	public Date getStartDate() {
 		return startDate;
@@ -38,9 +38,13 @@ public class Project {
 	 * @param string2 
 	 * @param string 
 	 */
-	public Project(String projectName, String description, String startDate,
-			boolean enabled, String disabledDate) {
+	public Project(String projectName, String description, Date startDate,
+			boolean enabled, Date disabledDate) {
 		this.projectName = projectName;
+		this.description = description;
+		this.startDate = startDate;
+		this.enabled = enabled;
+		this.disabledDate = disabledDate;
 	}
 
 	/**
@@ -71,7 +75,7 @@ public class Project {
 	 * @param disabledDate
 	 */
 	public Project(int projectId, String projectName, String description, Date startDate,
-			boolean enabled, String disabledDate) {
+			boolean enabled, Date disabledDate) {
 		this.projectId = projectId;
 		this.projectName = projectName;
 		this.description = description;
@@ -189,11 +193,11 @@ public class Project {
 		this.description = description;
 	}
 
-	public String getDisabledDate() {
+	public Date getDisabledDate() {
 		return disabledDate;
 	}
 
-	public void setDisabledDate(String disabledDate) {
+	public void setDisabledDate(Date disabledDate) {
 		this.disabledDate = disabledDate;
 	}
 
