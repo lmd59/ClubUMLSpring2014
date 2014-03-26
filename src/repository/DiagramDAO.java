@@ -143,6 +143,52 @@ public class DiagramDAO {
     }
 
     /**
+     * Get Diagram ArrayList from DB
+     * 
+     * @return Diagram ArrayList for all projects
+     */
+    public static ArrayList<Diagram> getDiagramList() {
+	ArrayList<Diagram> searchResult = new ArrayList<>();
+	try {
+	    Connection conn = DbManager.getConnection();
+	    String sql = "SELECT * FROM diagram;";
+	    PreparedStatement pstmt = conn.prepareStatement(sql);
+
+	    ResultSet rs = pstmt.executeQuery();
+
+		//add by Yidu Liang Mar22 2013  projectId, userId, diagramType, diagramName, filePath, fileType, notationFileName, notationFilePath, diFileName, diFilePath
+		while (rs.next()) {
+		Diagram diagram = new Diagram();
+		diagram.setDiagramId(rs.getInt("diagramId"));
+		diagram.setProjectId(rs.getInt("projectId"));
+		diagram.setUserId(rs.getInt("userId"));
+		//support for enum type
+		diagram.setDiagramType(DiagramType.fromString(rs.getString("diagramType")));
+		
+		diagram.setDiagramName(rs.getString("diagramName"));
+		diagram.setFilePath(rs.getString("filePath"));
+		diagram.setFileType(rs.getString("fileType"));
+		diagram.setNotationFileName(rs.getString("notationFileName"));
+		diagram.setNotationFilePath(rs.getString("notationFilePath"));
+		diagram.setDiFilepath(rs.getString("diFilePath"));
+		diagram.setCreatedTime(rs.getString("createTime"));
+		
+		searchResult.add(diagram);
+	    }
+
+	    rs.close();
+	    pstmt.close();
+	    conn.close();
+	    return searchResult;
+	} catch (SQLException ex) {
+	    Logger.getLogger(DiagramDAO.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	return null;
+    }
+
+    
+    
+    /**
      * Get Diagram from DB
      * 
      * @param diagram_Id

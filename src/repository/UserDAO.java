@@ -181,6 +181,47 @@ public class UserDAO {
 		return null;
 	}
 	
+	
+	/**
+	 * Modified By: AmeyaCJoshi
+	 * Purpose: To add a check that one email is used for one account only.
+	 * 
+	 * Get an user from DB by email
+	 * 
+     * @param email
+     * @return User object
+     */
+	public static User getUserEmail(String email) {
+		try {
+			Connection conn = DbManager.getConnection();
+			PreparedStatement pstmt;
+
+			pstmt = conn.prepareStatement("SELECT * FROM user where email = ?;");
+			pstmt.setString(1, email);
+			
+			// Execute the SQL statement and store result into the ResultSet
+			ResultSet rs = pstmt.executeQuery();
+
+			if (!rs.next()) {
+				return null;
+			}
+
+			User user;
+			user = new User(rs.getInt("userId"), rs.getString("username"),
+					"", email, rs.getString("securityQ"),
+					rs.getString("securityA"),rs.getString("userType"));
+
+			rs.close();
+			pstmt.close();
+			conn.close();
+			return user;
+		} catch (SQLException e) {
+			System.out.println("Using default model.");
+		}
+
+		return null;
+	}
+	
 	/**
 	 * Get user from DB by userId
 	 * 

@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import domain.Comment;
 import domain.Compare;
 import domain.Project;
 
@@ -94,7 +93,7 @@ import domain.Project;
 	    			sql = "UPDATE compare SET promoteCountA = promoteCountA + 1 where compareId = ?";
 	    		}
 	    		else {
-	    			sql = "UPDATE compare SET promoteCountA = promoteCountA + 1 where compareId = ?";
+	    			sql = "UPDATE compare SET promoteCountB = promoteCountB + 1 where compareId = ?";
 	    		}
 	    		PreparedStatement pstmt = conn.prepareStatement(sql);
 	    		pstmt.setInt(1, compareId);
@@ -108,8 +107,33 @@ import domain.Project;
 	    	}
 	    	catch(SQLException e) {
 	    		throw new IllegalArgumentException(e.getMessage(), e);
+	    	}	    	
+	    }
+	    
+	    public static boolean decrementCount(int compareId, String diagram)
+	    {
+	    	try {
+	    		String sql;
+	    		Connection conn = DbManager.getConnection();
+	    		if(diagram.equals("A")) {
+	    			sql = "UPDATE compare SET promoteCountA = promoteCountA - 1 where compareId = ?";
+	    		}
+	    		else {
+	    			sql = "UPDATE compare SET promoteCountB = promoteCountB - 1 where compareId = ?";
+	    		}
+	    		PreparedStatement pstmt = conn.prepareStatement(sql);
+	    		pstmt.setInt(1, compareId);
+	    		int result = pstmt.executeUpdate();
+	    		pstmt.close();
+	    		conn.close();
+	    		if(result == 0) {
+	    			return false;
+	    		}
+	    		else return true;
 	    	}
-	    	
+	    	catch(SQLException e) {
+	    		throw new IllegalArgumentException(e.getMessage(), e);
+	    	}	    	
 	    }
 	    
 	    /**
@@ -154,50 +178,5 @@ import domain.Project;
 	    	    return null;
 	    	}
 	    	return compare;
-	        }
-	    
-	    
-	    /**
-		 * Get the comment list 
-		 * 
-	     * @param 
-	     * @return ArrayList<Comment>
-	     */
-		public static ArrayList<Comment> getCommentList(int compareId) throws SQLException {
-			ArrayList<Comment> comment = new ArrayList<Comment>();
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			try {
-				conn = DbManager.getConnection();
-				pstmt = conn.prepareStatement("select * from comment where compareId=?;");
-				pstmt.setInt(1, compareId);
-				// Execute the SQL statement and store result into the ResultSet
-				rs = pstmt.executeQuery();
-				
-				while(rs.next()){
-					Comment p = new Comment();
-					p.setCommentId(rs.getInt("commentId"));
-					p.setCompareId(rs.getInt("compareId"));
-					p.setUserId(rs.getInt("userId"));
-					p.setCommentText(rs.getString("commentText"));
-					p.setCommentTime(rs.getString("commentTime"));
-					p.setReportId(rs.getInt("reportId"));
-					comment.add(p);
-				}
-				rs.close();
-				pstmt.close();
-				conn.close();
-				return comment;						
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-				System.out.println("Using default model.");
-			} finally {
-				if(rs != null) {rs.close();}
-				if(pstmt != null) {pstmt.close();}
-				if(conn != null) {conn.close();}
-			}
-			return null;
-		}
-	    
+	        }	    
 	}

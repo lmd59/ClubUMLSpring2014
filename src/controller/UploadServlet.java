@@ -116,52 +116,64 @@ public class UploadServlet extends HttpServlet {
 				}
 				
 				filename = item.getName();
-				if (filename != null) {
-			        filename = FilenameUtils.getName(filename);
-			    }
+				
+				boolean flagExtension = false;
+				
+				flagExtension = checkExtension(filename, request, response);
+				
+				if(!flagExtension)
+				{
+					return;
+				}
+				else
+				{
+					if (filename != null) {
+						filename = FilenameUtils.getName(filename);
+					}
 				
 
-				if ((!item.isFormField()) && (!item.getName().equals(""))
-						&& (!id.equals(""))) {// check if item is a file
-					//String newName = renameFile(id, item.getName());// rename
-					File file = new File(destinationDir, filename);		
-					item.write(file);
+					if ((!item.isFormField()) && (!item.getName().equals(""))
+							&& (!id.equals(""))) {// check if item is a file
+						//String newName = renameFile(id, item.getName());// rename
+						File file = new File(destinationDir, filename);		
+						item.write(file);
 					
-					String absolutePath = "";
-					String relativePath = "";
-					String libPath = "";
+						String absolutePath = "";
+						String relativePath = "";
+						String libPath = "";
 					
-					if (OSDetails.getServerOS().equals("windows"))
-					{
-						absolutePath = destinationDir + "\\";
-						relativePath = context.getContextPath()
+						if (OSDetails.getServerOS().equals("windows"))
+						{
+							absolutePath = destinationDir + "\\";
+							relativePath = context.getContextPath()
 							+ newFolder;
 						libPath = libDir + "\\";
-					} 
-					else if (OSDetails.getServerOS().equals("mac") || 
+						} 
+						else if (OSDetails.getServerOS().equals("mac") || 
 							OSDetails.getServerOS().equals("unix"))
-					{
-						absolutePath = destinationDir + "/";
-						relativePath = context.getContextPath()
-							+ newFolder;
-						libPath = libDir + "/";
-					}
+						{
+							absolutePath = destinationDir + "/";
+							relativePath = context.getContextPath()
+									+ newFolder;
+							libPath = libDir + "/";
+						}
 					
-					logging.Log.LogCreate().Info("absolutePath " + absolutePath);		
-					request.setAttribute("originalFileName", filename);
-					request.setAttribute("newFileName", filename);
-					request.setAttribute("size", item.getSize());
-					request.setAttribute("absolutePath", absolutePath + filename);
-					request.setAttribute("relativePath", relativePath + filename);
-					request.setAttribute("javaFile", relativePath + filename
-							+ ".java");
-					fileList.add(new FileInfo(absolutePath,filename,libPath));
-					//Log.LogCreate().Info(" File list " + absolutePath  +"  "  + newName + " "  + libPath);
-					if (isFileType(filename,"ecore")){
-						String image_file_name = filename + ".png";	
-						String folder = "uploads/" + id_file_date + "/" + filename;
-						this.storeDatabase(folder, image_file_name,
-								Integer.parseInt(id), projectId);
+						logging.Log.LogCreate().Info("absolutePath " + absolutePath);		
+						request.setAttribute("originalFileName", filename);
+						request.setAttribute("newFileName", filename);
+						request.setAttribute("size", item.getSize());
+						request.setAttribute("absolutePath", absolutePath + filename);
+						request.setAttribute("relativePath", relativePath + filename);
+						request.setAttribute("javaFile", relativePath + filename + ".java");
+						fileList.add(new FileInfo(absolutePath,filename,libPath));
+						//Log.LogCreate().Info(" File list " + absolutePath  +"  "  + newName + " "  + libPath);
+					
+						if (isFileType(filename,"ecore")){
+							String image_file_name = filename + ".png";	
+							String folder = "uploads/" + id_file_date + "/" + filename;
+							this.storeDatabase(folder, image_file_name,
+							Integer.parseInt(id), projectId);
+						}
 					}
 				}
 			}
@@ -186,6 +198,22 @@ public class UploadServlet extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("Display");
 		rd.forward(request, response);
 
+	}
+	
+	private boolean checkExtension(String filename, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		if(filename != null)
+		{
+			String extension = FilenameUtils.getExtension(filename);
+			if(!extension.equalsIgnoreCase("ecore"))
+			{
+				request.setAttribute("error", "true");
+				RequestDispatcher rd = request.getRequestDispatcher("Display");
+				rd.forward(request, response);
+				return false;
+			}				
+		}
+		return true;
 	}
 
 	private File createDir(String id) {
