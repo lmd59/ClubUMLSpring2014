@@ -1,0 +1,105 @@
+{
+	"actors": 
+	[
+		{
+			"name" : "testActor1",
+			"maxUcNum" : 3
+		} ,
+		
+		{
+			"name" : "testActor2",
+			"maxUcNum" : 5
+		}
+	],
+	
+	"useCases":
+	[
+		{
+			"name" : "testUC1",
+			"maxActNum" : 3
+		} ,
+		
+		{
+			"name" : "testUC2",
+			"maxActNum" : 5
+		}
+	],
+	
+	"mustHaveAssociations": 
+	[
+		{
+			"actorName" : "testActor1",
+			"useCaseName" : "testUseCase1"
+		} ,
+		
+		{
+			"actorName" : "testActor2",
+			"useCaseName" : "testUseCase2"
+		}
+	],
+	
+	"mustNotHaveAssociations": 
+	[
+		{
+			"actorName" : "testActor1",
+			"useCaseName" : "testUseCase1"
+		} ,
+		
+		{
+			"actorName" : "testActor2",
+			"useCaseName" : "testUseCase2"
+		}
+	],
+	
+	"mustHaveInclusions": 
+	[
+		{
+			"useCase1Name" : "testUseCase1",
+			"useCase2Name" : "testUseCase2"
+		} ,
+		
+		{
+			"useCase1Name" : "testUseCase1",
+			"useCase2Name" : "testUseCase2"
+		}
+	],
+	
+	"mustNotHaveInclusions": 
+	[
+		{
+			"useCase1Name" : "testUseCase1",
+			"useCase2Name" : "testUseCase2"
+		} ,
+		
+		{
+			"useCase1Name" : "testUseCase1",
+			"useCase2Name" : "testUseCase2"
+		}
+	],
+	
+	"mustHaveExtensions": 
+	[
+		{
+			"useCase1Name" : "testUseCase1",
+			"useCase2Name" : "testUseCase2"
+		} ,
+		
+		{
+			"useCase1Name" : "testUseCase1",
+			"useCase2Name" : "testUseCase2"
+		}
+	],
+	
+	"mustNotHaveExtensions": 
+	[
+		{
+			"useCase1Name" : "testUseCase1",
+			"useCase2Name" : "testUseCase2"
+		} ,
+		
+		{
+			"useCase1Name" : "testUseCase1",
+			"useCase2Name" : "testUseCase2"
+		}
+	]
+}
