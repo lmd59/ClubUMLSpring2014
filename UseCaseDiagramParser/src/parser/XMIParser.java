@@ -56,10 +56,10 @@ public class XMIParser {
 		printAssociation(getAssociation());//get association_id usecase_id actor_id;
 		printExtendAssociation(getExtendAssociations());
 		printIncludeAssociation(getIncludeAssociations());
-		testUserDefineRules();
-		checkMustHave();
-		checkMustNotHave();
-		System.out.println("=============================JSON DATA START=====================================");
+		//testUserDefineRules();
+		//checkMustHave();
+		//checkMustNotHave();
+		//System.out.println("=============================JSON DATA START=====================================");
 		//jp.parser();
 	}
     
@@ -630,7 +630,7 @@ public class XMIParser {
 		chekMustNotHaveExtendAssociation();
 	}
 	
-    /*public static void main(String []args)
+    public static void main(String []args)
 	{
 	XMIParser ep = new XMIParser();
 	try
@@ -641,6 +641,6 @@ public class XMIParser {
 	{
 		System.out.println(e);
 	}
-	}*/
+	}
 
 }
