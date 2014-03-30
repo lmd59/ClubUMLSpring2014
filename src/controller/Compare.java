@@ -88,6 +88,7 @@ public class Compare extends HttpServlet {
 		String path = "";
 		String reportText = "";
 		
+		//Lauren DiCristofaro: the below should probably be moved to find servlet context in which diagrams were initially created
 		diagram1.setDiagramRealPath(context.getRealPath(diagram1.getFilePath()));
 		diagram2.setDiagramRealPath(context.getRealPath(diagram2.getFilePath()));
 		// setting context Paths for Diagrams

@@ -38,7 +38,7 @@ public class ContextDAO {
 
      * Get Context by context name
 
-     * @param contextName
+     * @param projectId
 
      * @return context
 
@@ -46,7 +46,7 @@ public class ContextDAO {
 
      */
 
-    public static DiagramContext getContext(int projectId) throws SQLException {
+    public static DiagramContext getContextByProjectId(int projectId) throws SQLException {
 
 	    DiagramContext context = null;
 	    ResultSet rs = null;
@@ -85,7 +85,53 @@ public class ContextDAO {
 
     }
 
+    
+    /**
+     * @param contextId
+     * @return context
+     * @throws SQLException
+     */
+    public static DiagramContext getContext(int contextId) throws SQLException {
+
+	    DiagramContext context = null;
+	    ResultSet rs = null;
+
+     try {
+
+    	 Connection conn = DbManager.getConnection();
+
+    	 PreparedStatement pstmt = conn.prepareStatement(
+
+          "SELECT * FROM diagramContext where contextId = ? ;");
+
+         pstmt.setInt(1, contextId);
+
+         rs = pstmt.executeQuery();
+
+         if (rs.next()) 
+         {
+        	 context = new DiagramContext(rs.getInt("diagramContextId"),rs.getString("name"),rs.getString("description"),rs.getInt("policyId"),rs.getInt("projectId"));
+
+         }
+
+         return context;
+
+     } catch (SQLException e) {
+
+         System.out.println("Using default model.");
+
+     } finally {
+
+     
+
+     }
+
+     return context;
+
+    }
    
+    
+    
 
     /**
 
@@ -442,19 +488,26 @@ public class ContextDAO {
 
              while (rs.next()) {
          		Diagram diagram = new Diagram();
-        		diagram.setDiagramId(rs.getInt("diagramId"));
-        		diagram.setProjectId(rs.getInt("projectId"));
-        		diagram.setUserId(rs.getInt("userId"));
-        		//support for enum type
-        		diagram.setDiagramType(DiagramType.fromString(rs.getString("diagramType")));
-        		
-        		diagram.setDiagramName(rs.getString("diagramName"));
-        		diagram.setFilePath(rs.getString("filePath"));
-        		diagram.setFileType(rs.getString("fileType"));
-        		diagram.setNotationFileName(rs.getString("notationFileName"));
-        		diagram.setNotationFilePath(rs.getString("notationFilePath"));
-        		diagram.setDiFilepath(rs.getString("diFilePath"));
-        		diagram.setCreatedTime(rs.getString("createTime"));        		
+         		diagram.setDiagramId(rs.getInt("diagramId"));
+    			diagram.setProjectId(rs.getInt("projectId"));
+    			diagram.setUserId(rs.getInt("userId"));
+    			//support for enum type
+    			diagram.setDiagramType(DiagramType.fromString(rs.getString("diagramType")));
+    			
+    			diagram.setDiagramName(rs.getString("diagramName"));
+    			diagram.setFilePath(rs.getString("filePath"));
+    			diagram.setFileType(rs.getString("fileType"));
+    			diagram.setNotationFileName(rs.getString("notationFileName"));
+    			diagram.setNotationFilePath(rs.getString("notationFilePath"));
+    			diagram.setDiFilepath(rs.getString("diFilePath"));
+    			diagram.setCreatedTime(rs.getString("createTime"));
+    			
+    			diagram.setContextId(rs.getInt("contextId"));
+    			diagram.setMerged(rs.getInt("merged"));
+    			diagram.setDiFileName(rs.getString("diFileName"));
+    			diagram.setDiagramRealPath(rs.getString("diagramRealPath"));
+    			diagram.setConPath(rs.getString("conPath"));
+    			
         		diagramList.add(diagram);
              }    	
          }

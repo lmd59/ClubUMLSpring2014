@@ -12,7 +12,6 @@ public class Report {
     private int diagramB;
     private int mergedDiagram;
     private String time;
-    private String reportFileName;
     private String reportFilePath;
 
 	public int getMergedDiagram() {
@@ -21,14 +20,6 @@ public class Report {
 
 	public void setMergedDiagram(int mergedDiagram) {
 		this.mergedDiagram = mergedDiagram;
-	}
-
-	public String getReportFileName() {
-		return reportFileName;
-	}
-
-	public void setReportFileName(String reportFileName) {
-		this.reportFileName = reportFileName;
 	}
 
 	/**
