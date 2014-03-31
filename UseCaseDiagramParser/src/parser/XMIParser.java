@@ -1,6 +1,6 @@
 package parser;
 import java.io.IOException;
-import controller.JasonParser;
+//import controller.JasonParser;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 import org.w3c.dom.Attr;
-import policy.UserDefinedRule;
+//import policy.UserDefinedRule;
 
 import java.io.*;
 /**
@@ -21,10 +21,10 @@ public class XMIParser {
 	Association assoc = new Association();
 	UseCase usecase = new UseCase();
 	Actor ac = new Actor();
-	JasonParser jp = new JasonParser();
+//	JasonParser jp = new JasonParser();
 	IncludeAssociation includeAssoc = new IncludeAssociation();
 	ExtendAssociation extendAssoc = new ExtendAssociation();
-	UserDefinedRule udr = new UserDefinedRule();
+//	UserDefinedRule udr = new UserDefinedRule();
 	private ArrayList <Actor> actors = new ArrayList<Actor>(); 
 	private ArrayList<Association> association= new ArrayList<Association>();
 	private ArrayList<String> temp = new ArrayList<String>();
@@ -51,10 +51,15 @@ public class XMIParser {
 		Element root = doc.getRootElement();
 		parse(root);
 		setAssociation(getAssociationData(temp,association));
+		System.out.println("\nActors:");
 		printActor(getActors());//get actor_name actor_id;
+		System.out.println("\nUse cases:");
 		printUseCase(getUseCases());//get usecase_name usecase_id;
+		System.out.println("\nAssociations:");
 		printAssociation(getAssociation());//get association_id usecase_id actor_id;
+		System.out.println("\nExtend Associations:");
 		printExtendAssociation(getExtendAssociations());
+		System.out.println("\nInclude Associations:");
 		printIncludeAssociation(getIncludeAssociations());
 		//testUserDefineRules();
 		//checkMustHave();
@@ -303,45 +308,45 @@ public class XMIParser {
 	
 
 	
-	public void testUserDefineRules()//Test user defined rules
-	{
-		System.out.println("/********************TEST START*********************/");
-		System.out.println("Must have actor:Student" +
-				"\nMust have use case: Add Course" +
-				"\nMust have relationship Actor1 with Project"+
-				"\nMust have include association CheckPermission with Project"+
-				"\nMust have extend Association Document with Make comments"+
-				"\nMust not have relationship: Actor2 with Project");
-		//===============must have assoc
-		assoc.setActorName("Actor1");
-		assoc.setUseCaseName("Project");
-		assoc.setAssocType("association");
-		udr.setMustHaveAssoc(assoc);
-		mustHaveAssoc.add(udr.getMustHaveAssoc());
-		//===============must have actor
-		udr.setMustHaveActorName("Student");
-		mustHaveActors.add(udr.getMustHaveActorName());
-		//===============must have usecase
-		udr.setMustHaveUseCaseName("Add Course");
-		mustHaveUseCases.add(udr.getMustHaveUseCaseName());
-		//===============must have include Assoc
-		includeAssoc.setAddUseCaseName("CheckPermission");
-		includeAssoc.setBaseUseCaseName("Project");
-		udr.setMustHaveIncludeAssociation(includeAssoc);
-		mustHaveIncludeAssociation.add(udr.getMustHaveIncludeAssociation());
-		//==============must have extend assoc
-		extendAssoc.setBaseUseCaseName("Document");
-		extendAssoc.setExtendUseCaseName("MakeComments");
-		udr.setMustHaveExtendAssociation(extendAssoc);
-		mustHaveExtendAssociation.add(udr.getMustHaveExtendAssociation());
-		//=============must not have association
-		assoc.setActorName("Actor2");
-		assoc.setUseCaseName("Project");
-		assoc.setAssocType("association");
-		udr.setMustNotHaveAssoc(assoc);
-		mustNotHaveAssocs.add(udr.getMustNotHaveAssoc());
-		System.out.println("/*******************************Test Result*************************/");
-	}
+//	public void testUserDefineRules()//Test user defined rules
+//	{
+//		System.out.println("/********************TEST START*********************/");
+//		System.out.println("Must have actor:Student" +
+//				"\nMust have use case: Add Course" +
+//				"\nMust have relationship Actor1 with Project"+
+//				"\nMust have include association CheckPermission with Project"+
+//				"\nMust have extend Association Document with Make comments"+
+//				"\nMust not have relationship: Actor2 with Project");
+//		//===============must have assoc
+//		assoc.setActorName("Actor1");
+//		assoc.setUseCaseName("Project");
+//		assoc.setAssocType("association");
+//		udr.setMustHaveAssoc(assoc);
+//		mustHaveAssoc.add(udr.getMustHaveAssoc());
+//		//===============must have actor
+//		udr.setMustHaveActorName("Student");
+//		mustHaveActors.add(udr.getMustHaveActorName());
+//		//===============must have usecase
+//		udr.setMustHaveUseCaseName("Add Course");
+//		mustHaveUseCases.add(udr.getMustHaveUseCaseName());
+//		//===============must have include Assoc
+//		includeAssoc.setAddUseCaseName("CheckPermission");
+//		includeAssoc.setBaseUseCaseName("Project");
+//		udr.setMustHaveIncludeAssociation(includeAssoc);
+//		mustHaveIncludeAssociation.add(udr.getMustHaveIncludeAssociation());
+//		//==============must have extend assoc
+//		extendAssoc.setBaseUseCaseName("Document");
+//		extendAssoc.setExtendUseCaseName("MakeComments");
+//		udr.setMustHaveExtendAssociation(extendAssoc);
+//		mustHaveExtendAssociation.add(udr.getMustHaveExtendAssociation());
+//		//=============must not have association
+//		assoc.setActorName("Actor2");
+//		assoc.setUseCaseName("Project");
+//		assoc.setAssocType("association");
+//		udr.setMustNotHaveAssoc(assoc);
+//		mustNotHaveAssocs.add(udr.getMustNotHaveAssoc());
+//		System.out.println("/*******************************Test Result*************************/");
+//	}
 	
 	//Check the maximum number of actors and usecases
 	/*public void checkMaximumOfActors()
