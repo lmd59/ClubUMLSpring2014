@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import domain.Decision;
 import domain.Rationale;
@@ -125,8 +126,10 @@ public class DecisionDAO {
 		
 	}
 	
-	public static ArrayList<Decision> getDecisions(int projectId) throws SQLException{
+	//returns all of the latest decisions for a given project- i.e. the latest decision for each decision name
+	public static HashMap<String, Decision> getLatestDecisions(int projectId) throws SQLException{
 		ArrayList<Decision> decisions = new ArrayList<Decision>();
+		HashMap<String, Decision> latestDecisions = new HashMap<String, Decision>();
 		Connection conn = null;
     	PreparedStatement pstmt = null;
     	ResultSet rs = null;
@@ -149,7 +152,16 @@ public class DecisionDAO {
 				decision.setRationaleIds(DecisionDAO.getRationaleIds(rs.getInt("decisionId")));
 	    		decisions.add(decision);
     	    }
-    	    return decisions;
+    	    
+    	    for(Decision decision: decisions){
+    	    	Decision existingDecision = latestDecisions.get(decision.getDecisionName());
+    	    	if(existingDecision==null || existingDecision.getDecisionTime().before(decision.getDecisionTime())){
+    	    		//only replace decision if this decision is the newer one for the same name
+    	    		latestDecisions.put(decision.getDecisionName(), decision);
+    	    	}
+    	    }
+    	    
+    	    return latestDecisions;
     	} catch (SQLException e) {
     		e.printStackTrace();
     	} finally {
@@ -158,272 +170,29 @@ public class DecisionDAO {
     		if( conn != null) {conn.close();}
     	}
     	
-		return decisions;
+		return latestDecisions;
+	}
+	
+
+	public static boolean deleteDecision(Decision decision) {
+		if (decision == null) {
+			return false;
+		}
+		try {
+			Connection conn = DbManager.getConnection();
+			PreparedStatement pstmt = conn
+					.prepareStatement("DELETE FROM decision where decisionId = ?;");
+			pstmt.setInt(1, decision.getDecisionId());
+
+			// Execute the SQL statement and update database accordingly.
+			pstmt.executeUpdate();
+
+			pstmt.close();
+			conn.close();
+			return true;
+		} catch (SQLException e) {
+			throw new IllegalArgumentException(e.getMessage(), e);
+		}
 	}
 
-//	/**
-//	 * Get an user from DB by name
-//	 * 
-//     * @param username
-//     * @return User object
-//     */
-//	public static User getUser(String username) {
-//		try {
-//			Connection conn = DbManager.getConnection();
-//			PreparedStatement pstmt;
-//
-//			pstmt = conn.prepareStatement("SELECT * FROM user where userName = ?;");
-//			pstmt.setString(1, username);
-//			
-//			// Execute the SQL statement and store result into the ResultSet
-//			ResultSet rs = pstmt.executeQuery();
-//
-//			if (!rs.next()) {
-//				return null;
-//			}
-//
-//			// Modified by Xuesong Meng
-//			User user;
-//			user = new User(rs.getInt("userId"), username, "",
-//					rs.getString("email"), rs.getString("securityQ"),
-//					rs.getString("securityA"),rs.getString("userType"));
-//
-//			rs.close();
-//			pstmt.close();
-//			conn.close();
-//			return user;
-//		} catch (SQLException e) {
-//			System.out.println("Using default model.");
-//		}
-//
-//		return null;
-//	}
-//	
-//	
-//	/**
-//	 * Modified By: AmeyaCJoshi
-//	 * Purpose: To add a check that one email is used for one account only.
-//	 * 
-//	 * Get an user from DB by email
-//	 * 
-//     * @param email
-//     * @return User object
-//     */
-//	public static User getUserEmail(String email) {
-//		try {
-//			Connection conn = DbManager.getConnection();
-//			PreparedStatement pstmt;
-//
-//			pstmt = conn.prepareStatement("SELECT * FROM user where email = ?;");
-//			pstmt.setString(1, email);
-//			
-//			// Execute the SQL statement and store result into the ResultSet
-//			ResultSet rs = pstmt.executeQuery();
-//
-//			if (!rs.next()) {
-//				return null;
-//			}
-//
-//			User user;
-//			user = new User(rs.getInt("userId"), rs.getString("username"),
-//					"", email, rs.getString("securityQ"),
-//					rs.getString("securityA"),rs.getString("userType"));
-//
-//			rs.close();
-//			pstmt.close();
-//			conn.close();
-//			return user;
-//		} catch (SQLException e) {
-//			System.out.println("Using default model.");
-//		}
-//
-//		return null;
-//	}
-//	
-//	/**
-//	 * Get user from DB by userId
-//	 * 
-//     * @param userId
-//     * @return User object
-//	 */
-//	public static User getUser(int userId) {
-//		try {
-//			Connection conn = DbManager.getConnection();
-//			PreparedStatement pstmt = conn
-//					.prepareStatement("SELECT * FROM user where userId = ?;");
-//			pstmt.setInt(1, userId);
-//
-//			// Execute the SQL statement and store result into the ResultSet
-//			ResultSet rs = pstmt.executeQuery();
-//
-//			if (!rs.next()) {
-//				return null;
-//			}
-//
-//			User user;
-//			user = new User(rs.getInt("userId"), rs.getString("userName"), "",
-//					rs.getString("email"), "", "", rs.getString("userType"));
-//			rs.close();
-//			pstmt.close();
-//			conn.close();
-//			return user;
-//		} catch (SQLException e) {
-//			System.out.println("Using default model.");
-//		}
-//		return null;
-//	}
-//	
-//	/**
-//	 * Get userType from DB
-//	 * 
-//     * @param username User Name
-//     * @return userType Type of User. "U"- User, "P"- Policy Manager. 
-//	 */
-//	public static String getUserType(String username) throws SQLException {
-//		String userType = null;
-//		Connection conn = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		try {
-//			conn = DbManager.getConnection();
-//			pstmt = conn
-//					.prepareStatement("SELECT userType FROM user where userName = ?;");
-//			pstmt.setString(1, username);
-//
-//			// Execute the SQL statement and store result into the ResultSet
-//			rs = pstmt.executeQuery();
-//
-//			if (!rs.next()) {
-//				return null;
-//			}
-//
-//			userType = rs.getString("userType");
-//			rs.close();
-//			pstmt.close();
-//			conn.close();
-//			return userType;
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			if( rs != null) {rs.close();}
-//			if(pstmt != null) {pstmt.close();}
-//			if(conn != null) {conn.close();}
-//		}
-//		return userType;
-//	}
-//	
-//	/**
-//	 * Remove a user from DB
-//	 * 
-//     * @param User object
-//     * @return true if success; false if fail
-//	 */
-//	public static boolean removeUser(User user) {
-//		if (user == null) {
-//			return false;
-//		}
-//		try {
-//			Connection conn = DbManager.getConnection();
-//			PreparedStatement pstmt = conn
-//					.prepareStatement("DELETE FROM user where userId = ?;");
-//			pstmt.setInt(1, user.getUserId());
-//
-//			// Execute the SQL statement and update database accordingly.
-//			pstmt.executeUpdate();
-//
-//			pstmt.close();
-//			conn.close();
-//			return true;
-//		} catch (SQLException e) {
-//			throw new IllegalArgumentException(e.getMessage(), e);
-//		}
-//	}
-//
-//	/**
-//	 * Update user in DB
-//	 * 
-//     * @param User object
-//     * 			userName, password, email, securityQuestion, securityAnswer, userId
-//     * @return true if success; false if fail
-//	 */
-//	public static boolean updateUser(User user) {
-//		try {
-//			Connection conn = DbManager.getConnection();
-//			// Modified by Xuesong Meng
-//			//PreparedStatement pstmt = conn
-//			//		.prepareStatement("UPDATE user SET userName=? , password=?, email=?, securityQuestion =?, securityAnswer=? where user_Id = ?;");
-//			PreparedStatement pstmt = conn
-//					.prepareStatement("UPDATE user SET userName=? , password=?, email=?, securityQ =?, securityA=?, userType=? where userId = ?;");
-//			pstmt.setString(1, user.getUserName());
-//			pstmt.setString(2, user.getPassword());
-//			pstmt.setString(3, user.getEmail());
-//			pstmt.setString(4, user.getSecurityQuestion());
-//			pstmt.setString(5, user.getSecurityAnswer());
-//			pstmt.setString(6, user.getUserType());
-//			pstmt.setInt(7, user.getUserId());
-//			// Execute the SQL statement and update database accordingly.
-//			pstmt.executeUpdate();
-//
-//			pstmt.close();
-//			conn.close();
-//			return true;
-//		} catch (SQLException e) {
-//			throw new IllegalArgumentException(e.getMessage(), e);
-//		}
-//	}
-//
-//public static ArrayList<Integer> getAllUser(String table) throws SQLException {
-//		
-//		ArrayList<Integer> userId = new ArrayList<Integer>();
-//    	Connection conn = null;
-//    	PreparedStatement pstmt = null;
-//    	ResultSet rs = null;
-//    	try {
-//    		conn = DbManager.getConnection();
-//    		String statement = "Select userId from " + table + ";";
-//    	    pstmt = conn.prepareStatement(statement);
-//    	    rs = pstmt.executeQuery();
-//    	    while (rs.next()) {
-//    		userId.add(rs.getInt(1));
-//    	    }
-//    	} catch (SQLException e) {
-//    		e.printStackTrace();
-//    	} finally {
-//    		if( rs != null) {rs.close();}
-//    		if( pstmt != null) {pstmt.close();}
-//    		if( conn != null) {conn.close();}
-//    	}
-//    	return userId;
-//		
-//	}
-//	
-//	
-//	public static ArrayList<User> getAllUser() throws SQLException {
-//		
-//		ArrayList<User> users = new ArrayList<User>();
-//    	Connection conn = null;
-//    	PreparedStatement pstmt = null;
-//    	ResultSet rs = null;
-//    	try {
-//    		conn = DbManager.getConnection();
-//    	    pstmt = conn.prepareStatement(
-//    		    "SELECT * FROM user;");
-//    	    rs = pstmt.executeQuery();
-//    	    while (rs.next()) {
-//    		User user = new User(rs.getInt("userId"), rs.getString("userName"),
-//    				rs.getString("email"), rs.getString("password"),
-//    				rs.getString("securityQ"),rs.getString("securityA"),rs.getString("userType"));
-//    		users.add(user);
-//    	    }
-//    	    return users;
-//    	} catch (SQLException e) {
-//    		e.printStackTrace();
-//    	} finally {
-//    		if( rs != null) {rs.close();}
-//    		if( pstmt != null) {pstmt.close();}
-//    		if( conn != null) {conn.close();}
-//    	}
-//    	return users;
-//		
-//	}
 }
