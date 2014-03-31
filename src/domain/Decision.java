@@ -1,5 +1,8 @@
 package domain;
 
+import java.sql.Date;
+import java.util.ArrayList;
+
 /**
  * Information class that contains all the features of one decision
  * @ doc author	Vishal Patel
@@ -11,17 +14,19 @@ public class Decision {
 
 	private String decisionName;
 	private int projectId;
-	private String decisionTime;
+	private Date decisionTime;
 	private int userId;
 	private String userName;
 	private String diagramName;
     private int diagramId;
 //  future list of rationales associated with decision;
+    private ArrayList<Integer> rationaleIds;
     
 	/**
 	 * Default constructor
 	 */
     public Decision(){
+    	rationaleIds = new ArrayList<Integer>();
     }
     
 	/**
@@ -115,7 +120,7 @@ public class Decision {
 	 * @param decisionId
 	 * 			The ID of the decision
 	 */
-    public void setRationaleId(int decisionId) {
+    public void setDecisionId(int decisionId) {
         this.decisionId = decisionId;
     }
 
@@ -123,9 +128,9 @@ public class Decision {
 	/**
 	 * Get the decisionTime
 	 * 
-	 * @return decisionTime String
+	 * @return decisionTime date
 	 */
-    public String getDecisionTime() {
+    public Date getDecisionTime() {
         return decisionTime;
     }
 
@@ -135,14 +140,14 @@ public class Decision {
 	 * @param decisionTime
 	 * 			The time that this decision was created
 	 */
-    public void setDecisionTime(String decisionTime) {
+    public void setDecisionTime(Date decisionTime) {
         this.decisionTime = decisionTime;
     }
 
 	/**
 	 * @return the diagramId
 	 */
-	public int diagramId() {
+	public int getDiagramId() {
 		return diagramId;
 	}
 
@@ -171,4 +176,21 @@ public class Decision {
     public void setDiagramName(String diagramName) {
         this.diagramName = diagramName;
     }
+
+	/**
+	 * Get the list of rationales associated with this decision
+	 * 
+	 * @return rationales
+	 */
+	public ArrayList<Integer> getRationaleIds() {
+		return rationaleIds;
+	}
+
+	/**
+	 * Set rationale list
+	 * @param rationales list of associated rationales
+	 */
+	public void setRationaleIds(ArrayList<Integer> rationaleIds) {
+		this.rationaleIds = rationaleIds;
+	}
 }
