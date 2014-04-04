@@ -59,6 +59,8 @@ p {
     font-size: 16px;
     font-weight: bold;
 }
+
+
 p.spec {
     text-align:right;
 }
@@ -396,7 +398,7 @@ ol li .send {
     border-radius: 5px;
     background-color: #EEEBE7;
     width: 480px;
-    height: 480px;
+    height: 100px;
     margin-top: 20px;
     margin-right: 50px;
     padding:10px;
@@ -412,6 +414,50 @@ ol li .send {
     font-size: 14px;
     color: #30383e;
 }
+
+
+#decision form input{
+    margin-left: 25px;
+}
+#decision table td{
+    font-size: 14px;
+    color: #30383e;
+    padding: 6px;
+}
+
+
+
+#decision{
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #EEEBE7;
+    width: 480px;
+    height: 200px;
+    margin-top: 20px;
+    margin-right: 50px;
+    padding:10px;
+    -moz-box-shadow: 0 0 1px 1px #888;
+    -webkit-box-shadow: 0 0 1px 1px #888;
+    box-shadow: 0 0 1px 1px #888;
+}
+
+.the-legend {
+    border-style: none;
+    border-width: 0;
+    line-height: 20px;
+    margin-bottom: 0;
+}
+.the-fieldset {
+	
+    border: 2px groove threedface #444;
+	background-color:white !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+
+
+
 #commentBox
 {
     padding-left: 15px;

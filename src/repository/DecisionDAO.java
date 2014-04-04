@@ -8,9 +8,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import domain.Decision;
+import domain.Diagram;
 import domain.Rationale;
+import domain.User;
 
 public class DecisionDAO {
 
@@ -22,15 +26,12 @@ public class DecisionDAO {
 			
 			//create prepared statement
 			Connection conn = DbManager.getConnection();
-			PreparedStatement pstmt = conn
-					.prepareStatement(
-							"INSERT into decision(decisionName, projectId, decisionTime, userId, diagramId) VALUES(?,?,?,?,?);",
-							Statement.RETURN_GENERATED_KEYS);
+		    String sql = "INSERT into decision(decisionName,projectId,decisionTime,userId,diagramId) VALUES(?,?,NOW(),?,?);";
+		    PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, decision.getDecisionName());			
 			pstmt.setInt(2, decision.getProjectId());
-			pstmt.setDate(3, decision.getDecisionTime());
-			pstmt.setInt(4, decision.getUserId());
-			pstmt.setInt(5, decision.getDiagramId());
+			pstmt.setInt(3, decision.getUserId());
+			pstmt.setInt(4, decision.getDiagramId());
 			
 			// Execute the SQL statement and update database accordingly.
 			pstmt.executeUpdate();
@@ -40,7 +41,7 @@ public class DecisionDAO {
 			if (rs.next()) {
 				int newId = rs.getInt(1);
 				decision.setDecisionId(newId);
-				
+/*				
 				for(Integer rationaleId:decision.getRationaleIds()){
 					PreparedStatement psRationale = conn.prepareStatement("INSERT into decisionRationale(decisionId, rationaleId) VALUES(?,?);");
 					psRationale.setInt(1, decision.getDecisionId());
@@ -49,8 +50,10 @@ public class DecisionDAO {
 					psRationale.executeUpdate();
 					psRationale.close();
 				}
+*/
 			}
 			
+			System.out.println("Adding " + decision.getDecisionName() + " id " + decision.getDiagramId() + " projid " + decision.getProjectId());
 			
 			rs.close();
 			pstmt.close();
@@ -127,32 +130,46 @@ public class DecisionDAO {
 	}
 	
 	//returns all of the latest decisions for a given project- i.e. the latest decision for each decision name
-	public static HashMap<String, Decision> getLatestDecisions(int projectId) throws SQLException{
+	public static ArrayList<Decision> getLatestDecisions(int projectId) throws SQLException{
 		ArrayList<Decision> decisions = new ArrayList<Decision>();
 		HashMap<String, Decision> latestDecisions = new HashMap<String, Decision>();
-		Connection conn = null;
-    	PreparedStatement pstmt = null;
-    	ResultSet rs = null;
-    	try {
-    		conn = DbManager.getConnection();
-    	    pstmt = conn.prepareStatement(
-    		    "SELECT * FROM decision where projectId = ?;");
-    	    pstmt.setInt(1, projectId);
-    	    rs = pstmt.executeQuery();
-    	    while (rs.next()) {
-    	    	Decision decision;
+		
+		try {
+		    Connection conn = DbManager.getConnection();
+			String sql = "SELECT * FROM decision where projectId = ?;";
+		    PreparedStatement pstmt = conn.prepareStatement(sql);
+		    pstmt.setInt(1, projectId);
+
+		    ResultSet rs = pstmt.executeQuery();
+
+		    //Initiate a list to get all returned rationale objects and set attributes		    
+		    while (!rs.isClosed() && rs.next()) {
+		    	Decision decision;
 				decision = new Decision();
 				decision.setDecisionId(rs.getInt("decisionId"));
 				decision.setProjectId(rs.getInt("projectId"));
 				decision.setDecisionTime(rs.getDate("decisionTime"));
 				decision.setUserId(rs.getInt("userId"));
-				decision.setUserName(UserDAO.getUser(rs.getInt("userId")).getUserName());
-				decision.setDiagramName(DiagramDAO.getDiagram(rs.getInt("diagramId")).getDiagramName());
+				User tempUser = UserDAO.getUser(rs.getInt("userId"));  
+				if (tempUser != null)
+					decision.setUserName(tempUser.getUserName());
+				else
+					decision.setUserName("invalid-user");
+				Diagram tempDiagram = DiagramDAO.getDiagram(rs.getInt("diagramId"));
+				if (tempDiagram != null)
+					decision.setDiagramName(tempDiagram.getDiagramName());
+				else
+					decision.setDiagramName("invalid-diagram");
 				decision.setDiagramId(rs.getInt("diagramId"));
 				decision.setRationaleIds(DecisionDAO.getRationaleIds(rs.getInt("decisionId")));
 	    		decisions.add(decision);
+	    		System.out.println("Decision Read:" + decision.getDecisionName());
     	    }
-    	    
+
+		    if( rs != null) {rs.close();}
+    		if( pstmt != null) {pstmt.close();}
+    		if( conn != null) {conn.close();}
+
     	    for(Decision decision: decisions){
     	    	Decision existingDecision = latestDecisions.get(decision.getDecisionName());
     	    	if(existingDecision==null || existingDecision.getDecisionTime().before(decision.getDecisionTime())){
@@ -161,16 +178,12 @@ public class DecisionDAO {
     	    	}
     	    }
     	    
-    	    return latestDecisions;
-    	} catch (SQLException e) {
-    		e.printStackTrace();
-    	} finally {
-    		if( rs != null) {rs.close();}
-    		if( pstmt != null) {pstmt.close();}
-    		if( conn != null) {conn.close();}
-    	}
+    	    return decisions;
+		} catch (SQLException ex) {
+		    Logger.getLogger(RationaleDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
     	
-		return latestDecisions;
+		return decisions;
 	}
 	
 
