@@ -344,7 +344,7 @@ color: black;
 		 <br/>
 
 	    <label><b>Decision Name</b></label>
-	     <input type="text" id="decisionName" name ="decisionName" placeholder="Decision Name" size="20"/>
+	     <input type="text" id="decisionName" name ="decisionName" placeholder="Decision Name" size="20" maxlength="75"/>
 	     <br>
 	     <br>
 	     <table align="center">
