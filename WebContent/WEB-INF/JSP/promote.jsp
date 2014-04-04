@@ -15,6 +15,7 @@
   	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/pepper-grinder/jquery-ui.css" media="screen" rel="stylesheet" type="text/css">
   	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js" type="text/javascript"></script>
   	<script type="text/javascript" src="jquery-ui-form.js"></script>
+  	<script type="text/javascript" src="js/dbValidation.js"></script>
   	<link rel="stylesheet" href="promote_style.css" />
 
 	<title>Promote a Diagram</title>
@@ -192,47 +193,6 @@
     	    rationaleOperation.value = "Add";
 	    }
 	    
-	    function checkRationale(dialog){
-	    	switch(dialog) 
-	    	{
-	    		case(1):
-	    			summary = $("#summary1").val();
-	    			issue = $("#issue1").val();
-	    			issueRelationship = $("#issueRelationship1").val();
-	    			criteria = $("#criteria1").val();
-	    			criteriaRelationship = $("#criteriaRelationship1").val();
-	    		break;
-	    		case(2):
-	    			summary = $("#summary2").val();
-	    			issue = $("#issue2").val();
-	    			issueRelationship = $("#issueRelationship2").val();
-	    			criteria = $("#criteria2").val();
-	    			criteriaRelationship = $("#criteriaRelationship2").val();
-	    		break;
-    		}
-			if (summary == ""){
-		    	alert("Please enter valid summary before promoting");
-		    	return false;
-			}
-			if (issue == ""){
-		    	alert("Please enter valid issue before promoting");
-		    	return false;
-			}
-			if	(issueRelationship == ""){
-		    	alert("Please enter valid issue relationship before promoting");
-		    	return false;
-			}
-			if(criteria == ""){
-		    	alert("Please enter valid criteria before promoting");
-		    	return false;
-			}
-			if(criteriaRelationship == ""){
-		    	alert("Please enter valid criteria relationship before promoting");
-		    	return false;
-			}
-		
-			return true;
-	    }
 	</script>
 
 <style type="text/css">

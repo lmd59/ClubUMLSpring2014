@@ -7,17 +7,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <!-- BOOTSTRAP -->
-<link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css"
-	rel="stylesheet"/>
-<link
-	href="http://twitter.github.io/bootstrap/assets/css/bootstrap-responsive.css"
-	rel="stylesheet"/>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script><link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css" />
-<title>Insert title here</title>
+<link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css"	rel="stylesheet"/>
+<link href="http://twitter.github.io/bootstrap/assets/css/bootstrap-responsive.css"	rel="stylesheet"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css" />
+<script type="text/javascript" src="js/dbValidation.js"></script>
+
+<title>Manage policy</title>
 <script type="text/javascript">
 
 /* $(document).ready(function(){
@@ -355,7 +354,7 @@ color:gray;}
  <div class="form-group">
     <label class="col-lg-2 control-label">Policy Name</label>
     <div class="col-lg-10">
-      <input type="text" class="form-control" id="PolicyNameUpdate" name ="PolicyNameUpdate" placeholder="PolicyName"/>
+      <input type="text" class="form-control" id="PolicyNameUpdate" name ="PolicyNameUpdate" placeholder="PolicyName" max_length="45"/>
     </div>
   </div>
   
@@ -363,7 +362,7 @@ color:gray;}
     <label class="col-lg-2 control-label">Description</label>
     <div class="col-lg-10">
     
-      <input type="text" class="form-control" id="PolicyDescriptionUpdate" name="PolicyDescriptionUpdate" placeholder="Description"/>
+      <input type="text" class="form-control" id="PolicyDescriptionUpdate" name="PolicyDescriptionUpdate" placeholder="Description" max_length="255"/>
     </div>
   </div>
   
@@ -382,7 +381,7 @@ color:gray;}
   <div id="metricinformationUpdate"></div>
   
 <div class="buttoninpopup">
-			<input class="btn btn-link"  type="submit" value="Update" id="afterupdate" />
+			<input class="btn btn-link" onclick="return checkUpdatePolicy();" type="submit" value="Update" id="afterupdate" />
 			
 			<%------------------------- update metric --%>
  <button class="btn btn-link " id="btn4">Update Metric</button>
@@ -414,7 +413,7 @@ color:gray;}
      <input type="checkbox" name="metricUpdate" id="MultiplicitiesUpdate"/>Multiplicities<br/>
            
   </div>
-  <input class="btn btn-primary " id="submitupdate" type="submit" value="Update" />
+  <input class="btn btn-primary" onclick="return checkUpdatePolicy();" id="submitupdate" type="submit" value="Update" />
 </div>
 			
 			
@@ -438,7 +437,7 @@ color:gray;}
 	 <div class="form-group">
 	    <label class="col-lg-2 control-label">Policy Name</label>
 	    <div class="col-lg-10">
-	      <input type="text" class="form-control" id="PolicyName" name ="PolicyName" placeholder="PolicyName"/>
+	      <input type="text" class="form-control" id="PolicyName" name ="PolicyName" placeholder="PolicyName" max_length="45"/>
 	    </div>
 	  </div>
  	  
@@ -446,7 +445,7 @@ color:gray;}
 	    <label class="col-lg-2 control-label">Description</label>
 	    <div class="col-lg-10">
 	    
-	      <input type="text" class="form-control" id="PolicyDescription" name="PolicyDescription" placeholder="Description"/>
+	      <input type="text" class="form-control" id="PolicyDescription" name="PolicyDescription" placeholder="Description" max_length="255"/>
 	    </div>
 	  </div>
 	  
@@ -465,7 +464,7 @@ color:gray;}
 	  <div id="metricinformation"></div>
 	  
 	<div class="buttoninpopup">
-				<input class="btn btn-link"  type="submit" value="Create" id="afteradd" />
+				<input class="btn btn-link" onclick="return checkAddPolicy();" type="submit" value="Create" id="afteradd" />
 
 		<%------------------------- Add metric --%>
 	 <button class="btn btn-link " id="btn3">ADD Metric</button>
@@ -497,7 +496,7 @@ color:gray;}
      <input type="checkbox" name="metric" id="Multiplicities"/>Multiplicities<br/>
            
   </div>
-  <input class="btn btn-primary " id="submitadd" type="submit" value="Add" />
+  <input class="btn btn-primary" id="submitadd" type="submit" onclick="return checkAddPolicy();" value="Add" />
 </div>			
 	</div>
 </form>

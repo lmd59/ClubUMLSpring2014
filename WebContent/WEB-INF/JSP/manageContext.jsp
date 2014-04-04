@@ -6,12 +6,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <!-- BOOTSTRAP -->
-<link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css"
-	rel="stylesheet">
-<link
-	href="http://twitter.github.io/bootstrap/assets/css/bootstrap-responsive.css"
-	rel="stylesheet">
-<title>Insert title here</title>
+<link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css"	rel="stylesheet">
+<link href="http://twitter.github.io/bootstrap/assets/css/bootstrap-responsive.css"	rel="stylesheet">
+<title>Manage Context</title>
+<script type="text/javascript" src="js/dbValidation.js"></script>
 
 <script type="text/javascript">
  $("#AddContext").hide();
@@ -63,11 +61,11 @@ display: inline;
      
       <div class="form-group">
 
-    <label class="col-lg-2 control-label" id="ContextName" >Context Name</label>
+    <label class="col-lg-2 control-label" id="ContextName" max_length="45">Context Name</label>
 
     <div class="col-lg-10">
 
-      <input type="text" class="form-control" id="ProjectName" name ="ProjectName" placeholder="ProjectName"/>
+    <input type="text" class="form-control" id="contextName" name ="ContextName" placeholder="ContextName" max_length="45"/>
 
     </div>
 
@@ -81,7 +79,7 @@ display: inline;
 
     
 
-      <input type="text" class="form-control" id="Description" name="Description" placeholder="Description"/>
+      <input type="text" class="form-control" id="Description" name="Description" placeholder="Description" max_length="255"/>
 
     </div>
 
@@ -104,7 +102,7 @@ display: inline;
 
   </div>
   
-  <input class="btn btn-info"  type="submit" value="Create" />
+  <input class="btn btn-info" onclick="return checkAddContext();" type="submit" value="Create" />
      </form>
 	
 </div>
@@ -121,7 +119,7 @@ display: inline;
 
     <div class="col-lg-10">
 
-      <input type="text" class="form-control" id="ProjectName" name ="ProjectName" placeholder="ProjectName"/>
+      <input type="text" class="form-control" id="contextUpdate" name ="ContextName" placeholder="ContextName" max_length="45"/>
 
     </div>
 
@@ -135,7 +133,7 @@ display: inline;
 
     
 
-      <input type="text" class="form-control" id="Description" name="Description" placeholder="Description"/>
+      <input type="text" class="form-control" id="descriptionUpdate" name="Description" placeholder="Description" max_length="255"/>
 
     </div>
 
@@ -148,7 +146,7 @@ display: inline;
 
   <select>
 
-  <c:forEach items="${activeprojects}" var="project">
+  <c:forEach items="${activeprojects}" var="projectUpdate">
 
   <option>${project.projectName }</option>
 
@@ -158,7 +156,7 @@ display: inline;
 
   </div>
   
-  <input class="btn btn-info"  type="submit" value="Update" />
+  <input class="btn btn-info" onclick="return checkUpdateContext();" type="submit" value="Update" />
      </form>
 	
 </div>
@@ -166,7 +164,7 @@ display: inline;
 <div id="menu">
 		<ul class="contul">
 			<li><button class="btn btn-link"  id="addContextBtn">Add Context</button> </li> 
-			<li><button class="btn btn-link" id="updateContextBtn">Delete Selected Context</button></li>
+			<li><button class="btn btn-link" id="updateContextBtn">Update Context</button></li>
 		</ul>
 </div>
 	
