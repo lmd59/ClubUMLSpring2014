@@ -307,9 +307,10 @@ color: black;
 							<td><input class="myCheckBox" type="checkbox" name="check"
 								value=1/></td>
 							<td>${decision.decisionName}</td>
-							<td>${decision.decisionTime}</td>
+							<td>${decision.userName}</td>
 						</tr>
-					</c:forEach>
+						</c:forEach>
+					</tr>
 				</table>
 						
     	

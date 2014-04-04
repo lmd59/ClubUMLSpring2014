@@ -53,8 +53,6 @@ public class DecisionDAO {
 */
 			}
 			
-			System.out.println("Adding " + decision.getDecisionName() + " id " + decision.getDiagramId() + " projid " + decision.getProjectId());
-			
 			rs.close();
 			pstmt.close();
 			conn.close();
@@ -79,6 +77,7 @@ public class DecisionDAO {
 				Decision decision;
 				decision = new Decision();
 				decision.setDecisionId(rs.getInt("decisionId"));
+				decision.setDecisionName(rs.getString("decisionName"));
 				decision.setProjectId(rs.getInt("projectId"));
 				decision.setDecisionTime(rs.getDate("decisionTime"));
 				decision.setUserId(rs.getInt("userId"));
@@ -147,28 +146,27 @@ public class DecisionDAO {
 		    	Decision decision;
 				decision = new Decision();
 				decision.setDecisionId(rs.getInt("decisionId"));
+				decision.setDecisionName(rs.getString("decisionName"));
 				decision.setProjectId(rs.getInt("projectId"));
 				decision.setDecisionTime(rs.getDate("decisionTime"));
 				decision.setUserId(rs.getInt("userId"));
-				User tempUser = UserDAO.getUser(rs.getInt("userId"));  
-				if (tempUser != null)
-					decision.setUserName(tempUser.getUserName());
-				else
-					decision.setUserName("invalid-user");
-				Diagram tempDiagram = DiagramDAO.getDiagram(rs.getInt("diagramId"));
-				if (tempDiagram != null)
-					decision.setDiagramName(tempDiagram.getDiagramName());
-				else
-					decision.setDiagramName("invalid-diagram");
 				decision.setDiagramId(rs.getInt("diagramId"));
-				decision.setRationaleIds(DecisionDAO.getRationaleIds(rs.getInt("decisionId")));
+				//decision.setRationaleIds(DecisionDAO.getRationaleIds(rs.getInt("decisionId")));
 	    		decisions.add(decision);
-	    		System.out.println("Decision Read:" + decision.getDecisionName());
     	    }
-
-		    if( rs != null) {rs.close();}
-    		if( pstmt != null) {pstmt.close();}
-    		if( conn != null) {conn.close();}
+		    
+    	    for(Decision decision: decisions){
+    	    	User tempUser = UserDAO.getUser(decision.getUserId());  
+    	    	if (tempUser != null)
+    	    		decision.setUserName(tempUser.getUserName());
+    	    	else
+    	    		decision.setUserName("invalid-user");
+    	    	Diagram tempDiagram = DiagramDAO.getDiagram(decision.getDiagramId());
+    	    	if (tempDiagram != null)
+    	    		decision.setDiagramName(tempDiagram.getDiagramName());
+    	    	else
+    	    		decision.setDiagramName("invalid-diagram");
+    	    }
 
     	    for(Decision decision: decisions){
     	    	Decision existingDecision = latestDecisions.get(decision.getDecisionName());
@@ -178,7 +176,11 @@ public class DecisionDAO {
     	    	}
     	    }
     	    
-    	    return decisions;
+		    if( rs != null) {rs.close();}
+    		if( pstmt != null) {pstmt.close();}
+    		if( conn != null) {conn.close();}
+
+    		return decisions;
 		} catch (SQLException ex) {
 		    Logger.getLogger(RationaleDAO.class.getName()).log(Level.SEVERE, null, ex);
 		}

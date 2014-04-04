@@ -197,7 +197,6 @@ public class DisplayDiagram extends HttpServlet {
 		{
 			ProjectID = Integer.parseInt(request.getParameter("ProjectID"));
 		}
-		System.out.println("ProjectID: " + ProjectID);
 	
 		ArrayList<domain.Diagram> diagrams = DiagramDAO.getDiagramList(ProjectID);
 	    if (!diagrams.isEmpty()) {
@@ -218,7 +217,6 @@ public class DisplayDiagram extends HttpServlet {
 		try {
 			decisions = DecisionDAO.getLatestDecisions(ProjectID);
     	    if (!decisions.isEmpty()) {
-    	    	System.out.println("Have decisions");
     			request.setAttribute("decisions", decisions);
     	    }
 		} catch (SQLException e) {
@@ -244,7 +242,6 @@ public class DisplayDiagram extends HttpServlet {
     		userName = tempObj.toString();
 
 		String decisionName = request.getParameter("decisionName");
-		System.out.println("Decision Name: " + decisionName);
 
 		int ProjectID = -1;
 		if ((request.getParameter("ProjectID") != null))
@@ -258,31 +255,11 @@ public class DisplayDiagram extends HttpServlet {
 		newDecision.setUserId(userId);
 		newDecision.setUserName(userName);
 		
-		if (DecisionDAO.addDecision(newDecision)) {
-			System.out.println("Decision Name: " + decisionName);
-		}
-
+		DecisionDAO.addDecision(newDecision);
+		
 		// changes for loading the JSP back again
-    	ArrayList<domain.Diagram> diagrams = DiagramDAO.getDiagramList(ProjectID);
-    	if (!diagrams.isEmpty()) {
-    		request.setAttribute("diagrams", diagrams);
-    		//set the first diagram in diagram list as the default display diagram..
-    		request.setAttribute("firstPath", diagrams.get(0).getFilePath() + ".png");
-    		request.setAttribute("diagramId1", diagrams.get(0).getDiagramId());
-    	   	request.setAttribute("ProjectID", ProjectID);
-    	}
-    	    
-    	ArrayList<Decision> decisions;
-		try {
-			decisions = DecisionDAO.getLatestDecisions(ProjectID);
-	        if (!decisions.isEmpty()) {
-	        	System.out.println("Have decisions");
-	    		request.setAttribute("decisions", decisions);
-	        }
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
+		setDisplayDiagramRequestAttributes(request, ProjectID);
+		
     	RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/display.jsp");
     	dispatcher.forward(request, response);
     }
@@ -358,7 +335,27 @@ public class DisplayDiagram extends HttpServlet {
 		}
     }
     
-    
+    public void setDisplayDiagramRequestAttributes(HttpServletRequest request, int ProjectID) {
+		// changes for loading the JSP back again
+    	ArrayList<domain.Diagram> diagrams = DiagramDAO.getDiagramList(ProjectID);
+    	if (!diagrams.isEmpty()) {
+    		request.setAttribute("diagrams", diagrams);
+    		//set the first diagram in diagram list as the default display diagram..
+    		request.setAttribute("firstPath", diagrams.get(0).getFilePath() + ".png");
+    		request.setAttribute("diagramId1", diagrams.get(0).getDiagramId());
+    	   	request.setAttribute("ProjectID", ProjectID);
+    	}
+    	    
+    	ArrayList<Decision> decisions;
+		try {
+			decisions = DecisionDAO.getLatestDecisions(ProjectID);
+	        if (!decisions.isEmpty()) {
+	    		request.setAttribute("decisions", decisions);
+	        }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    }
     /*
      * function to download project.
      */
