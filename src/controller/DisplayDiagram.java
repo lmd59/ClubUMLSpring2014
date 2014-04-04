@@ -213,7 +213,7 @@ public class DisplayDiagram extends HttpServlet {
 	    	request.setAttribute("ProjectID", ProjectID);
 	    }
 	    
-		ArrayList<Decision> decisions;
+		HashMap<String, Decision> decisions;
 		try {
 			decisions = DecisionDAO.getLatestDecisions(ProjectID);
     	    if (!decisions.isEmpty()) {
@@ -346,7 +346,7 @@ public class DisplayDiagram extends HttpServlet {
     	   	request.setAttribute("ProjectID", ProjectID);
     	}
     	    
-    	ArrayList<Decision> decisions;
+    	HashMap<String, Decision> decisions;
 		try {
 			decisions = DecisionDAO.getLatestDecisions(ProjectID);
 	        if (!decisions.isEmpty()) {

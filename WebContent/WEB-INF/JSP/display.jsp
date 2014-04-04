@@ -306,8 +306,8 @@ color: black;
 						<tr>
 							<td><input class="myCheckBox" type="checkbox" name="check"
 								value=1/></td>
-							<td>${decision.decisionName}</td>
-							<td>${decision.userName}</td>
+							<td>${decision.value.decisionName}</td>
+							<td>${decision.value.userName}</td>
 						</tr>
 						</c:forEach>
 					</tr>

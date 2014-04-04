@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -31,7 +32,11 @@ public class DecisionDAO {
 			pstmt.setString(1, decision.getDecisionName());			
 			pstmt.setInt(2, decision.getProjectId());
 			pstmt.setInt(3, decision.getUserId());
-			pstmt.setInt(4, decision.getDiagramId());
+			if(decision.getDiagramId()==0){
+				pstmt.setNull(4, Types.INTEGER);
+			}else{
+				pstmt.setInt(4, decision.getDiagramId());
+			}
 			
 			// Execute the SQL statement and update database accordingly.
 			pstmt.executeUpdate();
@@ -129,7 +134,7 @@ public class DecisionDAO {
 	}
 	
 	//returns all of the latest decisions for a given project- i.e. the latest decision for each decision name
-	public static ArrayList<Decision> getLatestDecisions(int projectId) throws SQLException{
+	public static HashMap<String, Decision> getLatestDecisions(int projectId) throws SQLException{
 		ArrayList<Decision> decisions = new ArrayList<Decision>();
 		HashMap<String, Decision> latestDecisions = new HashMap<String, Decision>();
 		
@@ -180,12 +185,12 @@ public class DecisionDAO {
     		if( pstmt != null) {pstmt.close();}
     		if( conn != null) {conn.close();}
 
-    		return decisions;
+    		return latestDecisions;
 		} catch (SQLException ex) {
 		    Logger.getLogger(RationaleDAO.class.getName()).log(Level.SEVERE, null, ex);
 		}
     	
-		return decisions;
+		return latestDecisions;
 	}
 	
 
