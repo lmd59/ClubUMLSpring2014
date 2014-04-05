@@ -1,7 +1,5 @@
 <%--
-    Document   : display
-    Created on : Oct 20, 2012, 2:25:33 PM
-    Author     : pratham
+    Document   : useCaseUpload.jsp
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -206,11 +204,6 @@ color: black;
 	</div>
     
     <div id="rightContainer">
-    
-    	<form action="UseCaseUpload" method=POST>
-				<input type="hidden" value="${ProjectID }" name="ProjectID">
-				<input class="submit" type="submit" value="Use Case App">
-		</form>
     
 		<div id="selectContextBox">
 		<span>Diagram Context:</span>
