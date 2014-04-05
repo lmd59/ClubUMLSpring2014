@@ -94,7 +94,7 @@ private void Success(HttpServletRequest request,
 	
 		ProjectDAO.updateProject(projectObj);
 		System.out.println("Successfully updated project");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/home.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("ManageProject");
 	    dispatcher.forward(request, response);
 	    
 /*	    ServletContext context = this.getServletContext();
