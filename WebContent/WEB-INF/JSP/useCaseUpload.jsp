@@ -220,10 +220,9 @@ color: black;
 					<c:forEach items="${requestScope.diagrams}" var="diagram">
 						<tr>
 							<td><input class="myCheckBox" type="checkbox" name="check"
-								value="${diagram.diagramId}" id="${diagram.diagramType}"/></td>
+								value="${diagram.useCaseDiagramId}" id="use case"/></td>
 							<td>${diagram.diagramName}</td>
-							<td>${diagram.createdTime}</td>
-							<td>${diagram.diagramType}</td>
+							<td>${diagram.createTime}</td>
 						</tr>
 					</c:forEach>
 				</table>

@@ -86,9 +86,9 @@ CREATE TABLE diagram
 CREATE TABLE useCaseDiagram
 (
 	useCaseDiagramId Int(11) NOT NULL AUTO_INCREMENT,
-    diagramName Varchar(45) NOT NULL,
+    diagramName Varchar(75) NOT NULL,
 	createTime Timestamp NOT NULL,
-    filePath Varchar(45) NOT NULL,
+    filePath Varchar(255) NOT NULL,
     PRIMARY KEY (useCaseDiagramId)
 );
 

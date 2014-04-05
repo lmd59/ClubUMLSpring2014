@@ -27,10 +27,12 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 
 import repository.ContextDAO;
 import repository.DiagramDAO;
+import repository.UseCaseDiagramDAO;
 import controller.upload.UploadProcessor;
 import controller.upload.UploadProcessorFactory;
 import domain.Diagram;
 import domain.DiagramContext;
+import domain.UseCaseDiagram;
 import logging.Log;
 
 import java.util.ArrayList;
@@ -107,7 +109,11 @@ public class UploadServlet extends HttpServlet {
 		String filename = "";
 		
 		ServletFileUpload uploadHandler = new ServletFileUpload(dfif);
+		
+		//for use case upload
 		String uploadType = "";
+		FileItem useCaseFile = null;
+		
 		try {
 			ServletRequestContext src = new ServletRequestContext(request);
 			List<?> items = uploadHandler.parseRequest(src);
@@ -124,6 +130,8 @@ public class UploadServlet extends HttpServlet {
 					
 					System.out.println("Form field: " + item.getFieldName());
 					System.out.println("Value: " + item.getString());
+				}else{
+					useCaseFile = item;
 				}
 				
 				if (item.getName().isEmpty()) {
@@ -185,7 +193,7 @@ public class UploadServlet extends HttpServlet {
 						fileList.add(new FileInfo(absolutePath,filename,libPath));
 						//Log.LogCreate().Info(" File list " + absolutePath  +"  "  + newName + " "  + libPath);
 					
-						if (isFileType(filename,"ecore") || isFileType(filename,"uml")){
+						if (isFileType(filename,"ecore")){
 							String image_file_name = filename + ".png";	
 							String folder = "uploads/" + id_file_date + "/" + filename;
 							this.storeDatabase(folder, image_file_name,
@@ -215,6 +223,10 @@ public class UploadServlet extends HttpServlet {
 		
 		//if (isFileType(filename,"uml")){
 		if(uploadType.equals("useCase")){
+			UseCaseDiagram diagram = new UseCaseDiagram();
+			diagram.setDiagramName(useCaseFile.getName());
+			diagram.setFilePath(destinationDir + "/");
+			UseCaseDiagramDAO.addUseCaseDiagram(diagram);
 			RequestDispatcher rd = request.getRequestDispatcher("UseCaseUpload");
 			rd.forward(request, response);
 		}else{

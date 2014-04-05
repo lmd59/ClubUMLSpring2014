@@ -28,10 +28,11 @@ public class UseCaseDiagramDAO {
 		try {
 			//create prepared statement
 			Connection conn = DbManager.getConnection();
-		    String sql = "INSERT into useCaseDiagram(diagramName,createTime, filePath,) VALUES(?,NOW(),?);";
+		    String sql = "INSERT into useCaseDiagram(diagramName,createTime, filePath) VALUES(?,NOW(),?);";
 		    PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, diagram.getDiagramName());	
 			pstmt.setString(2, diagram.getFilePath());
+			System.out.println("file path: " + diagram.getFilePath());
 			
 			// Execute the SQL statement and update database accordingly.
 			pstmt.executeUpdate();

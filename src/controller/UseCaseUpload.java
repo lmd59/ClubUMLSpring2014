@@ -8,6 +8,7 @@ import domain.Decision;
 import domain.Diagram;
 import domain.DiagramPolicyScore;
 import domain.Report;
+import domain.UseCaseDiagram;
 import compareAlgorithm.CompareDiagrams;
 import compareAlgorithm.DiagramCompare;
 import compareAlgorithm.smartPolicy.PolicyScoreGenerator;
@@ -46,6 +47,7 @@ import repository.DiagramDAO;
 import repository.PolicyDAO;
 import repository.RationaleDAO;
 import repository.ReportDAO;
+import repository.UseCaseDiagramDAO;
 
 
 /**
@@ -78,7 +80,15 @@ public class UseCaseUpload extends HttpServlet {
 		checked = (String[]) request.getParameterValues("check");
 		option = request.getParameter("submit");
 
-		
+		//TODO: pull use case diagrams from database and set as attribute
+		ArrayList<UseCaseDiagram> diagrams = null;
+		try {
+			diagrams = UseCaseDiagramDAO.getAllUseCaseDiagrams();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		request.setAttribute("diagrams", diagrams);
 		
 		
 		//handle check box redirect to rule compare
