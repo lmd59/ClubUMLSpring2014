@@ -81,6 +81,12 @@ public class UploadServlet extends HttpServlet {
 	 */
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		
+		for(String key: request.getParameterMap().keySet()){
+			System.out.println("Key: " + key + " value: " + request.getParameter(key));
+		}
+		
+		
 
 		HttpSession session = request.getSession();
 		// Set id properly
@@ -195,8 +201,14 @@ public class UploadServlet extends HttpServlet {
 				processor.process(projectId);
 			}
 		}	
-		RequestDispatcher rd = request.getRequestDispatcher("Display");
-		rd.forward(request, response);
+		System.out.println("Project id for debug: " +  Integer.parseInt(request.getParameter("ProjectID")));
+		if(request.getParameter("uploadType").equals("classDiagram")){
+			RequestDispatcher rd = request.getRequestDispatcher("Display");
+			rd.forward(request, response);
+		}else if(request.getParameter("uploadType").equals("useCase")){
+			RequestDispatcher rd = request.getRequestDispatcher("UseCaseUpload");
+			rd.forward(request, response);
+		}
 
 	}
 	

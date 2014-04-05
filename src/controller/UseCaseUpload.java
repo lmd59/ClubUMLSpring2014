@@ -4,6 +4,7 @@
  */
 package controller;
 
+import domain.Decision;
 import domain.Diagram;
 import domain.DiagramPolicyScore;
 import domain.Report;
@@ -16,7 +17,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,8 +40,8 @@ import com.itextpdf.text.pdf.parser.TextExtractionStrategy;
 
 import controller.diagramparser.DiagramParser;
 import controller.diagramparser.DiagramParserFactory;
-
 import repository.CompareDAO;
+import repository.DecisionDAO;
 import repository.DiagramDAO;
 import repository.PolicyDAO;
 import repository.RationaleDAO;
@@ -62,102 +65,86 @@ public class UseCaseUpload extends HttpServlet {
 	private int diagramID2;
 	private String diagram1RealPath;
 	private String diagram2RealPath;
-	/**
-	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-	 * methods.
-	 * 
-	 * @param request
-	 *            servlet request
-	 * @param response
-	 *            servlet response
-	 * @throws ServletException
-	 *             if a servlet-specific error occurs
-	 * @throws IOException
-	 *             if an I/O error occurs
-	 */
+	
+	private String[] checked;// selected checkbox list from display jsp page.
+    private String option; // function button from display jsp page.
+	
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		ServletContext context = this.getServletContext();
+		
+		response.setContentType("text/html;charset=UTF-8");
+		
+		checked = (String[]) request.getParameterValues("check");
+		option = request.getParameter("submit");
 
-//		this.diagramID1 = Integer.parseInt(request.getParameter("file1"));
-//		this.diagramID2 = Integer.parseInt(request.getParameter("file2"));
-//
-//		Diagram diagram1 = DiagramDAO.getDiagram(this.diagramID1);
-//		Diagram diagram2 = DiagramDAO.getDiagram(this.diagramID2);
-//		
-//		String path = "";
-//		String reportText = "";
-//		
-//		//Lauren DiCristofaro: the below should probably be moved to find servlet context in which diagrams were initially created
-//		diagram1.setDiagramRealPath(context.getRealPath(diagram1.getFilePath()));
-//		diagram2.setDiagramRealPath(context.getRealPath(diagram2.getFilePath()));
-//		// setting context Paths for Diagrams
-//		diagram1.setConPath(context.getRealPath("/").toString());	
-//		diagram2.setConPath(context.getRealPath("/").toString());
-//		
-//		if(request.getParameter("smartsuggest") != null && 
-//				request.getParameter("smartsuggest").equals("Suggest Promote"))
-//		{
-//			// your code here
-//
-//			DiagramParserFactory factory = new DiagramParserFactory();
-// 			DiagramParser diag1Parser = DiagramParserFactory.getDiagramParser(diagram1);
-//			DiagramParser diag2Parser = DiagramParserFactory.getDiagramParser(diagram2);
-//			PolicyScoreGenerator scorer = new PolicyScoreGenerator();
-//			try {
-//				DiagramPolicyScore diagram1Score = scorer.generateScore(PolicyDAO.getPolicy(diagramID1), diag1Parser);
-//				DiagramPolicyScore diagram2Score = scorer.generateScore(PolicyDAO.getPolicy(diagramID2), diag2Parser);
-//				//String justification = "Adding Suggestion Remarks";
-//				String justification = "";
-//				if(diagram1Score.getPolicyScore() > diagram2Score.getPolicyScore())
-//					justification = "Diagram 2 is preferred!! \n";
-//				else if (diagram1Score.getPolicyScore() < diagram2Score.getPolicyScore())
-//					justification = "Diagram 1 is preferred!! \n";
-//				else
-//					justification = "Diagram 1 nad Diagram 2 are equally preferred!! \n ";
-//				justification += "<b>SCORING DETAILS: </b> \n \n";	
-//				justification += "<b>Diagram1:</b> Score:" + diagram1Score.getPolicyScore() + "\n";
-//				justification +=	diagram1Score.getJustification();
-//				justification += "\n" +"<b>Diagram2:</b> Score:" + diagram2Score.getPolicyScore() + "\n";
-//				justification +=	diagram2Score.getJustification();
-//				reportText = (String) request.getParameter("reportText");
-//				reportText = justification + "\n\n" + reportText;
-//			} catch (Exception ex) {
-//				Logger.getLogger(Compare.class.getName()).log(Level.SEVERE, null, ex);
-//			}
-//			
-//		}
-//		else 
-//		{
-//			DiagramCompare compareObj = new DiagramCompare(diagram1, diagram2, context.getRealPath("/reports/"));
-//			
-//			try {
-//				
-//				path = compareObj.process();		
-//				reportText = PDFToText(path);
-//			} catch (Exception ex) {
-//				Logger.getLogger(Compare.class.getName()).log(Level.SEVERE, null, ex);
-//			}
-//		}
-//
-//			
-//		int compareId = searchAndLoadCompare(request,diagram1.getDiagramId(), diagram2.getDiagramId(), path);
-//		loadRationales(request, compareId);
-//		
-//		request.setAttribute("reportText", reportText);
-//		request.setAttribute("reportPath", path);
-//		request.setAttribute("path1", diagram1.getFilePath() + ".png");
-//		request.setAttribute("path2", diagram2.getFilePath() + ".png");
-//		request.setAttribute("diagramAId", diagram1.getDiagramId());
-//		request.setAttribute("diagramBId", diagram2.getDiagramId());
-//		request.setAttribute("diagramAName", diagram1.getDiagramName());
-//		request.setAttribute("diagramBName", diagram2.getDiagramName());
-		//request.setAttribute("reportText", compareObj.getReportText());
-		RequestDispatcher dispatcher = request
-				.getRequestDispatcher("WEB-INF/JSP/useCaseUpload.jsp");
-		dispatcher.forward(request, response);		
+		
+		
+		
+		//handle check box redirect to rule compare
+		if (option != null) {
+			if (option.equals("Compare to Rule")) {
+				compareToRule(checked, request, response);
+		
+			}
+		}else{
+			//handle upload
+			RequestDispatcher dispatcher = request
+					.getRequestDispatcher("WEB-INF/JSP/useCaseUpload.jsp");
+			dispatcher.forward(request, response);
+			
+		}
+		
+		
+			
 	}
 
+	
+	public void compareToRule(String[] checked, HttpServletRequest request, HttpServletResponse response)
+		    throws ServletException, IOException {
+
+		int diagramId1 = Integer.parseInt(checked[0]);
+			int ProjectID = -1;
+			if ((request.getParameter("ProjectID") != null))
+			{
+				ProjectID = Integer.parseInt(request.getParameter("ProjectID"));
+			}
+		
+			ArrayList<domain.Diagram> diagrams = DiagramDAO.getDiagramList(ProjectID);
+		    if (!diagrams.isEmpty()) {
+
+				for (int i = 0; i < diagrams.size(); i++) {
+				    if (diagrams.get(i).getDiagramId() == diagramId1) {
+						// Set the first diagram in diagram list as the default display diagram..
+						request.setAttribute("firstPath", diagrams.get(i).getFilePath() + ".png");
+						request.setAttribute("diagramId1", diagrams.get(i).getDiagramId());
+						break;
+				    }			    
+				}
+				request.setAttribute("diagrams", diagrams);
+		    	request.setAttribute("ProjectID", ProjectID);
+		    }
+		    
+			HashMap<String, Decision> decisions;
+			try {
+				decisions = DecisionDAO.getLatestDecisions(ProjectID);
+	    	    if (!decisions.isEmpty()) {
+	    			request.setAttribute("decisions", decisions);
+	    	    }
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		    RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/display.jsp");
+			dispatcher.forward(request, response);
+		}
+	
+	
+	
+	
+	
+	//other stuff
+	
 	// <editor-fold defaultstate="collapsed"
 	// desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**

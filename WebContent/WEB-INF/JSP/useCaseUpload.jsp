@@ -169,7 +169,7 @@ color: black;
 </head>
 <body>
 	<div id="myHeader">
-		<h1 id="banner">Class Diagrams</h1>
+		<h1 id="banner">Use Case Diagrams</h1>
 	</div>
 	<ul class="basictab">
 	    <li><a href="#tabs-1">Home</a></li>
@@ -185,73 +185,29 @@ color: black;
 		<c:if test="${requestScope.diagramId1 != null}">
 			<img src="${requestScope.firstPath}"/>
 		</c:if>
-		<!-- 
-			<br><b>Comments : </b>
-		<c:if test="${requestScope.comments != null}">
-			<div id="commentBox">
-				<table id="myTable">
-					<c:forEach items="${requestScope.comments}" var="comment">
-						<tr>
-							<td><b><c:out value="${comment.userName}"></c:out> </b></td>
-							<td><c:out value=" ${comment.content}"></c:out></td>
-						</tr>
-					</c:forEach>
-				</table>
-			</div>
-		</c:if>
-		 -->
-		
 	</div>
     
     <div id="rightContainer">
-    
-		<div id="selectContextBox">
-		<span>Diagram Context:</span>
-		<select>
-		<option value="context1">Context 1</option>
-		<option value="context2">Context 2</option>
-		</select>
-		</div>
 		
 		<div id="box">
 			<span id="DiagramSelectLabel">Class Diagram Format: (.ecore)</span> 
 			<select onchange="displayClassDiagramFields(this)">
-					<option value="ecore">ECORE</option>
-					<option value="xmi">XMI</option>
+					<option value="uml">UML</option>
 			</select> 
 			<form action="UploadServlet" method=POST enctype="multipart/form-data">
 					<input id="file1" type="file" name="file" size="50" />
-					<input id="file2" type="file" name="file2" size="50" style="display:none"/>
-					<input id="file3" type="file" name="file3" size="50" style="display:none"/>
 					
-					<input type="hidden" value="${ProjectID }" name="ProjectID">
+					<input type= "hidden" value= "useCase" name="uploadType">
 					<input class="submit" type="submit" onmouseover="checkError();" value="upload">
 					<br><span id="errorMsg"></span>
 			</form>
 		</div>
 	
-		<div id="box2">
-			<form action="DisplayDiagram" method="post">
-				<input type="submit" id="downloadProjectButton" value="DownloadProject"
-					name="submit" />
-			</form>
-		</div>
-		
 		<div id="list">
-			<form action="DisplayDiagram" method="post"
+			<form action="UseCaseUpload" method="post"
 				onsubmit="return checkFields()">
 				<input type="hidden" value="${ProjectID}" name="ProjectID"/>
-				<input type="submit" id="displayButton" value="Display" name="submit" />
-				<input type="submit" id="downloadButton" value="Download" name="submit" />
-				<input type="submit" id="compareButton" value="Go to compare" name="submit"
-					<c:if test="${type=='sequence'}">disabled</c:if>
-					<c:if test="${type=='class'}">disabled</c:if>/>
-				<!-- Merge -->
-				<input type="submit" id="mergeButton" value="Go To Merge" name="submit"
-					<c:if test="${type=='sequence'}">disabled</c:if>
-					<c:if test="${type=='Ecore'}">disabled</c:if>/>
-				<!-- End Merge -->
-				<table>
+				<input type="submit" id="compareRuleButton" value="Compare to Rule" name="submit" />
 					<tr>
 						<td>
 						<input type="checkbox" name="checkall"
@@ -274,86 +230,16 @@ color: black;
 			</form>
 		</div>
 		
-		<div id="decision">
-		
-		<div id="decisionDisplays" style="width:80%;float:left;">
-		<fieldset class="well the-fieldset" >
-    		<legend class="the-legend">Decisions</legend>
+		<div id="box2">
+		<!-- Go to create rules page  -->
+			<form action="CreateRules" method="post">
+				<input type="submit" id="createRulesButton" value="Create Use Case Rules"
+					name="submit" />
+			</form>
+		</div>	
 			
-			<table border-spacing: 8px 2px;>
-				<tr>
-				<td></td>
-				<td><b>Decisions</b></td>
-				<td><b>User</b></td>
-				<td><b>Diagram</b></td>
-				</tr>
-					<!-- Commented out Now. Need to enable it after integration
-						<c:forEach items="${requestScope.decisions}" var="decisions">
-						<tr>
-							<td><input class="myCheckBox" type="checkbox" name="check"
-								value="${decision.decisionId}" id="${diagram.diagramId}"/></td>
-							<td>${diagram.decisionName}</td>
-							<td>${diagram.createdTime}</td>
-							<td>${diagram.diagramName}</td>
-						</tr>
-					</c:forEach>
-					</td>
-					-->
-					<tr>
-						<c:forEach items="${requestScope.decisions}" var="decision">
-						<tr>
-							<td><input class="myCheckBox" type="checkbox" name="check"
-								value=1/></td>
-							<td>${decision.value.decisionName}</td>
-							<td>${decision.value.userName}</td>
-						</tr>
-						</c:forEach>
-					</tr>
-				</table>
-						
-    	
-    	</fieldset>
-		
-		</div>
-		
-		<div id="decisionMenu" style="width:15%;float:right;">
-		<br>
-		<br>
-		<table>
-			<tr>
-			<button id="displayButton">Display</button> 
-			</tr>
-			<tr>
-			<button id="editButton">Edit</button> 
-			</tr>
-			<tr>
-			<button id="createButton">Create</button> 
-			</tr>
-			</table>
-		</div>
-			
-			
-		</div>
-		
-	<div id="createDecision">	 
-	   <form action="DisplayDiagram" method="post" onsubmit="">
-		 <input type="hidden" value="${ProjectID}" name="ProjectID"/>
-	     <h4><strong>Create New Dicision</strong></h4>
-		 <br/>
-
-	    <label><b>Decision Name</b></label>
-	     <input type="text" id="decisionName" name ="decisionName" placeholder="Decision Name" size="20" maxlength="75"/>
-	     <br>
-	     <br>
-	     <table align="center">
-      	 	<tr>
-      			<td>
-      				<input type="submit" id="createDecisionButton" value="CreateDecision" name="submit"/>
-				</td>
-			</tr>
-	     </table>
-	   </form>
-	 </div>
+	</div>
+	
 	
 	<div id="selectDiagram">	 
 	   <form action=" " method="post" onsubmit="">
@@ -385,15 +271,6 @@ color: black;
 	
 	</div>
 	
-	
-	
-	
-	
-	<!-- Merge Form -->
-	<form id=requestForm action="ClassMergeComunicator" method=POST style="display: none;" onsubmit="return checkFields()">
-		<input name=request id=req value="" />
-	</form>
-	<!-- End Merges -->
 <script type="text/javascript">
 $(function() {
 	$( "#Tabs1" ).tabs(); 
