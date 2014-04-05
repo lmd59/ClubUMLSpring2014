@@ -18,6 +18,7 @@ DROP TABLE IF EXISTS `compare`;
 DROP TABLE IF EXISTS `DiagramPolicyScore`;
 DROP TABLE IF EXISTS `report`;
 DROP TABLE IF EXISTS `userproject`;
+DROP TABLE IF EXISTS `useCaseDiagram`;
 DROP TABLE IF EXISTS `diagram`;
 DROP TABLE IF EXISTS `user`;
 DROP TABLE IF EXISTS `diagramContext`;
@@ -79,6 +80,16 @@ CREATE TABLE diagram
   diagramRealPath Varchar(75),
   conPath Varchar(75),
  PRIMARY KEY (diagramId)
+);
+
+-- Table (minimal use case diagram entity)
+CREATE TABLE useCaseDiagram
+(
+	useCaseDiagramId Int(11) NOT NULL AUTO_INCREMENT,
+    diagramName Varchar(45) NOT NULL,
+	createTime Timestamp NOT NULL,
+    filePath Varchar(45) NOT NULL,
+    PRIMARY KEY (useCaseDiagramId)
 );
 
 /**check for NOT NULL/ Default problems in testing*/
