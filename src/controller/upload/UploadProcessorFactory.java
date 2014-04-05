@@ -48,8 +48,8 @@ public class UploadProcessorFactory {
 			if (fileList.size() == 3) {
 				return new UmlUploadProcessor(fileList, path, id);
 			}else if(fileList.size() == 1){
-				return new UseCaseUploadProcessor(fileList.get(0).getDestFilePath(), 
-						fileList.get(0).getFileName(), fileList.get(0).getLibPath());
+//				return new UseCaseUploadProcessor(fileList.get(0).getDestFilePath(), 
+//						fileList.get(0).getFileName(), fileList.get(0).getLibPath());
 			}
 			break;
 		}

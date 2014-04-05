@@ -145,13 +145,13 @@ public class UploadServlet extends HttpServlet {
 				
 				flagExtension = checkExtension(filename, request, response);
 				
-				if(!flagExtension)
-				{
-					
-					//return;
-				}
-				else
-				{
+//				if(!flagExtension)
+//				{
+//					
+//					//return;
+//				}
+//				else
+//				{
 					if (filename != null) {
 						filename = FilenameUtils.getName(filename);
 					}
@@ -162,6 +162,7 @@ public class UploadServlet extends HttpServlet {
 						//String newName = renameFile(id, item.getName());// rename
 						File file = new File(destinationDir, filename);		
 						item.write(file);
+						System.out.println("file location: " + file.getAbsolutePath());
 					
 						String absolutePath = "";
 						String relativePath = "";
@@ -200,7 +201,7 @@ public class UploadServlet extends HttpServlet {
 							Integer.parseInt(id), projectId);
 						}
 					}
-				}
+//				}
 			}
 
 		} catch (Exception e) {
