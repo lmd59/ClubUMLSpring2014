@@ -82,10 +82,11 @@ public class UploadServlet extends HttpServlet {
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		
+		System.out.println("Process request in upload servlet");
+		
 		for(String key: request.getParameterMap().keySet()){
 			System.out.println("Key: " + key + " value: " + request.getParameter(key));
 		}
-		
 		
 
 		HttpSession session = request.getSession();
@@ -106,6 +107,7 @@ public class UploadServlet extends HttpServlet {
 		String filename = "";
 		
 		ServletFileUpload uploadHandler = new ServletFileUpload(dfif);
+		String uploadType = "";
 		try {
 			ServletRequestContext src = new ServletRequestContext(request);
 			List<?> items = uploadHandler.parseRequest(src);
@@ -115,6 +117,14 @@ public class UploadServlet extends HttpServlet {
 			while (itr.hasNext()) {
 				FileItem item = (FileItem) itr.next();
 				
+				if (item.isFormField()){
+					if(item.getFieldName().equals("uploadType")){
+						uploadType = item.getString();
+					}
+					
+					System.out.println("Form field: " + item.getFieldName());
+					System.out.println("Value: " + item.getString());
+				}
 				
 				if (item.getName().isEmpty()) {
 					// Skip if there is no name for the file
@@ -129,7 +139,8 @@ public class UploadServlet extends HttpServlet {
 				
 				if(!flagExtension)
 				{
-					return;
+					
+					//return;
 				}
 				else
 				{
@@ -174,7 +185,7 @@ public class UploadServlet extends HttpServlet {
 						fileList.add(new FileInfo(absolutePath,filename,libPath));
 						//Log.LogCreate().Info(" File list " + absolutePath  +"  "  + newName + " "  + libPath);
 					
-						if (isFileType(filename,"ecore")){
+						if (isFileType(filename,"ecore") || isFileType(filename,"uml")){
 							String image_file_name = filename + ".png";	
 							String folder = "uploads/" + id_file_date + "/" + filename;
 							this.storeDatabase(folder, image_file_name,
@@ -201,12 +212,13 @@ public class UploadServlet extends HttpServlet {
 				processor.process(projectId);
 			}
 		}	
-		System.out.println("Project id for debug: " +  Integer.parseInt(request.getParameter("ProjectID")));
-		if(request.getParameter("uploadType").equals("classDiagram")){
-			RequestDispatcher rd = request.getRequestDispatcher("Display");
-			rd.forward(request, response);
-		}else if(request.getParameter("uploadType").equals("useCase")){
+		
+		//if (isFileType(filename,"uml")){
+		if(uploadType.equals("useCase")){
 			RequestDispatcher rd = request.getRequestDispatcher("UseCaseUpload");
+			rd.forward(request, response);
+		}else{
+			RequestDispatcher rd = request.getRequestDispatcher("Display");
 			rd.forward(request, response);
 		}
 
@@ -220,8 +232,6 @@ public class UploadServlet extends HttpServlet {
 			if(!extension.equalsIgnoreCase("ecore"))
 			{
 				request.setAttribute("error", "true");
-				RequestDispatcher rd = request.getRequestDispatcher("Display");
-				rd.forward(request, response);
 				return false;
 			}				
 		}
@@ -312,6 +322,7 @@ public class UploadServlet extends HttpServlet {
 		// Retrieve file extension
 		String extension = fileName.substring(
 					fileName.lastIndexOf(".") + 1, fileName.length());
+		System.out.println("Extension: " + extension);
 		return (extension.equals(fileType) ? true : false);	
 	}
 }
