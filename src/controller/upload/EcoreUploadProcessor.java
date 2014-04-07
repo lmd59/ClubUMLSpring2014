@@ -21,7 +21,7 @@ import controller.EcoreParser;
  * @author RD2012
  * 
  */
-public class EcoreUploadProcessor extends ClassPngFile {
+public class EcoreUploadProcessor extends PngFile {
 
 	private String absolutePath;
 	private String libPath;

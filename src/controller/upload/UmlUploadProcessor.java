@@ -170,6 +170,7 @@ public class UmlUploadProcessor implements UploadProcessor {
 			sqlE.printStackTrace();
 		}
 	}
+	
 
 	// private
 
@@ -234,7 +235,7 @@ public class UmlUploadProcessor implements UploadProcessor {
 	 * diagram and the Class diagram.
 	 * 
 	 */
-	private class Uml2ClassUploadProcessor extends ClassPngFile {
+	private class Uml2ClassUploadProcessor extends PngFile {
 
 		public void process(int projectId) {
 
@@ -282,7 +283,7 @@ public class UmlUploadProcessor implements UploadProcessor {
 				
 				// Log.LogCreate().Info("Calling CreateJava file");
 				CreateJavaFile(classList,assoclist);
-				ClassPngFile.createPngFile(Umlfilename, Umlfilename + ".java",
+				PngFile.createPngFile(Umlfilename, Umlfilename + ".java",
 						umlInfo.getDestFilePath(), umlInfo.getLibPath());
 			}
 		}
@@ -575,7 +576,7 @@ public class UmlUploadProcessor implements UploadProcessor {
 
 	
 	
-	public class Uml2SequenceDiagramUploadProcessor extends SequencePngFile{
+	public class Uml2SequenceDiagramUploadProcessor extends PngFile{
 		public void process(int projectId) {
 			Log.LogCreate().Info("Uml2SequenceDiagramUploadProcessor");
 			ElementIterator(sequenceXmiDiag);
@@ -693,7 +694,8 @@ public class UmlUploadProcessor implements UploadProcessor {
 				
 				/** Then call method to translate PicELement into .pic statement and create .png file**/
 				CreatePicFile(picElem);
-				SequencePngFile.createPngFile(Umlfilename, Umlfilename + ".pic", umlInfo.getDestFilePath(), umlInfo.getLibPath());
+				//SequencePngFile.createPngFile(Umlfilename, Umlfilename + ".pic", umlInfo.getDestFilePath(), umlInfo.getLibPath());
+				PngFile.createPngFile(Umlfilename, Umlfilename + ".pic", umlInfo.getDestFilePath(), umlInfo.getLibPath());
 			}
 		}
 		

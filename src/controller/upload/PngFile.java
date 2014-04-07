@@ -10,7 +10,7 @@ import logging.Log;
  * @author RD2012
  * 
  */
-public abstract class ClassPngFile implements UploadProcessor {
+public abstract class PngFile implements UploadProcessor {
 
 	/**
 	 * Generates PNG file.
