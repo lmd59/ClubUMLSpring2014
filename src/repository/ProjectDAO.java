@@ -64,7 +64,7 @@ public class ProjectDAO {
     	try {
     		conn = DbManager.getConnection();
     	    pstmt = conn.prepareStatement(
-    	    		"INSERT into project(projectName, startDate, description, enabled, disabledDate) VALUES(?,TIMESTAMP(NOW()),?,?,TIMESTAMP(NOW());");
+    	    		"INSERT into project(projectName, startDate, description, enabled, disabledDate) VALUES(?,TIMESTAMP(NOW()),?,?,TIMESTAMP(NOW()));");
     	    pstmt.setString(1, project.getProjectName());
     	    pstmt.setString(2, project.getDescription());
     	    pstmt.setBoolean(3, project.getEnabled());

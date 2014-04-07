@@ -138,7 +138,7 @@ function checkUpdateContext()
 {
 	contextUpdate = $("#contextUpdate").val();
 	projectUpdate = $("#projectUpdate").val();
-	descriptionUpdate = $("#Description").val();
+	descriptionUpdate = $("#descriptionUpdate").val();
 		
 	if(contextUpdate == ""){
 	   	alert("Please enter valid context name!");
