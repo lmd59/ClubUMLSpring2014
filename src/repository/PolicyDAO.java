@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import domain.Attributes;
@@ -29,7 +30,7 @@ public class PolicyDAO {
 	try {
 		Connection conn = DbManager.getConnection();		
 	    PreparedStatement pstmt = conn.prepareStatement(
-		    "INSERT into policy(policyName, policyDescription,policyLevel) VALUES(?,?,?);");
+		    "INSERT into policy(policyName, policyDescription,policyLevel) VALUES(?,?,?);", Statement.RETURN_GENERATED_KEYS);
 	    pstmt.setString(1, policy.getPolicyName());
 		pstmt.setString(2, policy.getPolicyDescription());
 		pstmt.setInt(3, policy.getPolicyLevel());

@@ -4,7 +4,6 @@
  */
 package controller;
 
-import domain.Comment;
 import domain.Rationale;
 
 import java.io.IOException;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import repository.CommentDAO;
 import repository.CompareDAO;
 import repository.RationaleDAO;
 
@@ -35,7 +33,6 @@ import repository.RationaleDAO;
 
 @WebServlet(name = "Promote", urlPatterns = {"/Promote"})
 public class Promote extends HttpServlet {
-
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -57,10 +54,24 @@ public class Promote extends HttpServlet {
     	int userId = Integer.parseInt(session.getAttribute("userId").toString());
     	String userName = session.getAttribute("username").toString();
     	
-    	updatePromoteCount(request);
-    	// saveComment(request,userId,userName);
-    	saveRationale(request,userId,userName);
-
+    	String operation = request.getParameter("rationaleOperation");
+    	if (operation.isEmpty() || operation.equals("Add")) {    	
+    		updatePromoteCount(request);
+        	/* removed by Vishal Patel w/ inclusion of Rationale Management
+        	saveComment(request,userId,userName);
+        	 */
+    		saveRationale(request,userId,userName);
+    	}
+    	else if (!operation.isEmpty() && operation.equals("Edit")) {
+    		saveRationale(request,userId,userName);
+    	}
+    	else if (!operation.isEmpty() && operation.equals("Delete")) {
+    		decrementPromoteCount(request);
+    		deleteRationale(request,userId,userName);
+    	}
+    	else {
+    		// do nothing since we got no match
+    	}
 
     	/* removed by Xuesong Meng
 		EditingHistory editObj = new EditingHistory();
@@ -108,6 +119,22 @@ public class Promote extends HttpServlet {
     }
     */
     
+    private boolean deleteRationale(HttpServletRequest request, int userId, String userName) {
+    	String rationaleIdStr = request.getParameter("rationaleId");
+    	int rationaleId = -1;
+    	if (rationaleIdStr.isEmpty())
+    		return false;
+
+    	rationaleId = Integer.parseInt(rationaleIdStr);
+    	if (rationaleId == -1)
+    		return false;
+
+    	Rationale rationale = new Rationale();
+		rationale.setRationaleId(rationaleId);
+
+    	return (RationaleDAO.deleteRationale(rationale));
+    }
+    
     private void saveRationale(HttpServletRequest request, int userId, String userName) {
     	int compareId = Integer.parseInt(request.getParameter("compareId"));
     	Rationale rationale = new Rationale();
@@ -123,7 +150,17 @@ public class Promote extends HttpServlet {
     	rationale.setCriteria(request.getParameter("criteria"));
     	rationale.setCriteriaRelationship(request.getParameter("criteriaRelationship"));
     	
-    	RationaleDAO.addRationale(rationale);
+    	String rationaleIdStr = request.getParameter("rationaleId");
+    	int rationaleId = -1;
+    	if (!rationaleIdStr.isEmpty())
+    		rationaleId = Integer.parseInt(rationaleIdStr);
+
+    	if (rationaleId == -1)	
+    		RationaleDAO.addRationale(rationale);
+    	else {
+    		rationale.setRationaleId(rationaleId);
+    		RationaleDAO.updateRationale(rationale);
+    	}
     }
     
     /**
@@ -144,4 +181,22 @@ public class Promote extends HttpServlet {
     	} 	
     }
     
+    /**
+     * Check which diagram is promoted and update the count in compare object.
+     * @param request
+     */
+    private void decrementPromoteCount(HttpServletRequest request) {
+    	int AId = Integer.parseInt(request.getParameter("A"));
+    	int BId = Integer.parseInt(request.getParameter("B"));
+    	int diagramId = Integer.parseInt(request.getParameter("diagramId"));
+    	int compareId = Integer.parseInt(request.getParameter("compareId"));
+    	
+    	if(diagramId == AId){
+    		CompareDAO.decrementCount(compareId, "A");
+    	}
+    	else if(diagramId == BId) {
+    		CompareDAO.decrementCount(compareId, "B");
+    	} 	
+    }
+
 }

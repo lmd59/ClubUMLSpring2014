@@ -150,8 +150,8 @@ public class UmlUploadProcessor implements UploadProcessor {
 			diagramObj.setDiFilepath(folder);
 			diagramObj.setFileType("XMI");
 			diagramObj.setNotationFilePath(folder);
-			DiagramContext cd = ContextDAO.getContext(projectId);
-			diagramObj.setContextId(ContextDAO.getContext(projectId).getDiagramContextId());
+			DiagramContext cd = ContextDAO.getContextByProjectId(projectId);
+			diagramObj.setContextId(ContextDAO.getContextByProjectId(projectId).getDiagramContextId());
 			//support for enum type| we have to make sure, that the diagramType supplied here is in accordance to the Enum
 			diagramObj.setDiagramType(diagramType);
 			//diagramObj.setDiagramType(diagramType);

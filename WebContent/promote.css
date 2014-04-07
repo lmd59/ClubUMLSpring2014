@@ -78,8 +78,8 @@ height: 450px;
 margin:3% 3% 0 3%;
 text-align:center;
 }
-.comment2{ margin:0 3%;}
-.comment1{ margin:0 3%;}
+.rationale2{ margin:0 3%;}
+.rationale1{ margin:0 3%;}
 
 .scroll{
 				background-color:white;
@@ -158,6 +158,21 @@ margin-left:0px   ;
 	width:60px;
 	text-align:right;
 }
+
+#toggle #ul { left: 44.5%; top: 49.5%; }
+
+
+#toggle ul{width:515px; }
+#toggle li:hover{background:#72bcd4}
+#toggle li{list-style-type:none; cursor:pointer; -moz-border-radius:0 10px 0 10px; border:3px solid #666666; margin:2px; padding:5px 5px 5px 5px;font-size: 12px; font-weight: bold; line-height: 10px}
+#toggle ul div:hover{background:#add8e6}
+#toggle ul div{color: #666666; cursor: auto; display: none; font-size: 13px; padding: 5px 0 5px 20px; text-decoration: none;border:1px solid #666666; }
+#toggle ul div a{color:#000000; font-weight:bold;}
+#toggle li div:hover{text-decoration:none !important;}
+#toggle li:before {content: "+"; padding:10px 10px 10px 0; color:red; font-weight:bold;}
+#toggle li.active:before {content: "-"; padding:10px 10px 10px 0; color:red; font-weight:bold;}
+#toggle{width:500px; margin:0 auto;}
+
 /*#btn2{
 
 margin-top: -25px;

@@ -16,22 +16,29 @@
   	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js" type="text/javascript"></script>
   	<script type="text/javascript" src="jquery-ui-form.js"></script>
   	<link rel="stylesheet" href="promote_style.css" />
-  	
-	
-	
+
 	<title>Promote a Diagram</title>
 	<script type="text/javascript">
-	    var comment = "";
-	    
+		var diagram1RationalesArray = new Array();
+		var diagram2RationalesArray = new Array();
+	
 	    $(document).ready(function(){
+	    	
+	    	$("#toggle li").click(function(){
+				$(this).toggleClass("active");
+				$(this).next("div").stop('true','true').slideToggle("slow");
+			});
+	    	
 
 			$( "#dialog1" ).hide();
 
  			$("#btn1").click(function(){
+ 				clearFields(1);
    				$( "#dialog1" ).dialog({height: 850, width:650 });
  			});
  			$( "#dialog2" ).hide();
  			$("#btn2").click(function(){
+ 				clearFields(2);
    			 	$( "#dialog2" ).dialog({height: 850, width:650 });
   			});
  			
@@ -42,8 +49,8 @@
   			$("#returnButton").click(function() {
    	           $("#returnForm").submit();
    	       	});
-
-			var report = "reports/";
+  			
+  			var report = "reports/";
 			var link = $("#reportLink").val();
 			var reportLink = link.substring(link.lastIndexOf("/"));
 			report = report + reportLink;
@@ -52,6 +59,86 @@
 			});
 	    });
 	    
+		function editButton(dialog, rationaleId) {
+				
+			var arrayList;
+			if (dialog == 1)
+				arrayList = diagram1RationalesArray;
+			else
+				arrayList = diagram2RationalesArray;
+			
+ 			for (var i = 0; i < arrayList.length; i++) {
+  		  		if (arrayList[i].id == rationaleId) {
+  					editFunction(dialog,
+  						arrayList[i].id,
+  						arrayList[i].summary, 
+  						arrayList[i].issue,
+  						arrayList[i].issueR,
+  						arrayList[i].criteria,
+  						arrayList[i].criteriaR);	
+  				}
+  		  	}
+  		}
+
+	    function editFunction(dialog, rationaleId, summary, issue, issueR, criteria, criteriaR)
+	    {
+	    	var summaryTxtArea;
+	 		var issueTxtArea;
+	 		var issueRelationshipTxtArea;
+	 		var criteriaTxtArea;
+	 		var criteriaRelationshipTxtArea;
+	 		var rationaleIdValue;
+	 		var rationaleOperation;
+	    	
+	    	switch (dialog)
+	    	{
+		    	case 1:
+		    		summaryTxtArea = document.getElementById("summary1");
+		 			issueTxtArea = document.getElementById("issue1");
+		 			issueRelationshipTxtArea = document.getElementById("issueRelationship1");
+		 			criteriaTxtArea = document.getElementById("criteria1");
+		 			criteriaRelationshipTxtArea = document.getElementById("criteriaRelationship1");
+		 			rationaleIdValue =	document.getElementById("rationaleId1");
+		 			rationaleOperation = document.getElementById("rationaleOperation1");
+		 		break;
+	    	
+		    	case 2:
+		    		summaryTxtArea = document.getElementById("summary2");
+		 			issueTxtArea = document.getElementById("issue2");
+		 			issueRelationshipTxtArea = document.getElementById("issueRelationship2");
+		 			criteriaTxtArea = document.getElementById("criteria2");
+		 			criteriaRelationshipTxtArea = document.getElementById("criteriaRelationship2");
+		 			rationaleIdValue =	document.getElementById("rationaleId2");
+		 			rationaleOperation = document.getElementById("rationaleOperation2");
+		 		break;
+	    	}
+
+	    	summaryTxtArea.value = summary;
+	    	issueTxtArea.value = issue;
+	    	issueRelationshipTxtArea.value = issueR;
+	    	criteriaTxtArea.value = criteria;
+	    	criteriaRelationshipTxtArea.value = criteriaR;
+	    	rationaleIdValue.value = rationaleId;
+	    	rationaleOperation.value = "Edit";
+	    	
+	    	switch (dialog)
+	    	{
+		    	case 1:
+			    	$( "#dialog1" ).dialog({height: 850, width:650 });
+			    break;
+			    
+		    	case 2:
+			    	$( "#dialog2" ).dialog({height: 850, width:650 });
+			    break;
+	    	}
+	    }
+	    
+	    function deleteButton() {
+	    	x = window.confirm("Are you sure you want to delete?");
+	    	if (x) return true;
+	    	else return false;
+	  	}
+
 	    function cancelButton(formPtr, dialog) {	    	
 	    	formPtr.reset();	    	
 	    	switch(dialog){
@@ -64,22 +151,50 @@
 	    	}
 	  	}
 	    
-	    function checkComments(dialog){
-	    	switch(dialog) {
-	    		case(1):comment = $("#comment1").val();
-	    				break;
-	    		case(2):comment = $("#comment2").val();
-	    				break;
-	    	}
-		if(comment == ""){
-		    alert("Please enter comment before promoting");
-		    return false;
-		}
-		return true;
+	    function clearFields(dialog) {
+   	    	var summaryTxtArea;
+   	 		var issueTxtArea;
+   	 		var issueRelationshipTxtArea;
+   	 		var criteriaTxtArea;
+   	 		var criteriaRelationshipTxtArea;
+   	 		var rationaleIdValue;
+   	 		var rationaleOperation;
+   	    	
+   	    	switch (dialog)
+   	    	{
+   		    	case 1:
+   		    		summaryTxtArea = document.getElementById("summary1");
+   		 			issueTxtArea = document.getElementById("issue1");
+   		 			issueRelationshipTxtArea = document.getElementById("issueRelationship1");
+   		 			criteriaTxtArea = document.getElementById("criteria1");
+   		 			criteriaRelationshipTxtArea = document.getElementById("criteriaRelationship1");
+   		 			rationaleIdValue =	document.getElementById("rationaleId1");
+   		 			rationaleOperation = document.getElementById("rationaleOperation1");
+   		    	break;
+   	    	
+   		    	case 2:
+   		    		summaryTxtArea = document.getElementById("summary2");
+   		 			issueTxtArea = document.getElementById("issue2");
+   		 			issueRelationshipTxtArea = document.getElementById("issueRelationship2");
+   		 			criteriaTxtArea = document.getElementById("criteria2");
+   		 			criteriaRelationshipTxtArea = document.getElementById("criteriaRelationship2");
+   		 			rationaleIdValue =	document.getElementById("rationaleId2");
+   		 			rationaleOperation = document.getElementById("rationaleOperation2");
+   		    	break;
+   	    	}
+
+			summaryTxtArea.value = "";
+    	    issueTxtArea.value = "";
+    	    issueRelationshipTxtArea.value = "";
+    	    criteriaTxtArea.value = "";
+    	    criteriaRelationshipTxtArea.value = "";
+    	    rationaleIdValue.value = "-1";
+    	    rationaleOperation.value = "Add";
 	    }
 	    
 	    function checkRationale(dialog){
-	    	switch(dialog) {
+	    	switch(dialog) 
+	    	{
 	    		case(1):
 	    			summary = $("#summary1").val();
 	    			issue = $("#issue1").val();
@@ -115,10 +230,9 @@
 		    	alert("Please enter valid criteria relationship before promoting");
 		    	return false;
 			}
-			
+		
 			return true;
-	    	}
-
+	    }
 	</script>
 
 <style type="text/css">
@@ -201,19 +315,28 @@ color: black;
 			<div class="center">
 				<div class="promote-button-wrap">
 					<button id="btn1" class="pbutton">Promote</button>
-				</div>
+			</div>
 		   
 				<div class="rationale1">
 			 		Rationale : 
 			 		<div class="scroll1">
 			 			<c:forEach items="${requestScope.diagram1rationales}" var="rationale">
+			 			<script>diagram1RationalesArray.push({
+			 												id: "${rationale.rationaleId}", 
+			 												summary: "${rationale.summary}",
+			 												issue: "${rationale.issue}",
+			 												issueR: "${rationale.issueRelationship}",
+			 												criteria: "${rationale.criteria}",
+			 												criteriaR: "${rationale.criteriaRelationship}"});</script>
+			 			
 			 			<div class="comment">
-			 				<table>
-					  		<tr>
-					  			<td align="left"><label for="" style="vertical-align: top; font-weight:bold;">${rationale.rationaleTime}</label></td>
-					  			<td><label>${rationale.userName}: ${rationale.promotedDiagramName} vs. ${rationale.alternativeDiagramName}</label></td>
-					   		</tr>
-					   						  
+			 			 
+			 			<div id="toggle">
+						<ul class="toggle">
+   
+							 <li>${rationale.rationaleTime} ${rationale.userName}: ${rationale.promotedDiagramName} vs. ${rationale.alternativeDiagramName}</li>
+							 <div>
+			 				<table>  
 						  	<tr>
 							  	<td align="right"><label for="" style="vertical-align: top;">Summary:</label></td>
 					  			<td><label>${rationale.summary}</label></td>
@@ -230,7 +353,7 @@ color: black;
 						  	</tr>
 						  	
 						  	<tr>
-						  		<td align="right"><label for="" style="vertical-align: top;">Criteria</label></td>
+						  		<td align="right"><label for="" style="vertical-align: top;">Criteria:</label></td>
 						  		<td><label>${rationale.criteria}</label></td>	
 						  	</tr>
 						  	
@@ -239,27 +362,46 @@ color: black;
 						  		<td><label>Criteria Relationship: ${rationale.criteriaRelationship}</label></td>	
 						  	</tr>
 						  	
+						  	<tr>
+						  		<td valign="bottom" align="right">
+						  			<a href="javascript:editButton(1, '${rationale.rationaleId}')"><img src="images/edit_icon.png" width=15px/></a>
+						  		</td>
+				    			<td valign="top" align="left"> 
+				    				<form action="Promote" method="post" onsubmit="return deleteButton()">
+									<input type="image" src="images/delete_icon.png" style="width: 15px"/>
+									<input type="hidden" name="diagramId" value="${rationale.promotedDiagramId}"/>
+									<input type="hidden" name="compareId" value="${rationale.compareId}"/>
+									<input type="hidden" name="A" value="${requestScope.A}"/>
+									<input type="hidden" name="B" value="${requestScope.B}"/>
+									<input type="hidden" name="file1" value="${requestScope.diagramAId}"/>
+									<input type="hidden" name="file2" value="${requestScope.diagramBId}"/>
+									<input type="hidden" name="rationaleId" value="${rationale.rationaleId}"/>
+									<input type="hidden" name="rationaleOperation" value="Delete"/>
+									</form>
+				    			</td>
+						  	</tr>
 						  	</table>
-					  	</div>
+						  	 </div>
+						  	 </ul>
+						  	</div>
+							 
+    						</div>
+					  	
 			 			</c:forEach>
 			 		</div>
-				</div>
+			
 				<br/> 
 
 				<div id="dialog1" title="${requestScope.diagramAName} Rationale">	 
 	    			<h1>Rationale ${requestScope.diagramAName} Promotion</h1>
 					<h2>Alternative to ${requestScope.diagramBName}</h2>
-	    			<form action="Promote" method="post" onsubmit="return checkRationale(1)">
-					 
+	    			<form action="Promote" method="post" onsubmit="return checkRationale(1)">					 
 					 <fieldset>
-					 
 					 <legend font-weight:bold;>Promote Diagram1</legend>	
-					 
 					 <table style="width:300px">	
-					  
 					  <tr>
-					  <td align="right">	
-					   	<label for="" style="vertical-align: top; font-weight:bold;">Summary</label>
+						  <td align="right">	
+						  <label for="" style="vertical-align: top; font-weight:bold;">Summary</label>
 					  </td>
 					  
 					  <td>
@@ -319,15 +461,13 @@ color: black;
     				<table align="center">
       				<tr>
       				<td>
-      				<div class="sumbitbutton">	
-						<button id="button1" class="pbutton">Promote</button></div>
+      					<div class="sumbitbutton"><button id="button1" class="pbutton">Promote</button></div>
 					</td>
 					<td>
 						<button class="pbutton" type="button" value="Reset" onclick="cancelButton(this.form,1)">Cancel</button>
 					</td>
 					</tr>
 		 			</table>
-						
 						<input type="hidden" name="diagramId" value="${requestScope.diagramAId}"/>
 						<input type="hidden" name="alternativeDiagramId" value="${requestScope.diagramBId}"/>
 						<input type="hidden" name="compareId" value="${requestScope.compareId}"/>
@@ -335,8 +475,9 @@ color: black;
 						<input type="hidden" name="B" value="${requestScope.B}"/>
 						<input type="hidden" name="file1" value="${requestScope.diagramAId}"/>
 						<input type="hidden" name="file2" value="${requestScope.diagramBId}"/>
-						
-					 </fieldset>	
+						<input type="hidden" name="rationaleId" id="rationaleId1"/>
+						<input type="hidden" name="rationaleOperation" id="rationaleOperation1"/>						
+					</fieldset>	
 					</form>
 	    		</div>
 	    		</div>
@@ -357,7 +498,22 @@ color: black;
 			 		Rationale : 
 			 		<div class="scroll" >
 			 			<c:forEach items="${requestScope.diagram2rationales}" var="rationale">
+			 			<script>diagram2RationalesArray.push({
+			 												id: "${rationale.rationaleId}", 
+			 												summary: "${rationale.summary}",
+			 												issue: "${rationale.issue}",
+			 												issueR: "${rationale.issueRelationship}",
+			 												criteria: "${rationale.criteria}",
+			 												criteriaR: "${rationale.criteriaRelationship}"});</script>			 			
 			 			<div class="comment">
+			 			
+			 			<div id="toggle">
+							<ul class="toggle">
+   
+					 
+							 <li>${rationale.rationaleTime} ${rationale.userName}: ${rationale.promotedDiagramName} vs. ${rationale.alternativeDiagramName}</li>	
+							 
+							 <div>
 			 				<table>
 					  		<tr>
 					  			<td align="left"><label for="" style="vertical-align: top; font-weight:bold;">${rationale.rationaleTime}</label></td>
@@ -380,7 +536,7 @@ color: black;
 						  	</tr>
 						  	
 						  	<tr>
-						  		<td align="right"><label for="" style="vertical-align: top;">Criteria</label></td>
+						  		<td align="right"><label for="" style="vertical-align: top;">Criteria:</label></td>
 						  		<td><label>${rationale.criteria}</label></td>	
 						  	</tr>
 						  	
@@ -389,8 +545,31 @@ color: black;
 						  		<td><label>Criteria Relationship: ${rationale.criteriaRelationship}</label></td>	
 						  	</tr>
 						  	
+						  	<tr>
+						  		<td valign="bottom" align="right">
+						  			<a href="javascript:editButton(2, '${rationale.rationaleId}')"><img src="images/edit_icon.png" width=15px/></a>
+						  		</td>
+				    			<td valign="top" align="left"> 
+				    				<form action="Promote" method="post" onsubmit="return deleteButton()">
+									<input type="image" src="images/delete_icon.png" style="width: 15px"/>
+									<input type="hidden" name="diagramId" value="${rationale.promotedDiagramId}"/>
+									<input type="hidden" name="compareId" value="${rationale.compareId}"/>
+									<input type="hidden" name="A" value="${requestScope.A}"/>
+									<input type="hidden" name="B" value="${requestScope.B}"/>
+									<input type="hidden" name="file1" value="${requestScope.diagramAId}"/>
+									<input type="hidden" name="file2" value="${requestScope.diagramBId}"/>
+									<input type="hidden" name="rationaleId" value="${rationale.rationaleId}"/>
+									<input type="hidden" name="rationaleOperation" value="Delete"/>
+									</form>
+				    			</td>
+						  	</tr>
 						  	</table>
-					  	</div>
+						  	 </div>
+						  	 </ul>
+						  	</div>
+							 
+    						</div>
+    						
 			 			</c:forEach>
 			 		</div>
 				</div>
@@ -403,9 +582,7 @@ color: black;
 					 <fieldset>
 					 
 					 <legend font-weight:bold;>Promote Diagram2</legend>	
-					 
-					 <table style="width:300px">	
-					  
+					 <table style="width:300px">
 					  <tr>
 					  <td align="right">	
 					   	<label for="summary2" style="vertical-align: top; font-weight:bold;">Summary</label>
@@ -468,28 +645,27 @@ color: black;
     				<table align="center">
       				<tr>
       				<td>
-      				<div class="sumbitbutton">	
-						<button id="button1" class="pbutton">Promote</button><br/></div>
+      					<div class="sumbitbutton"><button id="button1" class="pbutton">Promote</button></div>
 					</td>
 					<td>
 						<button class="pbutton" type="button" value="Reset" onclick="cancelButton(this.form,2)">Cancel</button>
 					</td>
 					</tr>
 		 			</table>
-					
-					<input type="hidden" name="diagramId" value="${requestScope.diagramBId}"/>
-							<input type="hidden" name="alternativeDiagramId" value="${requestScope.diagramAId}"/>							<input type="hidden" name="compareId" value="${requestScope.compareId}"/>
-							<input type="hidden" name="A" value="${requestScope.A}"/>
-							<input type="hidden" name="B" value="${requestScope.B}"/>
-							<input type="hidden" name="file1" value="${requestScope.diagramAId}"/>
-							<input type="hidden" name="file2" value="${requestScope.diagramBId}"/>
-						</fieldset>
+						<input type="hidden" name="diagramId" value="${requestScope.diagramBId}"/>
+						<input type="hidden" name="alternativeDiagramId" value="${requestScope.diagramAId}"/>
+						<input type="hidden" name="compareId" value="${requestScope.compareId}"/>
+						<input type="hidden" name="A" value="${requestScope.A}"/>
+						<input type="hidden" name="B" value="${requestScope.B}"/>
+						<input type="hidden" name="file1" value="${requestScope.diagramAId}"/>
+						<input type="hidden" name="file2" value="${requestScope.diagramBId}"/>
+						<input type="hidden" name="rationaleId" id="rationaleId2"/>
+						<input type="hidden" name="rationaleOperation" id="rationaleOperation2"/>
+					</fieldset>
 					</form>
 				</div>
-				</div>
 			</div>
-	    </div>
-	    <p>${requestScope.compareId}</p>
+		</div>
 		<br/>
 		<div class="reportfile" style="float:left;">
 			<!---- <div id="reportLink" style="display: none">${requestScope.reportPath}</div>---->
@@ -517,8 +693,6 @@ color: black;
 				</div>
 			</div>
 		</div>
-	</div>
-	  
 </body>
 
 </html>

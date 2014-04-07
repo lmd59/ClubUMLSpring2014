@@ -11,9 +11,8 @@ public class Diagram {
     private int merged;
     private int userId;
     private int contextId;
-    private int projectId = 2; // default;
+    private int projectId;
     private String diagramName;
-    //private String diagramType;
     private String filePath;
     private String fileType;
     private String createdTime;    
@@ -22,7 +21,7 @@ public class Diagram {
     private String diFileName;
     private String diFilepath;
     private DiagramType diagramType;
-    private int diagramContextId;
+//    private int diagramContextId;
     private String diagramRealPath;
     private String conPath;
     
@@ -248,16 +247,16 @@ public class Diagram {
 	/**
 	 * @return the diagramContextId
 	 */
-	public int getDiagramContextId() {
-		return diagramContextId;
-	}
+//	public int getDiagramContextId() {
+//		return diagramContextId;
+//	}
 
 	/**
 	 * @param diagramContextId the diagramContextId to set
 	 */
-	public void setDiagramContextId(int diagramContextId) {
-		this.diagramContextId = diagramContextId;
-	}
+//	public void setDiagramContextId(int diagramContextId) {
+//		this.diagramContextId = diagramContextId;
+//	}
 
 	public int getContextId() {
 		return contextId;
