@@ -207,11 +207,6 @@ color: black;
     
     <div id="rightContainer">
     
-    	<form action="UseCaseUpload" method=POST>
-				<input type="hidden" value="${ProjectID }" name="ProjectID">
-				<input class="submit" type="submit" value="Use Case App">
-		</form>
-    
 		<div id="selectContextBox">
 		<span>Diagram Context:</span>
 		<select>
