@@ -97,15 +97,17 @@ private void Success(HttpServletRequest request,
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/home.jsp");
 	    dispatcher.forward(request, response);*/
 	    
+		System.out.println("Successfully updated project");
+		
 	    ServletContext context = this.getServletContext();
-	    RequestDispatcher dispatcher = context.getRequestDispatcher("/Home");
+	    RequestDispatcher dispatcher = context.getRequestDispatcher("/WEB-INF/JSP/home.jsp");
 	    dispatcher.forward(request, response);
 }
 
 private void Failed(HttpServletRequest request,
 		HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Project Already Exist");
-		response.getWriter().write("FAILED");
+		response.getWriter().write("FAILED: Project name already exists");
 }
 
 	
