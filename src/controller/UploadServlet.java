@@ -94,7 +94,8 @@ public class UploadServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		// Set id properly
 		String id = session.getAttribute("userId").toString();
-		int projectId = Integer.parseInt(session.getAttribute("projId").toString());
+		int projectId = 0;
+		
 		context = getServletContext();
 		
 		tmpDir = new File(context.getRealPath(TMP_DIR_PATH));
@@ -197,6 +198,7 @@ public class UploadServlet extends HttpServlet {
 						if (isFileType(filename,"ecore")){
 							String image_file_name = filename + ".png";	
 							String folder = "uploads/" + id_file_date + "/" + filename;
+							projectId = Integer.parseInt(session.getAttribute("projId").toString());
 							this.storeDatabase(folder, image_file_name,
 							Integer.parseInt(id), projectId);
 						}
