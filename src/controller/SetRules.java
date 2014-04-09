@@ -36,7 +36,8 @@ public class SetRules extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		System.out.println("Getting to SetRules");
+		
 		String temp = request.getParameter("rulesJSON");
 		UserDefinedRule rules=null;
 		if(jp.parser(temp)!=null)
@@ -44,7 +45,22 @@ public class SetRules extends HttpServlet {
 			rules = jp.parser(temp);
 			HttpSession session = request.getSession();
 			session.setAttribute("rules",rules);
+			
+			//TODO: save rules to database
 		}
+		// TODO Auto-generated method stub
+		
+		//System.out.println(request.getSession().getAttribute("xmiData"));
+	}
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("Posting to SetRules");
+		
+		//TODO: get rules from database
+		UserDefinedRule rules=null;
+		
 		//System.out.println("actors:"+rules.getMustHaveActors());
 		//pde.insertPolicy(rules);
 		System.out.println(xmiData);
@@ -53,13 +69,12 @@ public class SetRules extends HttpServlet {
 			System.out.println(rules+" "+xmiData);
 			evaluate.evaluate(rules, xmiData);
 			HttpSession session = request.getSession();
+			
+			
+			//request.setAttribute("source_button", "Compare_to_Rule");
+			
 			session.setAttribute("compareResult", evaluate.getCompareResult());
-		//System.out.println(request.getSession().getAttribute("xmiData"));
-	}
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		//String  testFile= request.getParameter("file");
 
 		//ruleJSON

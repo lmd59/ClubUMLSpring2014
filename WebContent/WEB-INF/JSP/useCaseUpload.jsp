@@ -192,7 +192,7 @@ color: black;
 		<div id="box">
 			<span id="DiagramSelectLabel">Class Diagram Format: (.ecore)</span> 
 			<select onchange="displayClassDiagramFields(this)">
-					<option value="uml">UML</option>
+					<option value="xml">XML</option>
 			</select> 
 			<form action="UploadServlet" method=POST enctype="multipart/form-data">
 					<input id="file1" type="file" name="file" size="50" />
@@ -204,28 +204,19 @@ color: black;
 		</div>
 	
 		<div id="list">
-			<form action="UseCaseUpload" method="post"
+			<form action="UploadUseCaseFile" method="post"
 				onsubmit="return checkFields()">
 				<input type="hidden" value="${ProjectID}" name="ProjectID"/>
+				<input type="hidden" value="" name="UseCaseDiagramId"/>
+				
+				<select id="selectedRecord" name="selectedRecord">
+		            <c:forEach var="diag" items="${requestScope.diagrams}">
+		                <option value="${diag.useCaseDiagramId}">${diag.diagramName}</option>
+		            </c:forEach>
+		        </select>
+				
 				<input type="submit" id="compareRuleButton" value="Compare to Rule" name="submit" />
-					<tr>
-						<td>
-						<input type="checkbox" name="checkall"
-								value="10" onclick="toggleChecked(this.checked)">
-						</td>
-						<td><b>Image</b></td>
-						<td><b>Edited</b></td>
-						<td><b>Type</b></td>
-					</tr>
-					<c:forEach items="${requestScope.diagrams}" var="diagram">
-						<tr>
-							<td><input class="myCheckBox" type="checkbox" name="check"
-								value="${diagram.useCaseDiagramId}" id="use case"/></td>
-							<td>${diagram.diagramName}</td>
-							<td>${diagram.createTime}</td>
-						</tr>
-					</c:forEach>
-				</table>
+					
 			</form>
 		</div>
 		
