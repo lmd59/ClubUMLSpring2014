@@ -246,6 +246,7 @@
 	  
 	});
 </script>
+
 <style type="text/css">
 #Description{
 height:150px;
@@ -336,54 +337,27 @@ color:gray;}
 #Multiplicities-group-update {
 color:gray;}
 <!--
-/* Tab-Menu CSS code */
-.basictab{
-padding: 3px 0;
-margin-left: 0;
-font: bold 12px Verdana;
-border-bottom: 1px solid gray;
-list-style-type: none;
-text-align: left; /*set to left, center, or right to align the menu as desired*/
-}
+/* Navigation Home Button CSS code */
 
-.basictab li{
-display: inline;
-margin: 0;
-}
-
-.basictab li a{
+.homebutton {
+	padding: 5px 25px;
+	background-color: #ECECEC;
+	border: 2px solid #939393;
+	font: bold 12px Verdana;
+	color: #000;
 	text-decoration: none;
-	padding: 5px 20px;
-	margin-right: 0;
-	border: 1px solid gray;
-	border-bottom: none;
-	background-color: #E0E0E0;
-	color: #2d2b2b;
+	position:relative;
+	margin: 0;
 }
-
-.basictab li a:visited{
-color: #2d2b2b;
+.homebutton a:hover {
+	color: #A7A7A7;
 }
-
-.basictab li a:hover{
-	background-color: #909090;
-	color: black;
+.homebutton a:active {
+	color: #D9D9D9;
 }
-
-.basictab li a:active{
-color: black;
+.homebutton a:focus {
+	color: #CEBFBF;
 }
-
-.basictab li.selected a{ /*selected tab effect*/
-	position: relative;
-	top: 1px;
-	padding-top: 4px;
-	background-color: #909090;
-	color: black;
-}
-
-/*end of tab-menu css code*/
--->
 
 </style>
 </head>
@@ -555,12 +529,7 @@ color: black;
 	<form action="" method="post">
 	<div class="projectTab">
 	<h2>Policy</h2>
-        	<ul class="basictab">
-	    <li><a href="LoginServlet">Home</a></li>
-	    <li><a href="ManageProject">Project</a></li>
-	    <li><a href="ManageContext">Context</a></li>
-        <li><a href="ManagePolicy">Policy</a></li>
-      </ul>
+        
 		<table class="table table-hover" id=""> 
 			<tr>
 				<th>Select</th>
@@ -587,7 +556,7 @@ color: black;
 		
 		
 	</div>
-			
+			  <a class="homebutton" href="LoginServlet">Home</a>
 
 </div>
 
