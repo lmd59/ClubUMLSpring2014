@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import parser.JasonParser;
 import parser.XMIParser;
 import policy.UserDefinedRule;
-import repository.PolicyDataEdit;
+import repository.UseCaseJSONDAO;
 
 /**
  * Servlet implementation class SetRules
@@ -20,7 +21,7 @@ import repository.PolicyDataEdit;
 @WebServlet("/SetRules")
 public class SetRules extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       PolicyDataEdit pde = new PolicyDataEdit();
+       UseCaseJSONDAO pde = new UseCaseJSONDAO();
        JasonParser jp = new JasonParser();
        XMIParser xmiData = new XMIParser();
        EvaluateDiagram evaluate = new EvaluateDiagram();
@@ -46,6 +47,8 @@ public class SetRules extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("rules",rules);
 			
+			//save json text
+			UseCaseJSONDAO.insertJSONString(temp);
 			//TODO: save rules to database
 		}
 		// TODO Auto-generated method stub
@@ -59,7 +62,8 @@ public class SetRules extends HttpServlet {
 		System.out.println("Posting to SetRules");
 		
 		//TODO: get rules from database
-		UserDefinedRule rules=null;
+		
+		UserDefinedRule rules=jp.parser(UseCaseJSONDAO.getJSONString());
 		
 		//System.out.println("actors:"+rules.getMustHaveActors());
 		//pde.insertPolicy(rules);
@@ -74,6 +78,11 @@ public class SetRules extends HttpServlet {
 			//request.setAttribute("source_button", "Compare_to_Rule");
 			
 			session.setAttribute("compareResult", evaluate.getCompareResult());
+			
+			RequestDispatcher dispatcher = request
+					.getRequestDispatcher("WEB-INF/JSP/displayResult.jsp");
+			dispatcher.forward(request, response);
+			
 		
 		//String  testFile= request.getParameter("file");
 

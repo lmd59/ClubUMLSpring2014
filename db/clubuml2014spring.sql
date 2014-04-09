@@ -6,6 +6,7 @@ USE `clubuml`;
 DROP TABLE IF EXISTS `comment`;/*legacy*/
 
 /*Reverse dependency order to drop child tables first*/
+DROP TABLE IF EXISTS `rulejsonstring`;
 DROP TABLE IF EXISTS `classes`;
 DROP TABLE IF EXISTS `attributes`;
 DROP TABLE IF EXISTS `DiagramMetricsScore`;
@@ -230,6 +231,14 @@ CREATE TABLE classes
     maxNoOfClasses int(11),
     minNoOfClasses int(11)
 );
+/*json strong for use case rules*/
+CREATE TABLE rulejsonstring
+(
+	jsonId int(11) NOT NULL AUTO_INCREMENT,
+	jsonString text NOT NULL,
+	projectId int(11),
+	PRIMARY KEY (jsonId)
+);
 
 /*Create Relationships*/
 
@@ -263,6 +272,8 @@ ALTER TABLE diagramMetricsScore ADD CONSTRAINT diagramMetricsScoreHaveDiagramId 
 ALTER TABLE diagramMetricsScore ADD CONSTRAINT diagramMetricsScoreHaveMetricId FOREIGN KEY (metricId) REFERENCES metric (metricId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE attributes ADD CONSTRAINT attributesHaveMetricId FOREIGN KEY (metricId) REFERENCES metric (metricId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE classes ADD CONSTRAINT classesHaveMetricId FOREIGN KEY (metricId) REFERENCES metric (metricId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE rulejsonstring ADD CONSTRAINT rulejsonstringHaveProjectId FOREIGN KEY (projectId) REFERENCES project (projectId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
 
 /*insert sample data*/
 insert into policy (policyName,policyDescription,policyLevel) values ("policy 1","policy 1 description",2);

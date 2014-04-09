@@ -35,14 +35,7 @@
                             <th style="text-align: center">Operations</th>
 
                         </tr>
-                        <tr>
-                            <td style="text-align: center">test name</td>
-                            <td style="text-align: center">3</td>
-                            <td style="text-align: center">
-                                <a href="#actModal" itemIndex itemType title="Edit"><i class="icon-pencil"></i></a>
-                                <a href="#delModal" itemIndex itemType title="Delete"><i class="icon-trash"></i></a>
-                            </td>
-                        </tr>
+
                     </table>
                 </div>
             </div>
@@ -65,14 +58,7 @@
                             <th style="text-align: center">Max Number of Actors</th>
                             <th style="text-align: center">Operations</th>
                         </tr >
-                        <tr>
-                            <td style="text-align: center">test name</td>
-                            <td style="text-align: center">3</td>
-                            <td style="text-align: center">
-                                <a href="#" title="Edit"><i class="icon-pencil"></i></a>
-                                <a href="#" title="Delete"><i class="icon-trash"></i></a>
-                            </td>
-                        </tr>
+
                     </table>
                 </div>
             </div>
@@ -98,14 +84,7 @@
                             <th style="text-align: center">Use Case Name</th>
                             <th style="text-align: center">Operations</th>
                         </tr >
-                        <tr>
-                            <td style="text-align: center">test name</td>
-                            <td style="text-align: center">test use case</td>
-                            <td style="text-align: center">
-                                <a href="#" title="Edit"><i class="icon-pencil"></i></a>
-                                <a href="#" title="Delete"><i class="icon-trash"></i></a>
-                            </td>
-                        </tr>
+
                     </table>
                 </div>
             </div>
@@ -128,14 +107,7 @@
                             <th style="text-align: center">Use Case Name</th>
                             <th style="text-align: center">Operations</th>
                         </tr >
-                        <tr>
-                            <td style="text-align: center">test name</td>
-                            <td style="text-align: center">Test use case</td>
-                            <td style="text-align: center">
-                                <a href="#" title="Edit"><i class="icon-pencil"></i></a>
-                                <a href="#" title="Delete"><i class="icon-trash"></i></a>
-                            </td>
-                        </tr>
+
                     </table>
                 </div>
             </div>
@@ -161,15 +133,7 @@
                             <th style="text-align: center">Use Case 2</span></th>
                             <th style="text-align: center">Operations</th>
                         </tr >
-                        <tr>
-                            <td style="text-align: center">test name</td>
-                            <td style="text-align: center">includes</td>
-                            <td style="text-align: center">test name</td>
-                            <td style="text-align: center">
-                                <a href="#" title="Edit"><i class="icon-pencil"></i></a>
-                                <a href="#" title="Delete"><i class="icon-trash"></i></a>
-                            </td>
-                        </tr>
+
                     </table>
                 </div>
             </div>
@@ -193,15 +157,7 @@
                             <th style="text-align: center">Use Case 2</span></th>
                             <th style="text-align: center">Operations</th>
                         </tr >
-                        <tr>
-                            <td style="text-align: center">test name</td>
-                            <td style="text-align: center">includes</td>
-                            <td style="text-align: center">test name</td>
-                            <td style="text-align: center">
-                                <a href="#" title="Edit"><i class="icon-pencil"></i></a>
-                                <a href="#" title="Delete"><i class="icon-trash"></i></a>
-                            </td>
-                        </tr>
+
                     </table>
                 </div>
             </div>
@@ -213,7 +169,7 @@
         <a class="btn btn-primary offset10" href=# onclick="submitRules()">Submit</a>
     </div>
     <div class="span6">
-        <a class="btn offset1" href=#>Cancel</a>
+        <a class="btn offset1" href=# onclick="cancel()">Cancel</a>
     </div>
 </div>
 </div>
@@ -367,6 +323,19 @@ var mustHaveInArray=new Array();
 var mustNotHaveInArray=new Array();
 var mustHaveExArray=new Array();
 var mustNotHaveExArray=new Array();
+
+var userAgent = navigator.userAgent.toLowerCase();
+if(userAgent.indexOf('msie')!=-1)
+    window.attachEvent('onbeforeunload', handler);
+else
+    window.addEventListener('beforeunload', handler);
+
+function handler(){
+    if(userAgent.indexOf('chrome')!=-1)
+        return "The infomation hasn't been submitted! Do you want to leave?";
+    else
+        (window.event || arguments[0]).returnValue = "The infomation hasn't been submitted! Do you want to leave?";
+}
 function changeModalTitle(id,title) {
     $('#'+id+' h3[head]').text(title);
 }
@@ -459,7 +428,9 @@ function addAss() {
     ass=
     {
         actorName: actName ,
-        useCaseName: ucName
+        useCaseName: ucName,
+        actorIndex: actIndex,
+        useCaseIndex: ucIndex
     }
     if(itemIndex!=undefined) {
         sourceArray[itemIndex]=ass;
@@ -485,12 +456,12 @@ function addAss() {
 
 
 function initAssModal(sender,type) {
-    console.log('entered set:'+type);
+
     if(type==undefined)
     {
         type=$(sender).attr('itemType');
     }
-    console.log('after set:'+type);
+
     if(type==TYPE_MUST_HAVE_ASSOCIATION){
         changeModalTitle("assModal","Must-have Association Information");
     } else if(type==TYPE_MUST_NOT_HAVE_ASSOCIATION) {
@@ -553,7 +524,6 @@ function initIoEModal(sender,type) {
         $("#ieSel").find('option[value=-1]').removeAttr('selected');
         $("#ieSel").find('option[value='+relation+']').attr('selected','selected');
         var itemIndex= $(sender).attr('itemIndex');
-        console.log('itemIndex in InitIoE:',itemIndex);
         $('#ieModal').data('itemIndex',itemIndex);
 
     }
@@ -577,7 +547,6 @@ function addIoE() {
     }
     var ioe;
     var type= $("#ieModal").data("type");
-    console.log('type in add:'+type);
     var itemIndex=$('#ieModal').data('itemIndex');
     var tableId;
     var sourceArray;
@@ -604,19 +573,25 @@ function addIoE() {
     ioe=
     {
         fromUseCaseName: fromUcName ,
-        toUseCaseName: toUcName
+        toUseCaseName: toUcName,
+        fromUseCaseIndex: fromUcIndex,
+        toUseCaseIndex: toUcIndex
     }
 
     if(itemIndex!=undefined) {
-        sourceArray[itemIndex]=ioe;
+        var arrIndex;
+        var startPos=itemIndex.indexOf('_')+1;
+        arrIndex=itemIndex.substring(startPos);
+        sourceArray[arrIndex]=ioe;
         var ioeRow=$(tableId).find('tr[itemIndex='+itemIndex+']');
         ioeRow.find('td[colName=fromUcName]').text(ioe.fromUseCaseName);
         ioeRow.find('td[colName=toUcName]').text(ioe.toUseCaseName);
         ioeRow.find('td[colName=relation]').text(relationName);
         $('#ieModal').removeData("itemIndex");
     } else {
-        itemIndex=sourceArray.push(ioe)-1;
-        var ioeRow =$('<tr itemIndex="'+itemIndex+'"> <td style="text-align: center" colName="fromUcName"></td> <td style="text-align: center" colName="relation"></td><td style="text-align: center" colName="toUcName"></td> <td style="text-align: center"> <a href="#ieModal" role="button" data-toggle="modal" itemIndex itemType fromUcIndex toUcIndex relation title="Edit" onclick="initIoEModal(this,undefined)"><i class="icon-pencil"></i></a> <a href="#delModal" role="button" data-toggle="modal" itemIndex itemType title="Delete" onclick="initDelModal(this)"><i class="icon-trash"></i></a> </td> </tr>');
+        var arrIndex=sourceArray.push(ioe)-1;
+        itemIndex=String(type)+String(relation)+"_"+String(arrIndex);
+        var ioeRow =$('<tr itemIndex="'+itemIndex+'"> <td style="text-align: center" colName="fromUcName"></td> <td style="text-align: center" colName="relation"></td><td style="text-align: center" colName="toUcName"></td> <td style="text-align: center"> <a href="#ieModal" role="button" data-toggle="modal" itemIndex itemType fromUcIndex toUcIndex relation title="Edit" onclick="initIoEModal(this,undefined)"><i class="icon-pencil"></i></a> <a href="#delModal" role="button" data-toggle="modal" itemIndex itemType relation title="Delete" onclick="initDelModal(this)"><i class="icon-trash"></i></a> </td> </tr>');
         ioeRow.find('tr[itemIndex]').attr('itemIndex',itemIndex);
         ioeRow.find('td[colName=fromUcName]').text(fromUcName);
         ioeRow.find('td[colName=toUcName]').text(toUcName);
@@ -637,8 +612,10 @@ function getActSel(){
     var actSel=$('<select id="actSel"></select>');
     actSel.append("<option value='-1' selected='selected'>Select Actor</option>");
     for(var index=0; index<actArray.length;index++){
-        var opt=$('<option value='+index+'>'+actArray[index].name+'</option>');
-        actSel.append(opt);
+        if(actArray[index]!=undefined){
+            var opt=$('<option value='+index+'>'+actArray[index].name+'</option>');
+            actSel.append(opt);
+        }
     }
     return actSel;
 }
@@ -646,8 +623,10 @@ function getUcSel(id){
     var ucSel=$('<select id="'+id+'"></select>');
     ucSel.append("<option value='-1' selected='selected'>Select Use Case</option>");
     for(var index=0; index<ucArray.length;index++){
-        var opt=$('<option value='+index+'>'+ucArray[index].name+'</option>');
-        ucSel.append(opt);
+        if(ucArray[index]!=undefined) {
+            var opt=$('<option value='+index+'>'+ucArray[index].name+'</option>');
+            ucSel.append(opt);
+        }
     }
     return ucSel;
 }
@@ -712,28 +691,108 @@ function initDelModal(sender) {
     $('#delModal').data('itemIndex',itemIndex);
     var itemType=$(sender).attr('itemType');
     $('#delModal').data('itemType',itemType);
+    var relation=$(sender).attr('relation');
+    $('#delModal').data('relation',relation);
 }
 function delItem(){
     var itemIndex= $('#delModal').data('itemIndex');
     var itemType= $('#delModal').data('itemType');
+    var relation= $('#delModal').data('relation');
     if(itemType==TYPE_ACTOR) {
-        actArray.splice(itemIndex,1);
+       delete actArray[itemIndex];
         var actRow=$('#actTable').find('tr[itemIndex='+itemIndex+']');
         actRow.remove();
+        for(var i=0;i<mustHaveAssArray.length;i++) {
+            if(mustHaveAssArray[i]!=undefined&&mustHaveAssArray[i].actorIndex!=undefined&&mustHaveAssArray[i].actorIndex==itemIndex) {
+                delete mustHaveAssArray[i];
+                var mhaRow=$('#mhaTable').find('tr[itemIndex='+i+']');
+                mhaRow.remove();
+
+            }
+        }
+
+        for(var i=0;i<mustNotHaveAssArray.length;i++) {
+            if(mustNotHaveAssArray[i]!=undefined&&mustNotHaveAssArray[i].actorIndex!=undefined&&mustNotHaveAssArray[i].actorIndex==itemIndex) {
+                delete mustNotHaveAssArray[i];
+                var mnaRow=$('#mnaTable').find('tr[itemIndex='+i+']');
+                mnaRow.remove();
+
+            }
+        }
+
+
     }
 
-    if(itemType=TYPE_USE_CASE) {
-        ucArray.splice(itemIndex,1);
+    if(itemType==TYPE_USE_CASE) {
+        delete ucArray[itemIndex];
         var ucRow=$('#ucTable').find('tr[itemIndex='+itemIndex+']');
         ucRow.remove();
+        for(var i=0;i<mustNotHaveAssArray.length;i++) {
+            if(mustNotHaveAssArray[i]!=undefined&&mustNotHaveAssArray[i].useCaseIndex!=undefined&&mustNotHaveAssArray[i].useCaseIndex==itemIndex) {
+                delete mustNotHaveAssArray[i];
+                var mnaRow=$('#mnaTable').find('tr[itemIndex='+i+']');
+                mnaRow.remove();
+
+            }
+        }
+
+        for(var i=0;i<mustHaveAssArray.length;i++) {
+            if(mustHaveAssArray[i]!=undefined&&mustHaveAssArray[i].useCaseIndex!=undefined&&mustHaveAssArray[i].useCaseIndex==itemIndex) {
+                delete mustHaveAssArray[i];
+                var mhaRow=$('#mhaTable').find('tr[itemIndex='+i+']');
+                mhaRow.remove();
+            }
+        }
+
+    }
+
+    if(itemType==TYPE_MUST_HAVE_ASSOCIATION) {
+        delete mustHaveAssArray[itemIndex];
+        var mhaRow=$('#mhaTable').find('tr[itemIndex='+itemIndex+']');
+        mhaRow.remove();
+    }
+
+    if(itemType==TYPE_MUST_NOT_HAVE_ASSOCIATION) {
+        delete mustNotHaveAssArray[itemIndex];
+        var mnaRow=$('#mnaTable').find('tr[itemIndex='+itemIndex+']');
+        mnaRow.remove();
+    }
+
+    if(itemType==TYPE_MUST_HAVE_IoE) {
+        var arrIndex;
+        var startPos=itemIndex.indexOf('_')+1;
+        arrIndex=itemIndex.substring(startPos);
+        if(relation==0) {
+           delete mustHaveInArray[arrIndex];
+        }
+        if(relation==1){
+           delete mustHaveExArray[arrIndex];
+        }
+        var mhiRow=$('#mhiTable').find('tr[itemIndex='+itemIndex+']');
+        mhiRow.remove();
+    }
+
+    if(itemType==TYPE_MUST_NOT_HAVE_IoE) {
+        var arrIndex;
+        var startPos=itemIndex.indexOf('_')+1;
+        arrIndex=itemIndex.substring(startPos);
+        if(relation==0) {
+           delete mustNotHaveInArray[arrIndex];
+        }
+
+        if(relation==1){
+           delete mustNotHaveExArray[arrIndex];
+        }
+        var mniRow=$('#mniTable').find('tr[itemIndex='+itemIndex+']');
+        mniRow.remove();
     }
     $('#delModal').removeData("itemIndex");
     $('#delModal').removeData("itemType");
+    $('#delModal').removeData("relation");
     $("#delModal").modal('hide');
 
 }
-function submitRules()
-{
+function submitRules(){
     var rulesJson={
         actors : actArray,
         useCases : ucArray,
@@ -746,9 +805,27 @@ function submitRules()
     }
 
     var rulesJsonStr=JSON.stringify(rulesJson);
-    $.get("/ClubUMLSpring2013/SetRules?rulesJSON="+rulesJsonStr);
-}
+    console.log(rulesJsonStr);
+    if(userAgent.indexOf('msie')!=-1)
+        window.detachEvent('onbeforeunload', handler);
+    else
+        window.removeEventListener('beforeunload',handler,false);
 
+    $.get("/ClubUMLSpring2013/SetRules?rulesJSON="+rulesJsonStr,function(data,statusText) {
+        if(data==true){
+            window.location.href="http://www.baidu.com";
+        }
+    });
+
+}
+function cancel(){
+    if(userAgent.indexOf('msie')!=-1)
+        window.detachEvent('onbeforeunload', handler);
+    else
+        window.removeEventListener('beforeunload',handler,false);
+    location.reload();
+
+}
 </script>
 </body>
 </html>

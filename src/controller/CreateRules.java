@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import parser.JasonParser;
 import parser.XMIParser;
 import policy.UserDefinedRule;
-import repository.PolicyDataEdit;
+import repository.UseCaseJSONDAO;
 
 /**
  * Servlet implementation class SetRules
