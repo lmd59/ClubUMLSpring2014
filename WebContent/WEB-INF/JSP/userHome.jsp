@@ -10,9 +10,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="style.css" rel="stylesheet" type="text/css" />
- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+ <link rel="stylesheet" href="lib/jquery/jquery-ui.css" />
+  <script type="text/javascript" src="lib/jquery/jquery-1.9.1.js"></script>
+  <script type="text/javascript" src="lib/jquery/jquery-ui.js"></script>
   
   <link rel="stylesheet" href="/resources/demos/style.css" />
 <script type="text/javascript" src="js/cufon-yui.js"></script>
