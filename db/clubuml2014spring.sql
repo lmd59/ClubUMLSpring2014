@@ -11,6 +11,8 @@ DROP TABLE IF EXISTS `attributes`;
 DROP TABLE IF EXISTS `DiagramMetricsScore`;
 DROP TABLE IF EXISTS `metric`;
 DROP TABLE IF EXISTS `metricType`;
+DROP TABLE IF EXISTS `decisionRationale`;
+DROP TABLE IF EXISTS `decision`;
 DROP TABLE IF EXISTS `rationale`;
 DROP TABLE IF EXISTS `compare`;
 DROP TABLE IF EXISTS `DiagramPolicyScore`;
@@ -109,6 +111,25 @@ CREATE TABLE rationale
   criteria varchar(75),
   criteriaRelationship varchar(255),
   PRIMARY KEY (rationaleId)
+);
+
+-- Table decision (3/30/2014)
+CREATE TABLE decision
+(
+	decisionId int(11) NOT NULL AUTO_INCREMENT,
+	decisionName varchar(75) NOT NULL,
+	projectId int(11) NOT NULL,
+	decisionTime Timestamp NOT NULL,
+	userId int(11) NOT NULL,
+	diagramId int(11), /*should be changed to not null when RM2 functionality is completed -laurend*/
+	PRIMARY KEY (decisionId)
+);
+
+-- Table decisionRationale many-to-many (3/30/2014)
+CREATE TABLE decisionRationale (
+decisionId int(11) NOT NULL,
+rationaleId int(11) NOT NULL,
+PRIMARY KEY (decisionId, rationaleId)
 );
 
 -- 2013/10/22 Create Table Policy --
@@ -210,6 +231,11 @@ ALTER TABLE rationale ADD CONSTRAINT rationaleHaveCompareId FOREIGN KEY (compare
 ALTER TABLE rationale ADD CONSTRAINT rationaleHaveUserId FOREIGN KEY (userId) REFERENCES user (userId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE rationale ADD CONSTRAINT rationaleHavePromotedDiagramId FOREIGN KEY (promotedDiagramId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE rationale ADD CONSTRAINT rationaleHaveAlternativeDiagramId FOREIGN KEY (alternativeDiagramId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE decision ADD CONSTRAINT decisionHaveDiagramId FOREIGN KEY (diagramId) REFERENCES diagram (diagramId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE decision ADD CONSTRAINT decisionHaveProjectId FOREIGN KEY (projectId) REFERENCES project (projectId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE decision ADD CONSTRAINT decisionHaveUserId FOREIGN KEY (userId) REFERENCES user (userId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE decisionRationale ADD CONSTRAINT decisionRationaleHaveDecisionId FOREIGN KEY (decisionId) REFERENCES decision (decisionId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE decisionRationale ADD CONSTRAINT decisionRationaleHaveRationaleId FOREIGN KEY (rationaleId) REFERENCES rationale (rationaleId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE userproject ADD CONSTRAINT userprojectHaveUserId FOREIGN KEY (userId) REFERENCES user (userId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE userproject ADD CONSTRAINT userprojectHaveProjectId FOREIGN KEY (projectId) REFERENCES project (projectId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE compare ADD CONSTRAINT compareHaveReportId FOREIGN KEY (reportId) REFERENCES report (reportId) ON DELETE NO ACTION ON UPDATE NO ACTION; 

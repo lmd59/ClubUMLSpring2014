@@ -67,13 +67,8 @@ public class Display extends HttpServlet {
     	
     //Modified by Xuesong Meng
     	try{
-    	ArrayList<domain.Diagram> diagrams = DiagramDAO.getDiagramList(ProjectID);
-	    if (!diagrams.isEmpty()) {
-		request.setAttribute("diagrams", diagrams);
-		//set the first diagram in diagram list as the default display diagram..
-		request.setAttribute("firstPath", diagrams.get(0).getFilePath() + ".png");
-		request.setAttribute("diagramId1", diagrams.get(0).getDiagramId());
-	    }
+    		DisplayDiagram display = new DisplayDiagram();
+    		display.setDisplayDiagramRequestAttributes(request, ProjectID);    		
     	} catch(Exception e){
     		System.out.println(e.getMessage());
     	}

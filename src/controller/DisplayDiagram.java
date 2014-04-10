@@ -4,6 +4,7 @@
  */
 package controller;
 
+import domain.Decision;
 import domain.Diagram;
 
 import java.io.DataInputStream;
@@ -13,7 +14,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,6 +31,7 @@ import javax.servlet.http.HttpSession;
 
 import controller.download.DownloadDirectory;
 import controller.download.DownloadZipfile;
+import repository.DecisionDAO;
 import repository.DiagramDAO;
 import repository.UserDAO;
 
@@ -62,25 +67,29 @@ public class DisplayDiagram extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	response.setContentType("text/html;charset=UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+	
+		checked = (String[]) request.getParameterValues("check");
+		option = request.getParameter("submit");
 
-	checked = (String[]) request.getParameterValues("check");
-	option = request.getParameter("submit");
-
-	if (option.equals("Go to compare")) {
-	    goToCompare(checked, request, response);
-
-	}
-	if (option.equals("Display")) {
-	    displayDiagram(checked, request, response);
-
-	}
-	if (option.equals("Download")) {
-	    downloadDiagram(checked, request, response);
-	}
-	if (option.equals("DownloadProject")) {
-	    downloadProject(request, response);
-	}
+		if (option != null) {
+			if (option.equals("Go to compare")) {
+			    goToCompare(checked, request, response);
+			}
+			if (option.equals("Display")) {
+			    displayDiagram(checked, request, response);
+		
+			}
+			if (option.equals("Download")) {
+			    downloadDiagram(checked, request, response);
+			}
+			if (option.equals("DownloadProject")) {
+			    downloadProject(request, response);
+			}
+			if (option.equals("CreateDecision")) {
+			    createProjectDecision(request, response);
+			}
+		}
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -182,7 +191,14 @@ public class DisplayDiagram extends HttpServlet {
 	    }
 	 */
 	//Modified by Xuesong Meng
-		ArrayList<domain.Diagram> diagrams = DiagramDAO.getDiagramList(2);
+	
+		int ProjectID = -1;
+		if ((request.getParameter("ProjectID") != null))
+		{
+			ProjectID = Integer.parseInt(request.getParameter("ProjectID"));
+		}
+	
+		ArrayList<domain.Diagram> diagrams = DiagramDAO.getDiagramList(ProjectID);
 	    if (!diagrams.isEmpty()) {
 
 			for (int i = 0; i < diagrams.size(); i++) {
@@ -190,41 +206,64 @@ public class DisplayDiagram extends HttpServlet {
 					// Set the first diagram in diagram list as the default display diagram..
 					request.setAttribute("firstPath", diagrams.get(i).getFilePath() + ".png");
 					request.setAttribute("diagramId1", diagrams.get(i).getDiagramId());
-		
-					// No longer comments attached to diagrams, only to merge/compare operations
-					/*
-					ArrayList<Comment> commentListObj = CommentDAO.getComment(diagramId1);
-					if (!commentListObj.isEmpty()) {
-					    for (int j = 0; j < commentListObj.size(); j++) {
-					    	commentListObj.get(j).setUserName(UserDAO.getUser(commentListObj.get(j).getUserId()).getUserName());
-					    }
-					    request.setAttribute("comments", commentListObj);
-					}
-					*/
-					
-					//TODO check this out from Display.java...
-					/*
-					ArrayList<Comment> commentListObj = CommentDAO.getComment(diagrams.get(0).getDiagramId());
-				    if (!commentListObj.isEmpty()) {
-					for (int i = 0; i < commentListObj.size(); i++) {
-					    commentListObj.get(i).setUserName(UserDAO.getUser(commentListObj.get(i).getUserId()).getUserName());
-					}
-					request.setAttribute("comments", commentListObj);
-				    }	
-			    	} catch(Exception e){
-			    		System.out.println(e.getMessage());
-			    	}
-			    	*/
-					// Bug fix - send empty comments ArrayList
-			    }
-			    
+					break;
+			    }			    
 			}
 			request.setAttribute("diagrams", diagrams);
+	    	request.setAttribute("ProjectID", ProjectID);
 	    }
+	    
+		HashMap<String, Decision> decisions;
+		try {
+			decisions = DecisionDAO.getLatestDecisions(ProjectID);
+    	    if (!decisions.isEmpty()) {
+    			request.setAttribute("decisions", decisions);
+    	    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/display.jsp");
 		dispatcher.forward(request, response);
 	}
 	
+    public void createProjectDecision(HttpServletRequest request, HttpServletResponse response)
+    	    throws ServletException, IOException {
+    	
+    	HttpSession session = request.getSession(true);
+    	int userId = -1;
+    	Object tempObj = session.getAttribute("userId");
+    	if (tempObj != null)
+    		userId = Integer.parseInt(tempObj.toString());
+
+    	tempObj = session.getAttribute("username");
+    	String userName = "";
+    	if (tempObj != null)
+    		userName = tempObj.toString();
+
+		String decisionName = request.getParameter("decisionName");
+
+		int ProjectID = -1;
+		if ((request.getParameter("ProjectID") != null))
+		{
+			ProjectID = Integer.parseInt(request.getParameter("ProjectID"));
+		}
+			
+		Decision newDecision = new Decision();
+		newDecision.setDecisionName(decisionName);
+		newDecision.setProjectId(ProjectID);
+		newDecision.setUserId(userId);
+		newDecision.setUserName(userName);
+		
+		DecisionDAO.addDecision(newDecision);
+		
+		// changes for loading the JSP back again
+		setDisplayDiagramRequestAttributes(request, ProjectID);
+		
+    	RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/display.jsp");
+    	dispatcher.forward(request, response);
+    }
+    	
     /*
      * function to download the selected diagram.
      */
@@ -296,7 +335,27 @@ public class DisplayDiagram extends HttpServlet {
 		}
     }
     
-    
+    public void setDisplayDiagramRequestAttributes(HttpServletRequest request, int ProjectID) {
+		// changes for loading the JSP back again
+    	ArrayList<domain.Diagram> diagrams = DiagramDAO.getDiagramList(ProjectID);
+    	if (!diagrams.isEmpty()) {
+    		request.setAttribute("diagrams", diagrams);
+    		//set the first diagram in diagram list as the default display diagram..
+    		request.setAttribute("firstPath", diagrams.get(0).getFilePath() + ".png");
+    		request.setAttribute("diagramId1", diagrams.get(0).getDiagramId());
+    	   	request.setAttribute("ProjectID", ProjectID);
+    	}
+    	    
+    	HashMap<String, Decision> decisions;
+		try {
+			decisions = DecisionDAO.getLatestDecisions(ProjectID);
+	        if (!decisions.isEmpty()) {
+	    		request.setAttribute("decisions", decisions);
+	        }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    }
     /*
      * function to download project.
      */

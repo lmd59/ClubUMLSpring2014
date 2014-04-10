@@ -2,13 +2,15 @@
     Document   : display
     Created on : Oct 20, 2012, 2:25:33 PM
     Author     : pratham
-    Edited By  : AmeyaCJoshi
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript" src="js/display.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,6 +90,24 @@ color: black;
 <script type="text/javascript">
 	var type = "";
 	$(document).ready(function() {
+		
+		
+		$("#createDecision").hide();
+		$("#selectDiagram").hide();
+			
+		$("#createButton").click(function(){
+				
+				$("#createDecision").dialog({height: 250, width:300 });
+				
+				$("#button1").click(function(){
+					
+					$("#selectDiagram").dialog({height: 250, width:300 });
+					
+				});
+		});
+		
+		
+				
 		$("#downloadButton").click(function() {
 			type = this.id.toString();
 		});
@@ -222,6 +242,7 @@ color: black;
 		<div id="list">
 			<form action="DisplayDiagram" method="post"
 				onsubmit="return checkFields()">
+				<input type="hidden" value="${ProjectID}" name="ProjectID"/>
 				<input type="submit" id="displayButton" value="Display" name="submit" />
 				<input type="submit" id="downloadButton" value="Download" name="submit" />
 				<input type="submit" id="compareButton" value="Go to compare" name="submit"
@@ -254,9 +275,121 @@ color: black;
 				</table>
 			</form>
 		</div>
+		
+		<div id="decision">
+		
+		<div id="decisionDisplays" style="width:80%;float:left;">
+		<fieldset class="well the-fieldset" >
+    		<legend class="the-legend">Decisions</legend>
+			
+			<table border-spacing: 8px 2px;>
+				<tr>
+				<td></td>
+				<td><b>Decisions</b></td>
+				<td><b>User</b></td>
+				<td><b>Diagram</b></td>
+				</tr>
+					<!-- Commented out Now. Need to enable it after integration
+						<c:forEach items="${requestScope.decisions}" var="decisions">
+						<tr>
+							<td><input class="myCheckBox" type="checkbox" name="check"
+								value="${decision.decisionId}" id="${diagram.diagramId}"/></td>
+							<td>${diagram.decisionName}</td>
+							<td>${diagram.createdTime}</td>
+							<td>${diagram.diagramName}</td>
+						</tr>
+					</c:forEach>
+					</td>
+					-->
+					<tr>
+						<c:forEach items="${requestScope.decisions}" var="decision">
+						<tr>
+							<td><input class="myCheckBox" type="checkbox" name="check"
+								value=1/></td>
+							<td>${decision.value.decisionName}</td>
+							<td>${decision.value.userName}</td>
+						</tr>
+						</c:forEach>
+					</tr>
+				</table>
+						
+    	
+    	</fieldset>
+		
+		</div>
+		
+		<div id="decisionMenu" style="width:15%;float:right;">
+		<br>
+		<br>
+		<table>
+			<tr>
+			<button id="displayButton">Display</button> 
+			</tr>
+			<tr>
+			<button id="editButton">Edit</button> 
+			</tr>
+			<tr>
+			<button id="createButton">Create</button> 
+			</tr>
+			</table>
+		</div>
+			
+			
+		</div>
+		
+	<div id="createDecision">	 
+	   <form action="DisplayDiagram" method="post" onsubmit="">
+		 <input type="hidden" value="${ProjectID}" name="ProjectID"/>
+	     <h4><strong>Create New Dicision</strong></h4>
+		 <br/>
+
+	    <label><b>Decision Name</b></label>
+	     <input type="text" id="decisionName" name ="decisionName" placeholder="Decision Name" size="20" maxlength="75"/>
+	     <br>
+	     <br>
+	     <table align="center">
+      	 	<tr>
+      			<td>
+      				<input type="submit" id="createDecisionButton" value="CreateDecision" name="submit"/>
+				</td>
+			</tr>
+	     </table>
+	   </form>
+	 </div>
+	
+	<div id="selectDiagram">	 
+	   <form action=" " method="post" onsubmit="">
+	     <h4><strong>Select UML Diagram</strong></h4>
+		 <br/>
+	    <label><b>Select a Diagram</b></label>
+		 <select id="digramList"">
+ 		   <label>Diagram</label>
+	    	 <select name="selectDiagram">
+	 	    <option>Diagram1</option>
+	  		<option>Diagram2</option>
+	 	    <option>Diagram3</option>
+		 </select>
+	     <br>
+	     <br>
+	     <table align="center">
+      	 	<tr>
+      			<td>
+      				<div class="sumbitbutton1"><button id="button2" class="pbutton2">Choose Diagram</button></div>
+				</td>
+			</tr>
+	     </table>
+	   </form>
+	 </div>
+	 
+	     		
+		
 	</div>
 	
 	</div>
+	
+	
+	
+	
 	
 	<!-- Merge Form -->
 	<form id=requestForm action="ClassMergeComunicator" method=POST style="display: none;" onsubmit="return checkFields()">
