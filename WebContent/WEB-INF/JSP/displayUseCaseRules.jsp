@@ -72,7 +72,7 @@ color: black;
 	
     <body style="background-color: #F3F3F3">
 	<div id="myHeader">
-	    <h1 id="banner">Use Case Results</h1>
+	    <h1 id="banner">Use Case Rules</h1>
 	</div>
     
     <ul class="basictab">
@@ -84,9 +84,7 @@ color: black;
 
 	<div id="myContainer">
 		<div  class="scrollreport">
-
-			<pre>${json}</pre>
-
+			${json}
 		</div>
 	    
 	</div>
