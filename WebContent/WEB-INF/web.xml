@@ -44,10 +44,6 @@
     <servlet-name>ManagePolicy</servlet-name>
     <servlet-class>controller.ManagePolicy</servlet-class>
   </servlet>
-  <servlet>
-    <servlet-name>UseCaseUpload</servlet-name>
-    <servlet-class>controller.UseCaseUpload</servlet-class>
-  </servlet>
   <servlet-mapping>
     <servlet-name>Home</servlet-name>
     <url-pattern>/Home</url-pattern>
@@ -102,9 +98,5 @@
   <servlet-mapping>
     <servlet-name>ManagePolicy</servlet-name>
     <url-pattern>/ManagePolicy</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>UseCaseUpload</servlet-name>
-    <url-pattern>/UseCaseUpload</url-pattern>
   </servlet-mapping>
 </web-app>

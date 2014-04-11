@@ -171,6 +171,9 @@
     <div class="span6">
         <a class="btn offset1" href=# onclick="cancel()">Cancel</a>
     </div>
+    
+    <a href="/ClubUMLSpring2013/SetRules">View Submitted Rules</a>
+    
 </div>
 </div>
 <!-- Actor Modal -->
@@ -811,11 +814,7 @@ function submitRules(){
     else
         window.removeEventListener('beforeunload',handler,false);
 
-    $.get("/ClubUMLSpring2013/SetRules?rulesJSON="+rulesJsonStr,function(data,statusText) {
-        if(data==true){
-            window.location.href="http://www.baidu.com";
-        }
-    });
+    $.post( "/ClubUMLSpring2013/SetRules", { rulesJSON: rulesJsonStr} );
 
 }
 function cancel(){

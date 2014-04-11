@@ -230,7 +230,7 @@ public class UploadServlet extends HttpServlet {
 			diagram.setDiagramName(useCaseFile.getName());
 			diagram.setFilePath(destinationDir + "/");
 			UseCaseDiagramDAO.addUseCaseDiagram(diagram);
-			RequestDispatcher rd = request.getRequestDispatcher("UseCaseUpload");
+			RequestDispatcher rd = request.getRequestDispatcher("UseCaseApplet");
 			rd.forward(request, response);
 		}else{
 			RequestDispatcher rd = request.getRequestDispatcher("Display");

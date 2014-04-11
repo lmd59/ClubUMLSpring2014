@@ -1,5 +1,5 @@
 <%--
-    Document   : useCaseUpload.jsp
+    Document   : useCaseApplet.jsp
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -204,7 +204,7 @@ color: black;
 		</div>
 	
 		<div id="list">
-			<form action="UploadUseCaseFile" method="post"
+			<form action="UseCaseApplet" method="post"
 				onsubmit="return checkFields()">
 				<input type="hidden" value="${ProjectID}" name="ProjectID"/>
 				<input type="hidden" value="" name="UseCaseDiagramId"/>
