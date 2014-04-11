@@ -150,8 +150,8 @@ public class UmlUploadProcessor implements UploadProcessor {
 			diagramObj.setDiFilepath(folder);
 			diagramObj.setFileType("XMI");
 			diagramObj.setNotationFilePath(folder);
-			DiagramContext cd = ContextDAO.getContext(projectId);
-			diagramObj.setContextId(ContextDAO.getContext(projectId).getDiagramContextId());
+			DiagramContext cd = ContextDAO.getContextByProjectId(projectId);
+			diagramObj.setContextId(ContextDAO.getContextByProjectId(projectId).getDiagramContextId());
 			//support for enum type| we have to make sure, that the diagramType supplied here is in accordance to the Enum
 			diagramObj.setDiagramType(diagramType);
 			//diagramObj.setDiagramType(diagramType);
@@ -655,10 +655,16 @@ public class UmlUploadProcessor implements UploadProcessor {
 					}	
 					Log.LogCreate().Info("Locating message list =" + messageList.get(i).getElementId());
 					// add xmiElementMessage with the correct order 
-					if (msgIdList.contains(messageList.get(i).getElementId())) {
-						Log.LogCreate().Info("Adding to pic  list =" + messageList.get(i).getElementId());
-						picElem.getMessageList().add(msgIdList.indexOf(messageList.get(i).getElementId()), xmiElemMsg);
-					}
+                    if (msgIdList.contains(messageList.get(i).getElementId())) {
+                        Log.LogCreate().Info("Adding to pic  list =" + messageList.get(i).getElementId());
+                        int index = msgIdList.indexOf(messageList.get(i).getElementId());
+                    
+                        //add null elements through index we want to set
+                        for(int j=picElem.getMessageList().size();j<=index;j++){
+                            picElem.getMessageList().add(null);
+                        }
+                        picElem.getMessageList().set(index, xmiElemMsg);
+                    }
 				}
 				
 				for (int i = 0 ; i < lifelineList.size() ; i++) {

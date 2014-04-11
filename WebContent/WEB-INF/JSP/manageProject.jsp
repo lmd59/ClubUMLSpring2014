@@ -34,8 +34,9 @@ rel="stylesheet">
   <script src="lib/jquery/jquery-ui.js"></script>
 
   <link rel="stylesheet" href="/resources/demos/style.css" />
+<script type="text/javascript" src="js/dbValidation.js"></script>
 
-<title>Insert title here</title>
+<title>Manage Project</title>
 
 <script type="text/javascript">
 
@@ -267,7 +268,7 @@ display: inline;
 
     <div class="col-lg-10">
 
-      <input type="text" class="form-control" id="ProjectName" name ="ProjectName" placeholder="ProjectName"/>
+      <input type="text" class="form-control" id="projectNameUpdate" name ="ProjectName" placeholder="ProjectName" max_length="45"/>
 
     </div>
 
@@ -282,7 +283,7 @@ display: inline;
 
     
 
-      <input type="text" class="form-control" id="Description" name="Description" placeholder="Description"/>
+      <input type="text" class="form-control" id="descriptionUpdate" name="Description" placeholder="Description" max_length="255"/>
 
     </div>
 
@@ -318,7 +319,7 @@ display: inline;
 
 <div class="buttoninpopup">
 
-<input class="btn btn-info"  type="submit" value="Update" />
+<input class="btn btn-info" onclick="return checkUpdateProject();" type="submit" value="Update" />
 
 </div>
 
@@ -395,18 +396,16 @@ display: inline;
 <form class="form-horizontal" action="CreateProject" method="post">
 
     
+<h3><strong>Add Project</strong></h3>
 
-    
-
-
-
+<br/>
  <div class="form-group">
 
     <label class="col-lg-2 control-label">Project Name</label>
 
     <div class="col-lg-10">
 
-      <input type="text" class="form-control" id="ProjectName" name ="ProjectName" placeholder="ProjectName"/>
+      <input type="text" class="form-control" id="projectNameAdd" name ="ProjectName" placeholder="ProjectName" max_length="45"/>
 
     </div>
 
@@ -428,7 +427,7 @@ display: inline;
 
     
 
-      <input type="text" class="form-control" id="Description" name="Description" placeholder="Description"/>
+      <input type="text" class="form-control" id="descriptionAdd" name="Description" placeholder="Description" max_length="255"/>
 
     </div>
 
@@ -458,7 +457,7 @@ display: inline;
 
 <div class="buttoninpopup">
 
-<input class="btn btn-info"  type="submit" value="Add Project" />
+<input class="btn btn-info" onclick="return checkAddProject();" type="submit" value="Add Project" />
 
 
 </div>

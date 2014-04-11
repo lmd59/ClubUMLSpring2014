@@ -8,6 +8,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript" src="js/display.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,6 +90,24 @@ color: black;
 <script type="text/javascript">
 	var type = "";
 	$(document).ready(function() {
+		
+		
+		$("#createDecision").hide();
+		$("#selectDiagram").hide();
+			
+		$("#createButton").click(function(){
+				
+				$("#createDecision").dialog({height: 250, width:300 });
+				
+				$("#button1").click(function(){
+					
+					$("#selectDiagram").dialog({height: 250, width:300 });
+					
+				});
+		});
+		
+		
+				
 		$("#downloadButton").click(function() {
 			type = this.id.toString();
 		});
@@ -143,109 +164,9 @@ color: black;
 	        $(this).css("width", width);    // Scale width based on ratio
 	    });
 	});
-	function checkFields() {
-		if (type == "downloadButton") {
-			if ($(".myCheckBox:checked").length == 1) {
-				return true;
-			}
-			alert("Please select 1 diagram for download");
-			return false;
-		}
-		
-		if (type == "compareButton") {
-			var check = document.getElementsByName("check");
-			var checked = [];
-			for(var i=0; i<check.length; i++) {
-				if(check[i].checked) {
-					checked.push(check[i]);
-				}
-			}
-			// Check for 2 Ecore; XMI not supported
-			var bothValid = true;
-			if (checked.length == 2) {
-				if (checked[0].id == "sequence" || checked[1].id == "sequence") {
-					bothValid = false;
-				}
-				if (checked[0].id == "class" || checked[1].id == "class") {
-					bothValid = false;
-				}
-			}
-			if (checked.length == 2 && bothValid) {
-				// DisplayDiagram looks for ID numbers in the checked.value fields
-				return true;
-			}
-			alert("Please select 2 Ecore diagrams to compare");
-			return false;
-		}
-		
-		if (type == "displayButton") {
-			if ($(".myCheckBox:checked").length == 1) {
-				return true;
-			}
-			alert("Please select 1 diagram to display");
-			return false;
-		}
-		
-		// merge function
-		if (type == "mergeButton") {
-			var req = document.getElementById("req");
-			var form = document.getElementById("requestForm");
-			var check = document.getElementsByName("check");
-			var checked = [];
-			for(var i=0; i<check.length; i++) {
-				if(check[i].checked) {
-					checked.push(check[i]);
-				}
-			}
-			// Check for 2 XMI class; Ecore or sequence not supported
-			var bothValid = true;
-			if (checked.length == 2) {
-				if (checked[0].id == "sequence" || checked[1].id == "sequence") {
-					bothValid = false;
-				}
-				if (checked[0].id == "Ecore" || checked[1].id == "Ecore") {
-					bothValid = false;
-				}
-			}
-			if (checked.length == 2 && bothValid) {
-				var reqO = {};
-				reqO.Request = "Refresh";
-				reqO.Diagram1 = checked[0].value;
-				reqO.Diagram2 = checked[1].value;
-				req.value = JSON.stringify(reqO);
-				
-				form.submit();
-				return false;
-			}
-			alert("Please select 2 XMI Class diagrams to merge.");
-			return false;
-		}
-		// end
-	}
 	
-	function displayClassDiagramFields(element) {
-		var option = element.options[element.selectedIndex].text;
-		
-		var selectLabel = document.getElementById("DiagramSelectLabel");
-		var fileinput2 = document.getElementById("file2");
-		var fileinput3 = document.getElementById("file3");
-		if (option == "ECORE") {
-			fileinput2.style.display = "none";
-			fileinput3.style.display = "none";
-			selectLabel.innerHTML = "Class Diagram Format: (.ecore)";
-		} else if (option == "XMI") {
-			fileinput2.style.display = "block";
-			fileinput3.style.display = "block";
-			selectLabel.innerHTML = "Class Diagram Format: (.di, .notation, .uml)";
-		}
-	}
 	
-	function toggleChecked(status) {
-		$(".myCheckBox").each( function() {
-			$(this).attr("checked",status);
-		})
-	}
-
+	
 </script>
 </head>
 <body>
@@ -306,8 +227,8 @@ color: black;
 					<input id="file3" type="file" name="file3" size="50" style="display:none"/>
 					
 					<input type="hidden" value="${ProjectID }" name="ProjectID">
-					<input class="submit" type="submit" value="upload">
-					
+					<input class="submit" type="submit" onmouseover="checkError();" value="upload">
+					<br><span id="errorMsg"></span>
 			</form>
 		</div>
 	
@@ -321,6 +242,7 @@ color: black;
 		<div id="list">
 			<form action="DisplayDiagram" method="post"
 				onsubmit="return checkFields()">
+				<input type="hidden" value="${ProjectID}" name="ProjectID"/>
 				<input type="submit" id="displayButton" value="Display" name="submit" />
 				<input type="submit" id="downloadButton" value="Download" name="submit" />
 				<input type="submit" id="compareButton" value="Go to compare" name="submit"
@@ -353,9 +275,121 @@ color: black;
 				</table>
 			</form>
 		</div>
+		
+		<div id="decision">
+		
+		<div id="decisionDisplays" style="width:80%;float:left;">
+		<fieldset class="well the-fieldset" >
+    		<legend class="the-legend">Decisions</legend>
+			
+			<table border-spacing: 8px 2px;>
+				<tr>
+				<td></td>
+				<td><b>Decisions</b></td>
+				<td><b>User</b></td>
+				<td><b>Diagram</b></td>
+				</tr>
+					<!-- Commented out Now. Need to enable it after integration
+						<c:forEach items="${requestScope.decisions}" var="decisions">
+						<tr>
+							<td><input class="myCheckBox" type="checkbox" name="check"
+								value="${decision.decisionId}" id="${diagram.diagramId}"/></td>
+							<td>${diagram.decisionName}</td>
+							<td>${diagram.createdTime}</td>
+							<td>${diagram.diagramName}</td>
+						</tr>
+					</c:forEach>
+					</td>
+					-->
+					<tr>
+						<c:forEach items="${requestScope.decisions}" var="decision">
+						<tr>
+							<td><input class="myCheckBox" type="checkbox" name="check"
+								value=1/></td>
+							<td>${decision.value.decisionName}</td>
+							<td>${decision.value.userName}</td>
+						</tr>
+						</c:forEach>
+					</tr>
+				</table>
+						
+    	
+    	</fieldset>
+		
+		</div>
+		
+		<div id="decisionMenu" style="width:15%;float:right;">
+		<br>
+		<br>
+		<table>
+			<tr>
+			<button id="displayButton">Display</button> 
+			</tr>
+			<tr>
+			<button id="editButton">Edit</button> 
+			</tr>
+			<tr>
+			<button id="createButton">Create</button> 
+			</tr>
+			</table>
+		</div>
+			
+			
+		</div>
+		
+	<div id="createDecision">	 
+	   <form action="DisplayDiagram" method="post" onsubmit="">
+		 <input type="hidden" value="${ProjectID}" name="ProjectID"/>
+	     <h4><strong>Create New Dicision</strong></h4>
+		 <br/>
+
+	    <label><b>Decision Name</b></label>
+	     <input type="text" id="decisionName" name ="decisionName" placeholder="Decision Name" size="20" maxlength="75"/>
+	     <br>
+	     <br>
+	     <table align="center">
+      	 	<tr>
+      			<td>
+      				<input type="submit" id="createDecisionButton" value="CreateDecision" name="submit"/>
+				</td>
+			</tr>
+	     </table>
+	   </form>
+	 </div>
+	
+	<div id="selectDiagram">	 
+	   <form action=" " method="post" onsubmit="">
+	     <h4><strong>Select UML Diagram</strong></h4>
+		 <br/>
+	    <label><b>Select a Diagram</b></label>
+		 <select id="digramList"">
+ 		   <label>Diagram</label>
+	    	 <select name="selectDiagram">
+	 	    <option>Diagram1</option>
+	  		<option>Diagram2</option>
+	 	    <option>Diagram3</option>
+		 </select>
+	     <br>
+	     <br>
+	     <table align="center">
+      	 	<tr>
+      			<td>
+      				<div class="sumbitbutton1"><button id="button2" class="pbutton2">Choose Diagram</button></div>
+				</td>
+			</tr>
+	     </table>
+	   </form>
+	 </div>
+	 
+	     		
+		
 	</div>
 	
 	</div>
+	
+	
+	
+	
 	
 	<!-- Merge Form -->
 	<form id=requestForm action="ClassMergeComunicator" method=POST style="display: none;" onsubmit="return checkFields()">

@@ -107,7 +107,7 @@ private void Success(HttpServletRequest request,
 private void Failed(HttpServletRequest request,
 		HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Project Already Exist");
-		response.getWriter().write("FAILED");
+		response.getWriter().write("FAILED: Project name already exists");
 }
 
 	

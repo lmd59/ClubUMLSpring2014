@@ -32,6 +32,8 @@ public class ManagePolicy extends HttpServlet{
 
 	try {
 		allPolicy = PolicyDAO.getAllPolicys();
+		HttpSession session =request.getSession(true);
+		session.setAttribute("policys", allPolicy);
 		request.setAttribute("policys", allPolicy);
 
 		

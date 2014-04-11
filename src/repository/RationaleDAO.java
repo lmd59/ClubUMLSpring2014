@@ -63,8 +63,65 @@ public class RationaleDAO {
 		return rationale;
 	}
 	
-	
+	public static boolean updateRationale(Rationale rationale) {		
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+    	try {
+    		conn = DbManager.getConnection();
+    		pstmt = conn.prepareStatement("UPDATE rationale SET userId = ?, summary = ?, issue = ?, issueRelationship = ?, "
+    				+ "criteria = ?, criteriaRelationship = ?, rationaleTime = NOW() WHERE rationaleId = ?;");
 
+		    pstmt.setInt(1, rationale.getUserId());
+		    pstmt.setString(2, rationale.getSummary());
+		    pstmt.setString(3, rationale.getIssue());
+		    pstmt.setString(4, rationale.getIssueRelationship());
+		    pstmt.setString(5, rationale.getCriteria());
+		    pstmt.setString(6, rationale.getCriteriaRelationship());
+		    pstmt.setInt(7, rationale.getRationaleId());
+
+		    if(pstmt.executeUpdate() != 0) {
+
+    	    	pstmt.close();
+    	    	conn.close();
+    	    	
+    	    	return true;
+    	    } 
+		    else {
+    	    	pstmt.close();
+    	    	conn.close();
+
+    	    	return false;
+    	    }
+    	} 
+    	catch (SQLException e) {
+    		Logger.getLogger(RationaleDAO.class.getName()).log(Level.SEVERE, null, e);
+    	    e.printStackTrace();
+    	    return false;
+    	}
+	}
+	
+	
+	public static boolean deleteRationale(Rationale rationale) {		
+		try {
+			Connection conn = DbManager.getConnection();
+			PreparedStatement pstmt = conn
+					.prepareStatement("DELETE FROM rationale where rationaleId = ?;");
+			pstmt.setInt(1, rationale.getRationaleId());
+
+			// Execute the SQL statement and update database accordingly.
+			pstmt.executeUpdate();
+
+			pstmt.close();
+			conn.close();
+			return true;
+		}
+		catch (SQLException e) {
+    		Logger.getLogger(RationaleDAO.class.getName()).log(Level.SEVERE, null, e);
+    	    e.printStackTrace();
+    	    return false;
+    	}
+	}
+	
     /**
      * Get Rationale ArrayList from DB
      * 

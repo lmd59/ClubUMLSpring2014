@@ -31,18 +31,34 @@
 		    <label>User Login</label>
 		<p>
 		<form id="form1" name="form1" method="post" action="LoginServlet">
-		    <p class="red">
-			Username  :
-			<input type="text" name="username"/>
-		    </p>
-		    <p class="red">
-			Password :
-			<input type="password" name="password" id="Password" />
-			<font face="verdana,arial" size=-1>Not member yet? Click <a href="register.jsp"><font color="blue">here</font></a> to register.
-		    </p>
-		    <label>
-			<input type="submit" name="Login" id="Submit" value="Login" />
-		    </label>
+		<table>
+		<tr>
+			<td>
+				Username:
+			</td>
+			<td>
+				<input type="text" name="username" id="username"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Password :
+			</td>
+			<td>
+				<input type="password" name="password" id="password" onblur="checkLoginUsernamePassword();" />
+			</td>
+
+		</tr>
+		<tr>
+			<td>
+				<label>
+					<input type="submit" name="Login" id="Submit" value="Login" />
+		    	</label>
+			</td>
+		</tr>
+		</table>
+		<br>
+		<font face="verdana,arial" size=-1>Not member yet? Click <a href="register.jsp"><font color="blue">here</font></a> to register.</font>
 		</form>
 	    </div>
 	    <div class="content">
@@ -70,5 +86,6 @@
 		</div>
 	    </div>
 	</div>
-    </body>
+	
+</body>
 </html>

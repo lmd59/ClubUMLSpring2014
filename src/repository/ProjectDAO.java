@@ -37,8 +37,8 @@ public class ProjectDAO {
     	    rs = pstmt.executeQuery();
     	    if (rs.next()) {
     		project = new Project(rs.getInt("projectId"), rs.getString("projectName"),
-    				rs.getString("description"), rs.getString("startDate"),
-    				rs.getBoolean("enabled"),rs.getString("disabledDate"));
+    				rs.getString("description"), rs.getDate("startDate"),
+    				rs.getBoolean("enabled"),rs.getDate("disabledDate"));
     	    }
     	    return project;
     	} catch (SQLException e) {
@@ -64,7 +64,7 @@ public class ProjectDAO {
     	try {
     		conn = DbManager.getConnection();
     	    pstmt = conn.prepareStatement(
-    	    		"INSERT into project(projectName, startDate, description, enabled) VALUES(?,NOW(),?,?);");
+    	    		"INSERT into project(projectName, startDate, description, enabled, disabledDate) VALUES(?,TIMESTAMP(NOW()),?,?,TIMESTAMP(NOW()));");
     	    pstmt.setString(1, project.getProjectName());
     	    pstmt.setString(2, project.getDescription());
     	    pstmt.setBoolean(3, project.getEnabled());
@@ -93,7 +93,7 @@ public class ProjectDAO {
     		if (!project.getEnabled()) {
     			pstmt = conn.prepareStatement(
         	    		"UPDATE project SET projectName = ?, description = ?, enabled = ?, "
-        	    		+ "disabledDate = NOW() WHERE projectId = ?;");
+        	    		+ "disabledDate = TIMESTAMP(NOW()) WHERE projectId = ?;");
     		}
     		else {
     			pstmt = conn.prepareStatement(
@@ -131,7 +131,7 @@ public class ProjectDAO {
     	try {
     		conn = DbManager.getConnection();
     	    pstmt = conn.prepareStatement(
-    	    		"UPDATE project SET enabled = false ,disabledDate = NOW() WHERE projectId = ?;");
+    	    		"UPDATE project SET enabled = false ,disabledDate = TIMESTAMP(NOW()) WHERE projectId = ?;");
     	    pstmt.setInt(1, projectId);
     	    if(pstmt.executeUpdate() != 0) {
     	    	return true;
@@ -208,8 +208,8 @@ public class ProjectDAO {
     	    rs = pstmt.executeQuery();
     	    while (rs.next()) {
     		Project project = new Project(rs.getInt("projectId"), rs.getString("projectName"),
-    				rs.getString("description"), rs.getString("startDate"),
-    				rs.getBoolean("enabled"),rs.getString("disabledDate"));
+    				rs.getString("description"), rs.getDate("startDate"),
+    				rs.getBoolean("enabled"),rs.getDate("disabledDate"));
     		projects.add(project);
     	    }
     	    return projects;

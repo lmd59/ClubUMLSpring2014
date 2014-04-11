@@ -1,5 +1,7 @@
 package domain;
 
+import java.sql.Date;
+
 /**
  * Information class that contains all the features of one project
  * @ doc author	Dong Guo
@@ -13,16 +15,15 @@ public class Project {
 	private int projectId;
 	private String projectName;
 	private String description;
-	private byte achived = 0;// Default
-	private String startDate;
+	private Date startDate;
 	private boolean enabled;
-	private String disabledDate; 
+	private Date disabledDate; 
 
-	public String getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(String startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
@@ -37,9 +38,13 @@ public class Project {
 	 * @param string2 
 	 * @param string 
 	 */
-	public Project(String projectName, String description, String startDate,
-			boolean enabled, String disabledDate) {
+	public Project(String projectName, String description, Date startDate,
+			boolean enabled, Date disabledDate) {
 		this.projectName = projectName;
+		this.description = description;
+		this.startDate = startDate;
+		this.enabled = enabled;
+		this.disabledDate = disabledDate;
 	}
 
 	/**
@@ -51,15 +56,11 @@ public class Project {
 	 * 			The name of the project 
 	 * @param description
 	 * 			The description of the project			
-	 * @param achived
-	 * 			This value indicates whether the project is achived or not
 	 */
-	public Project(int projectId, String projectName, String description,
-			byte achived) { 
+	public Project(int projectId, String projectName, String description) { 
 		this.projectId = projectId;
 		this.projectName = projectName;
 		this.description = description;
-		this.achived = achived;
 	}
 	
 
@@ -73,8 +74,8 @@ public class Project {
 	 * @param enabled
 	 * @param disabledDate
 	 */
-	public Project(int projectId, String projectName, String description, String startDate,
-			boolean enabled, String disabledDate) {
+	public Project(int projectId, String projectName, String description, Date startDate,
+			boolean enabled, Date disabledDate) {
 		this.projectId = projectId;
 		this.projectName = projectName;
 		this.description = description;
@@ -97,7 +98,7 @@ public class Project {
 	 * 			The startDate of this project
 	 */
 	public Project(int projectId, String projectName, String description,
-			String startDate) {
+			Date startDate) {
 		
 		this.projectId = projectId;
 		this.projectName = projectName;
@@ -191,31 +192,12 @@ public class Project {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	/**
-	 * Gete the achived
-	 * 
-	 * @return achived byte
-	 */
-	public byte isAchived() {
-		return achived;
-	}
 
-	/**
-	 * Set achived
-	 * 
-	 * @param achived
-	 * 			It indicates whether the project is achived or not.
-	 */
-	public void setAchived(byte achived) {
-		this.achived = achived;
-	}
-
-	public String getDisabledDate() {
+	public Date getDisabledDate() {
 		return disabledDate;
 	}
 
-	public void setDisabledDate(String disabledDate) {
+	public void setDisabledDate(Date disabledDate) {
 		this.disabledDate = disabledDate;
 	}
 

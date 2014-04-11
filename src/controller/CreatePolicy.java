@@ -44,10 +44,17 @@ public class CreatePolicy extends HttpServlet {
 		policy.setPolicyLevel(level);
 		policy.setPolicyDescription(description);
 		
-		PolicyDAO.addPolicy(policy);
+		
 		try {
-		Success(request, response);	
+			Policy policyOut = PolicyDAO.addPolicy(policy);
+			if(policyOut==null){
+				System.out.println("Failed to create policy");
+				Failed(request, response);
+			}else{
+				Success(request, response);	
+			}
 		} catch (Exception e) {
+			
 			e.printStackTrace();
 		}
 	}
@@ -62,7 +69,7 @@ public class CreatePolicy extends HttpServlet {
 	private void Success(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("Successfully added project");
+		System.out.println("Successfully added policy");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("ManageProject");
 	    dispatcher.forward(request, response);
 	}
@@ -70,6 +77,6 @@ public class CreatePolicy extends HttpServlet {
 	private void Failed(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 			System.out.println("Project Already Exist");
-			response.getWriter().write("FAILED");
+			response.getWriter().write("FAILED: Policy name already exists");
 	}
 }

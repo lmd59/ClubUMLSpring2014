@@ -88,6 +88,7 @@ public class ReportDAO {
 	    report.setDiagramB(rs.getInt("diagramB"));
 	    report.setTime(rs.getString("time"));
 	    report.setReportFilePath(rs.getString("reportFilePath"));
+	    report.setMergedDiagram(rs.getInt("mergedDiagram"));
 
 	    rs.close();
 	    pstmt.close();
@@ -111,12 +112,13 @@ public class ReportDAO {
 	    Connection conn = DbManager.getConnection();
 	    //Modified by Xuesong Meng
 	    //String sql = "UPDATE report SET diagram_A = ? , diagram_B = ? , reportFilePath = ? WHERE report_Id = ?;";
-	    String sql = "UPDATE report SET diagramA = ? , diagramB = ? , reportFilePath = ? WHERE reportId = ?;";
+	    String sql = "UPDATE report SET diagramA = ? , diagramB = ? , reportFilePath = ?, mergedDiagram = ? WHERE reportId = ?;";
 	    PreparedStatement pstmt = conn.prepareStatement(sql);
 	    pstmt.setInt(1, report.getDiagramA());
 	    pstmt.setInt(2, report.getDiagramB());
 	    pstmt.setString(3, report.getReportFilePath());
-	    pstmt.setInt(4, report.getReportId());
+	    pstmt.setInt(4, report.getMergedDiagram());
+	    pstmt.setInt(5, report.getReportId());
 
 	    pstmt.executeUpdate();
 
@@ -124,7 +126,7 @@ public class ReportDAO {
 	    conn.close();
 	    return true;
 	} catch (SQLException ex) {
-	    Logger.getLogger(CommentDAO.class.getName()).log(Level.SEVERE, null, ex);
+	    Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	return false;
     }
