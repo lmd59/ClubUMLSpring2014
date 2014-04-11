@@ -6,14 +6,14 @@
 	<link rel="stylesheet" type="text/css" href="css/display.css"/>
 	 <link rel="stylesheet" type="text/css" href="style.css"/>
 	<link rel="stylesheet" type="text/css" href="promote.css"/>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script src="lib/jquery/jquery.min.js"></script>
+	<link rel="stylesheet" href="lib/jquery/jquery-ui.css" />
+  <script src="lib/jquery/jquery-1.9.1.js"></script>
+  <script src="lib/jquery/jquery-ui.js"></script>
   	
    	<!----Kareem Added---->
-  	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/pepper-grinder/jquery-ui.css" media="screen" rel="stylesheet" type="text/css">
-  	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js" type="text/javascript"></script>
+  	<link href="lib/jquery/jquery-ui.css" media="screen" rel="stylesheet" type="text/css">
+  	<script src="lib/jquery/jquery-ui.min.js" type="text/javascript"></script>
   	<script type="text/javascript" src="jquery-ui-form.js"></script>
   	<script type="text/javascript" src="js/dbValidation.js"></script>
   	<link rel="stylesheet" href="promote_style.css" />
@@ -257,7 +257,7 @@ color: black;
 	
     <div id="basictab">
     <ul class="basictab">
-	    <li><a href="#tabs-1">Home</a></li>
+	    <li><a href="LoginServlet">Home</a></li>
 	    <li><a href="ManageProject">Project</a></li>
 	    <li><a href="ManageContext">Context</a></li>
         <li><a href="ManagePolicy">Policy</a></li>
