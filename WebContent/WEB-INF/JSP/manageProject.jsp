@@ -15,13 +15,25 @@ pageEncoding="US-ASCII"%>
 
 <!-- BOOTSTRAP -->
 
-<link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css" rel="stylesheet">
-<link href="http://twitter.github.io/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css" />
+<link href="lib/jquery/bootstrap.css"
+
+rel="stylesheet">
+
+
+<link
+
+href="lib/jquery/bootstrap-responsive.css"
+
+rel="stylesheet">
+<script src="lib/jquery/jquery.min.js">
+
+</script><link rel="stylesheet" href="lib/jquery/jquery-ui.css" />
+
+  <script src="lib/jquery/jquery-1.9.1.js"></script>
+
+  <script src="lib/jquery/jquery-ui.js"></script>
+
+  <link rel="stylesheet" href="/resources/demos/style.css" />
 <script type="text/javascript" src="js/dbValidation.js"></script>
 
 <title>Manage Project</title>
@@ -208,6 +220,28 @@ margin-left:30px;
 
 display: inline;
 
+}
+<!--
+/* Navigation Home Button CSS code */
+
+.homebutton {
+	padding: 5px 25px;
+	background-color: #ECECEC;
+	border: 2px solid #939393;
+	font: bold 12px Verdana;
+	color: #000;
+	text-decoration: none;
+	position:relative;
+	margin: 0;
+}
+.homebutton a:hover {
+	color: #A7A7A7;
+}
+.homebutton a:active {
+	color: #D9D9D9;
+}
+.homebutton a:focus {
+	color: #CEBFBF;
 }
 
 </style>
@@ -446,7 +480,7 @@ display: inline;
     <li><button class="btn btn-link" id="addUser">Add User</button></li>
 
   </ul>
-
+ 
 </div>
 
 
@@ -461,6 +495,8 @@ display: inline;
 <form action="ChangeProjectStatus" method="post" id="ChangeProjectStatus">
 
 <div class="projectTab">
+ 
+
 
 <h2>Current Projects</h2>
 
@@ -595,7 +631,7 @@ display: inline;
 
 
 </div>
-
+  <a class="homebutton" href="LoginServlet">Home</a>
 </div>
 
 

@@ -93,16 +93,16 @@ private void Success(HttpServletRequest request,
 		Project projectObj) throws ServletException, IOException, SQLException {
 	
 		ProjectDAO.updateProject(projectObj);
-/*		System.out.println("Successfully updated project");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/JSP/home.jsp");
-	    dispatcher.forward(request, response);*/
-	    
 		System.out.println("Successfully updated project");
-		
-	    ServletContext context = this.getServletContext();
-	    RequestDispatcher dispatcher = context.getRequestDispatcher("/WEB-INF/JSP/home.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("ManageProject");
 	    dispatcher.forward(request, response);
+	    
+/*	    ServletContext context = this.getServletContext();
+	    RequestDispatcher dispatcher = context.getRequestDispatcher("/Home");
+	    dispatcher.forward(request, response);
+*/
 }
+
 
 private void Failed(HttpServletRequest request,
 		HttpServletResponse response) throws ServletException, IOException {

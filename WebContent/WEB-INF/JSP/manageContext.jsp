@@ -50,6 +50,29 @@ width:80%;
 #menu li{
 display: inline;
 }
+
+<!--
+/* Navigation Home Button CSS code */
+
+.homebutton {
+	padding: 5px 25px;
+	background-color: #ECECEC;
+	border: 2px solid #939393;
+	font: bold 12px Verdana;
+	color: #000;
+	text-decoration: none;
+	position:relative;
+	margin: 0;
+}
+.homebutton a:hover {
+	color: #A7A7A7;
+}
+.homebutton a:active {
+	color: #D9D9D9;
+}
+.homebutton a:focus {
+	color: #CEBFBF;
+}
 </style>
 </head>
 <body>
@@ -211,6 +234,7 @@ display: inline;
 		</c:forEach>
 		
 	</table>
+      <a class="homebutton" href="LoginServlet">Home</a>
 </div>
 
 
