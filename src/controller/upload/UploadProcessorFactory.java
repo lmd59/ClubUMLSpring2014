@@ -15,6 +15,7 @@ public class UploadProcessorFactory {
 	private final static int INVALID_FILE = 0;
 	private final static int ECORE_FILE_CLASS = INVALID_FILE + 1;
 	private final static int XMI_FILE_CLASS = ECORE_FILE_CLASS + 1;
+	private final static int USE_CASE_FILE_CLASS = XMI_FILE_CLASS + 1;
 
 	// extensions
 	private final static String ECORE_EXTENSION = "ecore";
@@ -46,9 +47,14 @@ public class UploadProcessorFactory {
 			// Stub
 			if (fileList.size() == 3) {
 				return new UmlUploadProcessor(fileList, path, id);
+			}else if(fileList.size() == 1){
+//				return new UseCaseUploadProcessor(fileList.get(0).getDestFilePath(), 
+//						fileList.get(0).getFileName(), fileList.get(0).getLibPath());
 			}
 			break;
 		}
+		
+			
 
 		return null;
 	}

@@ -216,7 +216,7 @@ margin-left:30px;
 
 }
 
-#menu li{
+#menu li, form{
 
 display: inline;
 
@@ -478,6 +478,13 @@ display: inline;
     <li> <button class="btn btn-link" id="UpdateProj" onclick="">Update Project</button> </li>
 
     <li><button class="btn btn-link" id="addUser">Add User</button></li>
+    
+    <li>
+    	<form action="UseCaseApplet" method=POST>
+				<input type="hidden" value="${ProjectID }" name="ProjectID">
+				<input class="submit" type="submit" value="Use Case App">
+		</form>
+    </li>
 
   </ul>
  

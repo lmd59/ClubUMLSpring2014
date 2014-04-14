@@ -19,7 +19,7 @@ function checkError() {
 	}
 	ext = a.pop();
 
-	if (ext == "ecore" || ext == "ECORE" || ext == "xmi" || ext == "XMI")
+	if (ext == "ecore" || ext == "ECORE" || ext == "xmi" || ext == "XMI" || ext == "DI" || ext == "NOTATION"  || ext == "UML" || ext == "di" || ext == "notation" || ext == "uml" || ext == "xml" || ext == "XML" || ext == "")
 		flag = true;
 
 	if (!flag) {

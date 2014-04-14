@@ -27,10 +27,12 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 
 import repository.ContextDAO;
 import repository.DiagramDAO;
+import repository.UseCaseDiagramDAO;
 import controller.upload.UploadProcessor;
 import controller.upload.UploadProcessorFactory;
 import domain.Diagram;
 import domain.DiagramContext;
+import domain.UseCaseDiagram;
 import logging.Log;
 
 import java.util.ArrayList;
@@ -81,11 +83,19 @@ public class UploadServlet extends HttpServlet {
 	 */
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		
+		System.out.println("Process request in upload servlet");
+		
+		for(String key: request.getParameterMap().keySet()){
+			System.out.println("Key: " + key + " value: " + request.getParameter(key));
+		}
+		
 
 		HttpSession session = request.getSession();
 		// Set id properly
 		String id = session.getAttribute("userId").toString();
-		int projectId = Integer.parseInt(session.getAttribute("projId").toString());
+		int projectId = 0;
+		
 		context = getServletContext();
 		
 		tmpDir = new File(context.getRealPath(TMP_DIR_PATH));
@@ -100,6 +110,11 @@ public class UploadServlet extends HttpServlet {
 		String filename = "";
 		
 		ServletFileUpload uploadHandler = new ServletFileUpload(dfif);
+		
+		//for use case upload
+		String uploadType = "";
+		FileItem useCaseFile = null;
+		
 		try {
 			ServletRequestContext src = new ServletRequestContext(request);
 			List<?> items = uploadHandler.parseRequest(src);
@@ -109,6 +124,16 @@ public class UploadServlet extends HttpServlet {
 			while (itr.hasNext()) {
 				FileItem item = (FileItem) itr.next();
 				
+				if (item.isFormField()){
+					if(item.getFieldName().equals("uploadType")){
+						uploadType = item.getString();
+					}
+					
+					System.out.println("Form field: " + item.getFieldName());
+					System.out.println("Value: " + item.getString());
+				}else{
+					useCaseFile = item;
+				}
 				
 				if (item.getName().isEmpty()) {
 					// Skip if there is no name for the file
@@ -121,12 +146,13 @@ public class UploadServlet extends HttpServlet {
 				
 				flagExtension = checkExtension(filename, request, response);
 				
-				if(!flagExtension)
-				{
-					return;
-				}
-				else
-				{
+//				if(!flagExtension)
+//				{
+//					
+//					//return;
+//				}
+//				else
+//				{
 					if (filename != null) {
 						filename = FilenameUtils.getName(filename);
 					}
@@ -137,6 +163,7 @@ public class UploadServlet extends HttpServlet {
 						//String newName = renameFile(id, item.getName());// rename
 						File file = new File(destinationDir, filename);		
 						item.write(file);
+						System.out.println("file location: " + file.getAbsolutePath());
 					
 						String absolutePath = "";
 						String relativePath = "";
@@ -171,11 +198,12 @@ public class UploadServlet extends HttpServlet {
 						if (isFileType(filename,"ecore")){
 							String image_file_name = filename + ".png";	
 							String folder = "uploads/" + id_file_date + "/" + filename;
+							projectId = Integer.parseInt(session.getAttribute("projId").toString());
 							this.storeDatabase(folder, image_file_name,
 							Integer.parseInt(id), projectId);
 						}
 					}
-				}
+//				}
 			}
 
 		} catch (Exception e) {
@@ -195,8 +223,19 @@ public class UploadServlet extends HttpServlet {
 				processor.process(projectId);
 			}
 		}	
-		RequestDispatcher rd = request.getRequestDispatcher("Display");
-		rd.forward(request, response);
+		
+		//if (isFileType(filename,"uml")){
+		if(uploadType.equals("useCase")){
+			UseCaseDiagram diagram = new UseCaseDiagram();
+			diagram.setDiagramName(useCaseFile.getName());
+			diagram.setFilePath(destinationDir + "/");
+			UseCaseDiagramDAO.addUseCaseDiagram(diagram);
+			RequestDispatcher rd = request.getRequestDispatcher("UseCaseApplet");
+			rd.forward(request, response);
+		}else{
+			RequestDispatcher rd = request.getRequestDispatcher("Display");
+			rd.forward(request, response);
+		}
 
 	}
 	
@@ -208,8 +247,6 @@ public class UploadServlet extends HttpServlet {
 			if(!extension.equalsIgnoreCase("ecore"))
 			{
 				request.setAttribute("error", "true");
-				RequestDispatcher rd = request.getRequestDispatcher("Display");
-				rd.forward(request, response);
 				return false;
 			}				
 		}
@@ -300,6 +337,7 @@ public class UploadServlet extends HttpServlet {
 		// Retrieve file extension
 		String extension = fileName.substring(
 					fileName.lastIndexOf(".") + 1, fileName.length());
+		System.out.println("Extension: " + extension);
 		return (extension.equals(fileType) ? true : false);	
 	}
 }
