@@ -190,7 +190,7 @@ color: black;
     <div id="rightContainer">
 		
 		<div id="box">
-			<span id="DiagramSelectLabel">Class Diagram Format: (.ecore)</span> 
+			<span id="DiagramSelectLabel">Use Case Diagram Format: (.xml)</span> 
 			<select onchange="displayClassDiagramFields(this)">
 					<option value="xml">XML</option>
 			</select> 
