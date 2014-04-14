@@ -65,15 +65,15 @@
 		<div class="content_resize">
 			<div class="article1">
 			    <h2>About ClubUML</h2>
-			    <div class="clr2"><p><span class="date">October 23, 2012</span></p></div>			    
+			    <div class="clr2"><p><span class="date">April 16, 2014</span></p></div>			    
 			    <img src="images/N0-UML-cluttered.jpg" width="263" height="146" alt="" class="fl" />
-			    <p><font color="black">This ClubUML project is developed by the CSYE7945 Software Engineering Project class in the Spring 2013 semester.  The purpose of the project is to develop an application which provides a way to compare different versions of UML diagrams in order to decide on a final version of the diagram. </font></p>
+			    <p><font color="black">This ClubUML project is developed by the CSYE7945 Software Engineering Project class in the Spring 2014 semester.  The purpose of the project is to develop an application which provides a way to compare different versions of UML diagrams in order to decide on a final version of the diagram. </font></p>
 			</div>
 			<div class="article2">
-			    <h2><span>ClubUML2013</span></h2>
-			    <div class="clr2"><p><span class="date">April 22, 2013</span></p></div>			    
+			    <h2><span>ClubUML2014</span></h2>
+			    <div class="clr2"><p><span class="date">April 16, 2014</span></p></div>			    
 			    <img src="images/img2.jpg" width="263" height="146" alt="" class="fl" />
-			    <p><font color="black">An initial version of the ClubUML software was developed in Fall 2012, so the work this semester consisted of maintenance.  The Spring 2013 version of the software supports uploading UML 2.0 class or sequence diagrams and the ability to merge two class diagrams into a new version, among other enhancements.</font></p>
+			    <p><font color="black">An initial version of the ClubUML software was developed in Fall 2012, so the work that has continued each semester consisted of maintenance.  The Spring 2014 version of the software supports Use Case Diagrams, Rationale Management, Input Validation, and Improved Navigation among other enhancements.</font></p>
 			</div>
 		    <div class="clr"></div>
 		</div>
