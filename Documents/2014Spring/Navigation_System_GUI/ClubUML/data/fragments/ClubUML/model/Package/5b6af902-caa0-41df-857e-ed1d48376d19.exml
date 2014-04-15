@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Metadata" version="3">
+  <DEPS>
+    <ID name="Metadata" mc="Package" uid="5b6af902-caa0-41df-857e-ed1d48376d19"/>
+    <COMPID name="manageContext.jsp" mc="Class" uid="89a95244-cf22-4a51-aa39-6b2bb35c58db"/>
+    <COMPID name="managePolicy.jsp" mc="Class" uid="9037ba04-30cd-4991-8b0b-29a3f3744851"/>
+    <COMPID name="manageProject.jsp" mc="Class" uid="1698688e-f0bf-4f83-a4c4-d43067a78a01"/>
+    <COMPID name="manageRelation.jsp" mc="Class" uid="f31053e7-9fec-49bd-84ea-1035cf59bc1e"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Metadata" mc="Package" uid="5b6af902-caa0-41df-857e-ed1d48376d19"/>
+    <PID name="User Interface" mc="Package" uid="3a6918f5-9d99-492c-8468-71195e14d8bd"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Metadata]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="manageProject.jsp" mc="Class" uid="1698688e-f0bf-4f83-a4c4-d43067a78a01"/>
+        <COMPID name="manageContext.jsp" mc="Class" uid="89a95244-cf22-4a51-aa39-6b2bb35c58db"/>
+        <COMPID name="managePolicy.jsp" mc="Class" uid="9037ba04-30cd-4991-8b0b-29a3f3744851"/>
+        <COMPID name="manageRelation.jsp" mc="Class" uid="f31053e7-9fec-49bd-84ea-1035cf59bc1e"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

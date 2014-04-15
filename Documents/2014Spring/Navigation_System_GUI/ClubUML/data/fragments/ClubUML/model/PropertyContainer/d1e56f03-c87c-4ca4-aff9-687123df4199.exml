@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="ClubUML" version="3">
+  <DEPS>
+    <ID name="ClubUML" mc="PropertyContainer" uid="d1e56f03-c87c-4ca4-aff9-687123df4199"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="ClubUML" mc="PropertyContainer" uid="d1e56f03-c87c-4ca4-aff9-687123df4199"/>
+    <PID name="ClubUML" mc="AnalystProject" uid="e54020a5-40a0-4f04-a219-91e9933d02b0"/>
+    <ATTRIBUTES>
+      <ATT name="Name"><![CDATA[ClubUML]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>

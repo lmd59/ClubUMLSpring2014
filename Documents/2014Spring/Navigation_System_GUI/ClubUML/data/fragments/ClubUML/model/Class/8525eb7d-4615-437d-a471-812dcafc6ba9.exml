@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="upload.jsp" version="3">
+  <DEPS>
+    <ID name="upload.jsp" mc="Class" uid="8525eb7d-4615-437d-a471-812dcafc6ba9"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="upload.jsp" mc="Class" uid="8525eb7d-4615-437d-a471-812dcafc6ba9"/>
+    <PID name="Project" mc="Package" uid="c3c861f7-dd98-4f78-abd8-a02fb3170116"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[upload.jsp]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>

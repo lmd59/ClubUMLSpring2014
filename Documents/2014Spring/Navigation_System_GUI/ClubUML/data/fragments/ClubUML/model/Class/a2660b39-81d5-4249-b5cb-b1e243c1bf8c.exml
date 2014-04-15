@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="ValidateServlet.java" version="3">
+  <DEPS>
+    <ID name="ValidateServlet.java" mc="Class" uid="a2660b39-81d5-4249-b5cb-b1e243c1bf8c"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="ValidateServlet.java" mc="Class" uid="a2660b39-81d5-4249-b5cb-b1e243c1bf8c"/>
+    <PID name="Servlet" mc="Package" uid="7184d4ca-8273-4394-9a6f-c7d6673feca2"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[ValidateServlet.java]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>

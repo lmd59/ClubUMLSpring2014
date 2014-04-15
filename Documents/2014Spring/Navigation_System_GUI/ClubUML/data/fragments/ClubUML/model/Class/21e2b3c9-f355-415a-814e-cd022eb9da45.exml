@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="ECoreReference.java" version="3">
+  <DEPS>
+    <ID name="ECoreReference.java" mc="Class" uid="21e2b3c9-f355-415a-814e-cd022eb9da45"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="ECoreReference.java" mc="Class" uid="21e2b3c9-f355-415a-814e-cd022eb9da45"/>
+    <PID name="Algorithms" mc="Package" uid="3ed6e5c8-0f71-4159-8fb2-7c16d446d9e1"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[ECoreReference.java]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>

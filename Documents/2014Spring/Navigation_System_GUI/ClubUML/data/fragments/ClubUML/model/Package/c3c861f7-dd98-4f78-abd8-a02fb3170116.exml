@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Project" version="3">
+  <DEPS>
+    <ID name="Project" mc="Package" uid="c3c861f7-dd98-4f78-abd8-a02fb3170116"/>
+    <COMPID name="compare.jsp" mc="Class" uid="451c27ae-7d0d-4dbf-afc3-811067e82b4c"/>
+    <COMPID name="display.jsp" mc="Class" uid="821d0407-d867-4f65-a800-cbd9ade8ce50"/>
+    <COMPID name="mergeClass.jsp" mc="Class" uid="22e54ba5-5ed0-4919-9698-d66d98348e65"/>
+    <COMPID name="promote.jsp" mc="Class" uid="afc6531c-5dfe-45e3-9d9a-6130bf8ae06e"/>
+    <COMPID name="refineClass.jsp" mc="Class" uid="60d80acc-d3b0-4422-a6af-41f0f76348bc"/>
+    <COMPID name="selectClass.jsp" mc="Class" uid="44c81ec9-ecde-4026-bccc-574f9c94aeb5"/>
+    <COMPID name="upload.jsp" mc="Class" uid="8525eb7d-4615-437d-a471-812dcafc6ba9"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Project" mc="Package" uid="c3c861f7-dd98-4f78-abd8-a02fb3170116"/>
+    <PID name="User Interface" mc="Package" uid="3a6918f5-9d99-492c-8468-71195e14d8bd"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Project]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="mergeClass.jsp" mc="Class" uid="22e54ba5-5ed0-4919-9698-d66d98348e65"/>
+        <COMPID name="upload.jsp" mc="Class" uid="8525eb7d-4615-437d-a471-812dcafc6ba9"/>
+        <COMPID name="compare.jsp" mc="Class" uid="451c27ae-7d0d-4dbf-afc3-811067e82b4c"/>
+        <COMPID name="display.jsp" mc="Class" uid="821d0407-d867-4f65-a800-cbd9ade8ce50"/>
+        <COMPID name="promote.jsp" mc="Class" uid="afc6531c-5dfe-45e3-9d9a-6130bf8ae06e"/>
+        <COMPID name="refineClass.jsp" mc="Class" uid="60d80acc-d3b0-4422-a6af-41f0f76348bc"/>
+        <COMPID name="selectClass.jsp" mc="Class" uid="44c81ec9-ecde-4026-bccc-574f9c94aeb5"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

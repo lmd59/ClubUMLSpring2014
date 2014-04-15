@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Login/Register" version="3">
+  <DEPS>
+    <ID name="Login/Register" mc="Package" uid="d1d93abf-a1e8-4724-a4d9-778489cc9f94"/>
+    <COMPID name="index.jsp" mc="Class" uid="2638d0bf-44d5-4d05-b25e-e2ce2a220255"/>
+    <COMPID name="invalid.jsp" mc="Class" uid="f38ac837-b6a0-4570-b346-bef962e6563e"/>
+    <COMPID name="register.jsp" mc="Class" uid="854a55d6-7c4c-4dba-a01e-71a04814fd19"/>
+    <COMPID name="success.jsp" mc="Class" uid="3775e521-0334-4779-9211-6b3478d0cc1e"/>
+    <COMPID name="userHome.jsp" mc="Class" uid="5ac912fe-a518-4c70-a93d-b14f3443fc4f"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Login/Register" mc="Package" uid="d1d93abf-a1e8-4724-a4d9-778489cc9f94"/>
+    <PID name="User Interface" mc="Package" uid="3a6918f5-9d99-492c-8468-71195e14d8bd"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Login/Register]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="index.jsp" mc="Class" uid="2638d0bf-44d5-4d05-b25e-e2ce2a220255"/>
+        <COMPID name="invalid.jsp" mc="Class" uid="f38ac837-b6a0-4570-b346-bef962e6563e"/>
+        <COMPID name="register.jsp" mc="Class" uid="854a55d6-7c4c-4dba-a01e-71a04814fd19"/>
+        <COMPID name="success.jsp" mc="Class" uid="3775e521-0334-4779-9211-6b3478d0cc1e"/>
+        <COMPID name="userHome.jsp" mc="Class" uid="5ac912fe-a518-4c70-a93d-b14f3443fc4f"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

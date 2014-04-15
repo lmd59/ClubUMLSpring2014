@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Algorithms" version="3">
+  <DEPS>
+    <ID name="Algorithms" mc="Package" uid="3ed6e5c8-0f71-4159-8fb2-7c16d446d9e1"/>
+    <COMPID name="Algo.java" mc="Class" uid="ad2d3968-0c04-41a0-b0f1-9c5ece37e960"/>
+    <COMPID name="CompareDiagrams.java" mc="Class" uid="2274fc63-7063-4272-a312-03b662ff5a68"/>
+    <COMPID name="Constants.java" mc="Class" uid="37942ab3-5c89-4828-9582-9c3189cb76ff"/>
+    <COMPID name="DiagramCompare.java" mc="Class" uid="499ae731-df29-498d-855d-c330ccf3bcd8"/>
+    <COMPID name="ECoreAttribute.java" mc="Class" uid="e2011fcc-502e-4cd5-9077-d3e81f511242"/>
+    <COMPID name="ECoreClass.java" mc="Class" uid="95d58838-628f-460a-a398-b61908ee1ac9"/>
+    <COMPID name="ECoreMethod.java" mc="Class" uid="ac65949a-00ba-48d3-9760-c08b6aabacce"/>
+    <COMPID name="ECorePackage.java" mc="Class" uid="e88f6b43-2ad2-46a1-a510-d67e26383a43"/>
+    <COMPID name="ECoreReference.java" mc="Class" uid="21e2b3c9-f355-415a-814e-cd022eb9da45"/>
+    <COMPID name="MyParser.java" mc="Class" uid="438e6f7c-e841-45f1-ad83-9b32c0c14d98"/>
+    <COMPID name="Report.java" mc="Class" uid="b9f56906-4fe8-49af-ac23-8ed14d57c5b2"/>
+    <COMPID name="Test.java" mc="Class" uid="0a6da391-5ab1-40b7-b319-2da0bcb4ffa4"/>
+    <COMPID name="UnifiedAlgorithm.java" mc="Class" uid="f5c684bf-117b-4aa4-9079-fcf591cbf35c"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Algorithms" mc="Package" uid="3ed6e5c8-0f71-4159-8fb2-7c16d446d9e1"/>
+    <PID name="clubuml" mc="Package" uid="5faae050-7c55-496a-b913-11245bd4eb4f"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Algorithms]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Algo.java" mc="Class" uid="ad2d3968-0c04-41a0-b0f1-9c5ece37e960"/>
+        <COMPID name="CompareDiagrams.java" mc="Class" uid="2274fc63-7063-4272-a312-03b662ff5a68"/>
+        <COMPID name="Constants.java" mc="Class" uid="37942ab3-5c89-4828-9582-9c3189cb76ff"/>
+        <COMPID name="DiagramCompare.java" mc="Class" uid="499ae731-df29-498d-855d-c330ccf3bcd8"/>
+        <COMPID name="ECoreAttribute.java" mc="Class" uid="e2011fcc-502e-4cd5-9077-d3e81f511242"/>
+        <COMPID name="ECoreClass.java" mc="Class" uid="95d58838-628f-460a-a398-b61908ee1ac9"/>
+        <COMPID name="ECoreMethod.java" mc="Class" uid="ac65949a-00ba-48d3-9760-c08b6aabacce"/>
+        <COMPID name="ECorePackage.java" mc="Class" uid="e88f6b43-2ad2-46a1-a510-d67e26383a43"/>
+        <COMPID name="ECoreReference.java" mc="Class" uid="21e2b3c9-f355-415a-814e-cd022eb9da45"/>
+        <COMPID name="MyParser.java" mc="Class" uid="438e6f7c-e841-45f1-ad83-9b32c0c14d98"/>
+        <COMPID name="Report.java" mc="Class" uid="b9f56906-4fe8-49af-ac23-8ed14d57c5b2"/>
+        <COMPID name="Test.java" mc="Class" uid="0a6da391-5ab1-40b7-b319-2da0bcb4ffa4"/>
+        <COMPID name="UnifiedAlgorithm.java" mc="Class" uid="f5c684bf-117b-4aa4-9079-fcf591cbf35c"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

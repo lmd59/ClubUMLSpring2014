@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Public Internet" version="3">
+  <DEPS>
+    <ID name="Public Internet" mc="Package" uid="aecea845-a4fd-427c-a31c-97bc5b710861"/>
+    <COMPID name="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" mc="Class" uid="b1a12530-d592-4bb3-b83f-8998d34e247f"/>
+    <COMPID name="http://code.jquery.com/jquery-1.9.1.js" mc="Class" uid="99643d05-0e95-44b3-a17b-95a3fcd2f8bf"/>
+    <COMPID name="http://code.jquery.com/ui/1.10.3/jquery-ui.js" mc="Class" uid="5d86c0ab-cb20-4baa-8df1-20fc543afac7"/>
+    <COMPID name="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" mc="Class" uid="079e6d18-4d5c-466a-9d46-da3642adcd52"/>
+    <COMPID name="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css&quot;" mc="Class" uid="2dad684b-656e-44ce-9bcf-1974cff13f58"/>
+    <COMPID name="http://twitter.github.io/bootstrap/assets/css/bootstrap-responsive.css" mc="Class" uid="d8a34182-9820-449c-99a5-fdf98e629604"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Public Internet" mc="Package" uid="aecea845-a4fd-427c-a31c-97bc5b710861"/>
+    <PID name="clubuml" mc="Package" uid="5faae050-7c55-496a-b913-11245bd4eb4f"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Public Internet]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="http://twitter.github.io/bootstrap/assets/css/bootstrap-responsive.css" mc="Class" uid="d8a34182-9820-449c-99a5-fdf98e629604"/>
+        <COMPID name="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" mc="Class" uid="079e6d18-4d5c-466a-9d46-da3642adcd52"/>
+        <COMPID name="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css&quot;" mc="Class" uid="2dad684b-656e-44ce-9bcf-1974cff13f58"/>
+        <COMPID name="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" mc="Class" uid="b1a12530-d592-4bb3-b83f-8998d34e247f"/>
+        <COMPID name="http://code.jquery.com/jquery-1.9.1.js" mc="Class" uid="99643d05-0e95-44b3-a17b-95a3fcd2f8bf"/>
+        <COMPID name="http://code.jquery.com/ui/1.10.3/jquery-ui.js" mc="Class" uid="5d86c0ab-cb20-4baa-8df1-20fc543afac7"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

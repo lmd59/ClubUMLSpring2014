@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="User Interface" version="3">
+  <DEPS>
+    <ID name="User Interface" mc="Package" uid="3a6918f5-9d99-492c-8468-71195e14d8bd"/>
+    <COMPID name="Interface Libraries" mc="Package" uid="4b7958bf-8c75-445f-a17a-2488cecb87e0"/>
+    <COMPID name="Libraries" mc="Package" uid="10bd250d-0ce1-4317-be12-2c4c9f0c13f7"/>
+    <COMPID name="Login/Register" mc="Package" uid="d1d93abf-a1e8-4724-a4d9-778489cc9f94"/>
+    <COMPID name="Metadata" mc="Package" uid="5b6af902-caa0-41df-857e-ed1d48376d19"/>
+    <COMPID name="Project" mc="Package" uid="c3c861f7-dd98-4f78-abd8-a02fb3170116"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="User Interface" mc="Package" uid="3a6918f5-9d99-492c-8468-71195e14d8bd"/>
+    <PID name="clubuml" mc="Package" uid="5faae050-7c55-496a-b913-11245bd4eb4f"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[User Interface]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Login/Register" mc="Package" uid="d1d93abf-a1e8-4724-a4d9-778489cc9f94"/>
+        <COMPID name="Project" mc="Package" uid="c3c861f7-dd98-4f78-abd8-a02fb3170116"/>
+        <COMPID name="Metadata" mc="Package" uid="5b6af902-caa0-41df-857e-ed1d48376d19"/>
+        <COMPID name="Libraries" mc="Package" uid="10bd250d-0ce1-4317-be12-2c4c9f0c13f7"/>
+        <COMPID name="Interface Libraries" mc="Package" uid="4b7958bf-8c75-445f-a17a-2488cecb87e0"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

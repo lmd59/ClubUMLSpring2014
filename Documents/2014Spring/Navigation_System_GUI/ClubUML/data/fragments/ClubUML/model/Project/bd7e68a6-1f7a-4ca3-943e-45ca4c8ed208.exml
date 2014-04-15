@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="ClubUML" version="3">
+  <DEPS>
+    <ID name="ClubUML" mc="Project" uid="bd7e68a6-1f7a-4ca3-943e-45ca4c8ed208"/>
+    <COMPID name="ClubUML" mc="DiagramSet" uid="63cdbf9b-408b-4dbc-b5f2-113620ab78b7"/>
+    <COMPID name="clubuml" mc="Package" uid="5faae050-7c55-496a-b913-11245bd4eb4f"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="ClubUML" mc="Project" uid="bd7e68a6-1f7a-4ca3-943e-45ca4c8ed208"/>
+    <ATTRIBUTES>
+      <ATT name="ProjectContext"></ATT>
+      <ATT name="ProjectDescr"></ATT>
+      <ATT name="Name"><![CDATA[ClubUML]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="DiagramRoot">
+        <COMPID name="ClubUML" mc="DiagramSet" uid="63cdbf9b-408b-4dbc-b5f2-113620ab78b7"/>
+      </COMP>
+      <COMP relation="Model">
+        <COMPID name="clubuml" mc="Package" uid="5faae050-7c55-496a-b913-11245bd4eb4f"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

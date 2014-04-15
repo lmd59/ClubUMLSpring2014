@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Interface Libraries" version="3">
+  <DEPS>
+    <ID name="Interface Libraries" mc="Package" uid="4b7958bf-8c75-445f-a17a-2488cecb87e0"/>
+    <COMPID name="register.js" mc="Class" uid="263c2557-9fc3-4e3d-8bcc-b40487d5f1d2"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Interface Libraries" mc="Package" uid="4b7958bf-8c75-445f-a17a-2488cecb87e0"/>
+    <PID name="User Interface" mc="Package" uid="3a6918f5-9d99-492c-8468-71195e14d8bd"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Interface Libraries]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="register.js" mc="Class" uid="263c2557-9fc3-4e3d-8bcc-b40487d5f1d2"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

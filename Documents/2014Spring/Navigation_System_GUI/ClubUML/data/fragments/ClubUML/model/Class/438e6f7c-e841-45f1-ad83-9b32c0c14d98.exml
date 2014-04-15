@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="MyParser.java" version="3">
+  <DEPS>
+    <ID name="MyParser.java" mc="Class" uid="438e6f7c-e841-45f1-ad83-9b32c0c14d98"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="MyParser.java" mc="Class" uid="438e6f7c-e841-45f1-ad83-9b32c0c14d98"/>
+    <PID name="Algorithms" mc="Package" uid="3ed6e5c8-0f71-4159-8fb2-7c16d446d9e1"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[MyParser.java]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>
