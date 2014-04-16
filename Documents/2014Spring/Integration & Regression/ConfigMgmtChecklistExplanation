@@ -1,0 +1,14 @@
+Here's a more in-depth explanation of the Software Config Management checklist:
+The task team should create a branch off of the current master branch in git for each user story that they are working on. The branch name should clearly reference the user story in question. Members of that task team should commit to that branch in whatever way the task team sees fit. Before merging the branch into the baseline (master branch), they should 
+1) Successfully compile and test the code on that branch locally. -> This testing should include any changes made to the baseline since the branch was created. To do this, first merge changes from the baseline into the branch.
+2) Write out the procedure that they used to test their code on the local branch. -> This procedure should be written into the jazz hub discussion field for that user story, and it can potentially be added to any documentation you're working on.
+3) Post to the version control thread on blackboard. ->This post should include:
+   a) a link to the differences report which can be created by going to the github site, choosing the commits tab, and clicking on the relevant commit. Please link all relevant commits.
+   b) a general summary of the changes made that will be merged into the baseline
+   c) the user story number for the story-> This can be found on jazzhub.
+4) Perform code review. A few different people need to review the code before it can be merged in. For now we're going to do unstructured code reviews, but this might change in the future. I am subscribed to the version control thread's discussion board on blackboard, so I will be notified when you're ready to merge your code into the baseline. At this point, 
+   a) the task team leader should review the code, 
+   b) Jeremy or I will review the code, 
+   c) and an independent developer will review the code (I'll choose someone from a different task team)
+Code reviewers will test through the new code according to the procedure outlined on the version control thread, and they will look through the code changes to make sure they align with coding standards and satisfactorily address the user story. They can then inform the merger of any recommendations, or they can give the thumbs up that the code is ready to merge.
+5) After the code has been successfully reviewed, it can now be merged into the master branch.
